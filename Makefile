@@ -1,52 +1,43 @@
-.PHONY: meta check smoke qemu-version clean distclean tree
+SHELL := /usr/bin/env bash
 
-BUILD_DIR := build
-SMOKE_DIR := smoke
+.DEFAULT_GOAL := help
+
+.PHONY: help meta check proof qemu-probe repro test clean distclean
+
+help:
+	@echo "MCSOS M1 targets:"
+	@echo " make meta - collect host and toolchain metadata"
+	@echo " make check - verify required tools and repository path"
+	@echo " make proof - build freestanding x86_64 ELF proof"
+	@echo " make qemu-probe - verify QEMU machine and OVMF availability"
+	@echo " make repro - run reproducibility check for proof artifact"
+	@echo " make test - run all M1 checks"
+	@echo " make clean - remove generated proof output"
+	@echo " make distclean - remove all generated build output"
 
 meta:
-	@bash tools/check_env.sh
+	@./tools/scripts/collect_meta.sh
 
 check:
-	@bash tools/check_env.sh
-	@shellcheck tools/check_env.sh
+	@./tools/scripts/check_toolchain.sh
 
-smoke:
-	@mkdir -p $(BUILD_DIR)/smoke
+proof:
+	@./tools/scripts/proof_compile.sh
 
-	clang --target=x86_64-unknown-none \
-		-ffreestanding \
-		-fno-stack-protector \
-		-fno-pic \
-		-mno-red-zone \
-		-mno-mmx \
-		-mno-sse \
-		-mno-sse2 \
-		-Wall \
-		-Wextra \
-		-Werror \
-		-std=c17 \
-		-c $(SMOKE_DIR)/freestanding.c \
-		-o $(BUILD_DIR)/smoke/freestanding.o
+qemu-probe:
+	@./tools/scripts/qemu_probe.sh
 
-	readelf -h $(BUILD_DIR)/smoke/freestanding.o | tee \
-		$(BUILD_DIR)/smoke/readelf-header.txt
+repro:
+	@./tools/scripts/repro_check.sh
 
-	objdump -drwC $(BUILD_DIR)/smoke/freestanding.o | tee \
-		$(BUILD_DIR)/smoke/objdump.txt >/dev/null
-
-	file $(BUILD_DIR)/smoke/freestanding.o | tee \
-		$(BUILD_DIR)/smoke/file.txt
-
-qemu-version:
-	@qemu-system-x86_64 --version
-	@echo "QEMU exists. M0 does not boot a kernel image."
-
-tree:
-	@tree -a -L 3
+test: meta check proof qemu-probe repro
+	@echo "OK: M1 test suite passed"
 
 clean:
-	rm -rf $(BUILD_DIR)/smoke
+	@rm -rf build/proof build/repro
+	@echo "OK: cleaned proof and reproducibility outputs"
 
-# distclean intentionally removes all generated build metadata.
 distclean:
-	rm -rf $(BUILD_DIR)
+	@rm -rf build
+	@echo "OK: removed build directory"
+
