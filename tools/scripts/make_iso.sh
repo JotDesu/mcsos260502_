@@ -7,7 +7,7 @@ ISO_ROOT="iso_root"
 LIMINE_DIR="third_party/limine"
 
 if [ ! -f "$KERNEL" ]; then
-    echo "ERROR: KERNEL tidak ditemukan. Jalankan make build." >&2
+    echo "ERROR: $KERNEL tidak ditemukan. Jalankan make build." >&2
     exit 1
 fi
 
@@ -23,6 +23,7 @@ cp -v "$LIMINE_DIR/limine-bios.sys" "$ISO_ROOT/boot/limine/"
 cp -v "$LIMINE_DIR/limine-bios-cd.bin" "$ISO_ROOT/boot/limine/"
 cp -v "$LIMINE_DIR/limine-uefi-cd.bin" "$ISO_ROOT/boot/limine/"
 cp -v "$LIMINE_DIR/BOOTX64.EFI" "$ISO_ROOT/EFI/BOOT/BOOTX64.EFI"
+
 if [ -f "$LIMINE_DIR/BOOTIA32.EFI" ]; then
     cp -v "$LIMINE_DIR/BOOTIA32.EFI" "$ISO_ROOT/EFI/BOOT/BOOTIA32.EFI"
 fi
