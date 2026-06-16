@@ -1,0 +1,60 @@
+
+build/proof/freestanding_probe.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <mcsos_toolchain_probe>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 b8 35 30 36 32 4f 53 43 4d 	movabs $0x4d43534f32363035,%rax
+   e:	48 31 f8             	xor    %rdi,%rax
+  11:	48 c1 c0 0d          	rol    $0xd,%rax
+  15:	48 b9 15 7c 4a 7f b9 79 37 9e 	movabs $0x9e3779b97f4a7c15,%rcx
+  1f:	48 31 c1             	xor    %rax,%rcx
+  22:	48 c1 c1 0d          	rol    $0xd,%rcx
+  26:	48 b8 2a f8 94 fe 72 f3 6e 3c 	movabs $0x3c6ef372fe94f82a,%rax
+  30:	48 31 c8             	xor    %rcx,%rax
+  33:	48 c1 c0 0d          	rol    $0xd,%rax
+  37:	48 b9 3f 74 df 7d 2c 6d a6 da 	movabs $0xdaa66d2c7ddf743f,%rcx
+  41:	48 31 c1             	xor    %rax,%rcx
+  44:	48 c1 c1 0d          	rol    $0xd,%rcx
+  48:	48 b8 54 f0 29 fd e5 e6 dd 78 	movabs $0x78dde6e5fd29f054,%rax
+  52:	48 31 c8             	xor    %rcx,%rax
+  55:	48 c1 c0 0d          	rol    $0xd,%rax
+  59:	48 b9 69 6c 74 7c 9f 60 15 17 	movabs $0x1715609f7c746c69,%rcx
+  63:	48 31 c1             	xor    %rax,%rcx
+  66:	48 c1 c1 0d          	rol    $0xd,%rcx
+  6a:	48 b8 7e e8 be fb 58 da 4c b5 	movabs $0xb54cda58fbbee87e,%rax
+  74:	48 31 c8             	xor    %rcx,%rax
+  77:	48 c1 c0 0d          	rol    $0xd,%rax
+  7b:	48 b9 93 64 09 7b 12 54 84 53 	movabs $0x538454127b096493,%rcx
+  85:	48 31 c1             	xor    %rax,%rcx
+  88:	48 c1 c1 0d          	rol    $0xd,%rcx
+  8c:	48 b8 a8 e0 53 fa cb cd bb f1 	movabs $0xf1bbcdcbfa53e0a8,%rax
+  96:	48 31 c8             	xor    %rcx,%rax
+  99:	48 c1 c0 0d          	rol    $0xd,%rax
+  9d:	48 b9 bd 5c 9e 79 85 47 f3 8f 	movabs $0x8ff34785799e5cbd,%rcx
+  a7:	48 31 c1             	xor    %rax,%rcx
+  aa:	48 c1 c1 0d          	rol    $0xd,%rcx
+  ae:	48 b8 d2 d8 e8 f8 3e c1 2a 2e 	movabs $0x2e2ac13ef8e8d8d2,%rax
+  b8:	48 31 c8             	xor    %rcx,%rax
+  bb:	48 c1 c0 0d          	rol    $0xd,%rax
+  bf:	48 b9 e7 54 33 78 f8 3a 62 cc 	movabs $0xcc623af8783354e7,%rcx
+  c9:	48 31 c1             	xor    %rax,%rcx
+  cc:	48 c1 c1 0d          	rol    $0xd,%rcx
+  d0:	48 b8 fc d0 7d f7 b1 b4 99 6a 	movabs $0x6a99b4b1f77dd0fc,%rax
+  da:	48 31 c8             	xor    %rcx,%rax
+  dd:	48 c1 c0 0d          	rol    $0xd,%rax
+  e1:	48 b9 11 4d c8 76 6b 2e d1 08 	movabs $0x8d12e6b76c84d11,%rcx
+  eb:	48 31 c1             	xor    %rax,%rcx
+  ee:	48 c1 c1 0d          	rol    $0xd,%rcx
+  f2:	48 ba 26 c9 12 f6 24 a8 08 a7 	movabs $0xa708a824f612c926,%rdx
+  fc:	48 31 ca             	xor    %rcx,%rdx
+  ff:	48 c1 c2 0d          	rol    $0xd,%rdx
+ 103:	48 b8 3b 45 5d 75 de 21 40 45 	movabs $0x454021de755d453b,%rax
+ 10d:	48 31 d0             	xor    %rdx,%rax
+ 110:	48 c1 c0 0d          	rol    $0xd,%rax
+ 114:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 11b <mcsos_toolchain_probe+0x11b>	117: R_X86_64_PC32	mcsos_probe_sink-0x4
+ 11b:	5d                   	pop    %rbp
+ 11c:	c3                   	ret
