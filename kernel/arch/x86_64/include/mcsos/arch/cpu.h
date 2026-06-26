@@ -32,4 +32,14 @@ __attribute__((noreturn)) static inline void cpu_halt_forever(void) {
     }
 }
 
+static inline void cpu_sti(void) {
+    __asm__ volatile ("sti" ::: "memory");
+}
+
+static inline uint16_t cpu_read_cs(void) {
+    uint16_t cs;
+    __asm__ volatile ("movw %%cs, %0" : "=rm"(cs));
+    return cs;
+}
+
 #endif

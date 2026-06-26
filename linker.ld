@@ -1,17 +1,14 @@
 OUTPUT_FORMAT(elf64-x86-64)
 ENTRY(kmain)
-
 PHDRS
 {
-    text PT_LOAD FLAGS(5);
+    text   PT_LOAD FLAGS(5);
     rodata PT_LOAD FLAGS(4);
-    data PT_LOAD FLAGS(6);
+    data   PT_LOAD FLAGS(6);
 }
-
 SECTIONS
 {
     . = 0xffffffff80000000;
-
     __kernel_start = .;
 
     .text : ALIGN(4096)
@@ -33,6 +30,13 @@ SECTIONS
     {
         *(COMMON)
         *(.bss .bss.*)
+    } :data
+
+    .stack : ALIGN(4096)
+    {
+        __stack_bottom = .;
+        . += 0x10000;
+        __stack_top = .;
     } :data
 
     __kernel_end = .;
