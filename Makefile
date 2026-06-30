@@ -9,6 +9,7 @@ ISO := $(BUILD_DIR)/mcsos.iso
 ISO_ROOT := iso_root
 LIMINE_DIR := third_party/limine
 CC := clang
+HOSTCC := clang
 AS := clang
 LD := ld.lld
 OBJDUMP := objdump
@@ -24,12 +25,12 @@ ASFLAGS := --target=x86_64-unknown-none-elf -m64 -march=x86-64 \
   -fno-pic -fno-pie -mcmodel=kernel
 LDFLAGS := -nostdlib -static -z max-page-size=0x1000 -T linker.ld
 
-SRC_C := $(shell find kernel -name '*.c' | LC_ALL=C sort)
-SRC_S := $(shell find kernel -name '*.S' | LC_ALL=C sort)
+SRC_C := $(shell find kernel -name '*.c' -not -path 'kernel/tests/*' | LC_ALL=C sort)
+SRC_S := $(shell find kernel -name '*.S' -not -path 'kernel/tests/*' | LC_ALL=C sort)
 OBJ   := $(patsubst %.c, $(BUILD_DIR)/normal/%.o, $(SRC_C)) \
          $(patsubst %.S, $(BUILD_DIR)/normal/%.o, $(SRC_S))
 
-.PHONY: all build inspect image clean distclean grade
+.PHONY: all build inspect image clean distclean grade check-m6
 
 all: build inspect
 
@@ -62,9 +63,27 @@ inspect: $(KERNEL)
 >grep -q 'pit_configure_hz' $(SYMS)
 >grep -q 'isr_stub_32' $(SYMS)
 >grep -q 'timer_on_irq0' $(SYMS)
+>grep -q 'pmm_init_from_map' $(SYMS)
+>grep -q 'pmm_alloc_frame' $(SYMS)
 
 grade: build inspect
->@echo "M5 static grade: PASS"
+>@echo "M6 static grade: PASS"
+
+check-m6: $(BUILD_DIR)/pmm.o $(BUILD_DIR)/test_pmm_host
+>./$(BUILD_DIR)/test_pmm_host
+>$(NM) -u $(BUILD_DIR)/pmm.o | tee $(BUILD_DIR)/pmm.undefined.txt
+>test ! -s $(BUILD_DIR)/pmm.undefined.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/pmm.o > $(BUILD_DIR)/pmm.objdump.txt
+>@echo "[PASS] M6 static check selesai"
+
+$(BUILD_DIR)/pmm.o: kernel/core/pmm.c kernel/include/mcsos/kernel/pmm.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/core/pmm.c -o $(BUILD_DIR)/pmm.o
+
+$(BUILD_DIR)/test_pmm_host: kernel/core/pmm.c kernel/tests/test_pmm_host.c kernel/include/mcsos/kernel/pmm.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ikernel/include \
+>  kernel/core/pmm.c kernel/tests/test_pmm_host.c -o $(BUILD_DIR)/test_pmm_host
 
 image: $(KERNEL)
 >mkdir -p $(ISO_ROOT)/boot/limine $(ISO_ROOT)/EFI/BOOT
