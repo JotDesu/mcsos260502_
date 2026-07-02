@@ -30,7 +30,7 @@ SRC_S := $(shell find kernel -name '*.S' -not -path 'kernel/tests/*' | LC_ALL=C 
 OBJ   := $(patsubst %.c, $(BUILD_DIR)/normal/%.o, $(SRC_C)) \
          $(patsubst %.S, $(BUILD_DIR)/normal/%.o, $(SRC_S))
 
-.PHONY: all build inspect image clean distclean grade check-m6
+.PHONY: all build inspect image clean distclean grade check-m6 check-m7
 
 all: build inspect
 
@@ -105,3 +105,23 @@ clean:
 
 distclean: clean
 >rm -rf iso_root limine
+
+.PHONY: check-m7
+
+check-m7: $(BUILD_DIR)/vmm.o $(BUILD_DIR)/test_vmm_host
+>./$(BUILD_DIR)/test_vmm_host
+>$(NM) -u $(BUILD_DIR)/vmm.o | tee $(BUILD_DIR)/vmm.undefined.txt
+>test ! -s $(BUILD_DIR)/vmm.undefined.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/vmm.o > $(BUILD_DIR)/vmm.objdump.txt
+>grep -q "invlpg" $(BUILD_DIR)/vmm.objdump.txt
+>grep -q "cr3" $(BUILD_DIR)/vmm.objdump.txt
+>@echo "[PASS] M7 static check selesai"
+
+$(BUILD_DIR)/vmm.o: kernel/core/vmm.c kernel/include/mcsos/kernel/vmm.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/core/vmm.c -o $(BUILD_DIR)/vmm.o
+
+$(BUILD_DIR)/test_vmm_host: kernel/core/vmm.c kernel/tests/test_vmm_host.c kernel/include/mcsos/kernel/vmm.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ikernel/include -DMCSOS_HOST_TEST \
+>  kernel/core/vmm.c kernel/tests/test_vmm_host.c -o $(BUILD_DIR)/test_vmm_host

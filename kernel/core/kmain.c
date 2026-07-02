@@ -114,9 +114,11 @@ static void kernel_vmm_init(void) {
     log_writeln("[MCSOS:M7] demo map/query/unmap OK");
     log_writeln("[MCSOS:M7] ready for QEMU smoke test");
 
+#ifdef MCSOS_M7_DEMO_PAGEFAULT
     log_writeln("[MCSOS:M7] triggering controlled page fault test");
     volatile uint64_t *bad_ptr = (volatile uint64_t *)0xFFFFFF0000000000ULL;
     *bad_ptr = 0xDEADBEEFULL;
+#endif
 
     pmm_free_frame(&g_pmm, test_paddr);
 
