@@ -1,0 +1,38 @@
+limine: Loading executable `boot():/boot/kernel.elf`...
+MCSOS 260502 M3 kernel entered
+[MCSOS:M5] boot: external interrupt bring-up start
+[MCSOS:M5] idt: loaded
+[MCSOS:M5] pic: remapped
+[MCSOS:M5] pic: irq0 unmasked
+[MCSOS:M5] pit: configured 100Hz
+[MCSOS:M5] sti: interrupts enabled
+[MCSOS:M6] pmm initialized
+[MCSOS:M6] frames managed=0x0000000000008000
+[MCSOS:M6] frames free=0x0000000000007fff
+[MCSOS:M6] sample alloc/free OK
+[MCSOS:M7] VMM core initialized
+[MCSOS:M7] root_paddr=0x0000000000001000
+[MCSOS:M7] demo map vaddr=0x0000000000600000
+[MCSOS:M7] demo map paddr=0x0000000000002000
+[MCSOS:M7] demo map/query/unmap OK
+[MCSOS:M7] ready for QEMU smoke test
+[MCSOS:M7] triggering controlled page fault test
+[MCSOS:M7] #PF page fault
+[MCSOS:M7] cr2=0xffffff0000000000
+[MCSOS:M7] error_code=0x0000000000000002
+[MCSOS:M7] rip=0xffffffff80000bcf
+[MCSOS:M7] rsp=0xffff80000ff9cf90
+[MCSOS:M7] bit P: non-present page
+[MCSOS:M7] bit W/R: write access
+[MCSOS:M7] bit U/S: supervisor mode
+[MCSOS:M7] bit RSVD: clear
+[MCSOS:M7] bit I/D: data access
+
+================ MCSOS KERNEL PANIC ================
+system=MCSOS version=260502 milestone=M3
+reason=page fault: see #PF diagnostics above
+location=kernel/arch/x86_64/src/idt.c:93
+panic_code=0x000000000000000e
+rflags_before_cli=0x0000000000000082
+state=halted
+====================================================
