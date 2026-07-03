@@ -1,0 +1,48 @@
+== git ==
+/home/andianaaji/src/mcsos
+b2ca43a
+?? evidence/m9/
+
+== tools ==
+Ubuntu clang version 21.1.8 (6ubuntu1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-21/bin
+gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Ubuntu LLD 21.1.8 (compatible with GNU linkers)
+GNU ld (GNU Binutils for Ubuntu) 2.46
+GNU Make 4.4.1
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3)
+Copyright (c) 2003-2025 Fabrice Bellard and the QEMU Project developers
+GNU gdb (Ubuntu 17.1-2ubuntu1) 17.1
+
+== previous artifacts ==
+build/kernel.disasm.txt
+build/kernel.elf
+build/kernel.map
+build/kernel.readelf.header.txt
+build/kernel.readelf.programs.txt
+build/kernel.syms.txt
+build/mcsos.iso
+build/mcsos.iso.sha256
+evidence/M3/kernel.disasm.txt
+evidence/M3/kernel.elf
+evidence/M3/kernel.map
+evidence/M3/kernel.readelf.header.txt
+evidence/M3/kernel.readelf.programs.txt
+evidence/M3/kernel.syms.txt
+evidence/M3/m3_audit_disasm.txt
+evidence/M3/m3_audit_readelf_header.txt
+evidence/M3/m3_audit_readelf_programs.txt
+evidence/M3/m3_audit_symbols.txt
+evidence/M3/manifest.txt
+evidence/M4/kernel.elf
+evidence/M4/kernel.map
+evidence/M7/m7_full_checkpoint_C1_C5.log
+evidence/M7/m7_pagefault_serial.log
+evidence/M7/m7_qemu_serial.log
+evidence/M7/vmm.objdump.txt
+evidence/M7/vmm.readelf.header.txt
+evidence/M7/vmm.readelf.sections.txt
+evidence/M7/vmm.undefined.txt
+evidence/m9/preflight_m9.log
