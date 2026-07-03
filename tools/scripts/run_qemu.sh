@@ -63,5 +63,5 @@ fi
 grep -qF 'MCSOS 260502 M3 kernel entered' "$LOG"
 grep -qF '[MCSOS:M6] pmm initialized' "$LOG"
 grep -qF '[MCSOS:M7] demo map/query/unmap OK' "$LOG"
-grep -qF 'M8 kmem initialized' "$LOG"
+grep -qF '[MCSOS:M8] kmem initialized' "$LOG"
 echo "OK: QEMU serial log valid: $LOG"
