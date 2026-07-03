@@ -19,7 +19,7 @@ COMMON_CFLAGS := --target=x86_64-unknown-none-elf -std=c17 -ffreestanding \
   -fno-builtin -fno-stack-protector -fno-stack-check -fno-pic -fno-pie \
   -fno-lto -m64 -march=x86-64 -mabi=sysv -mno-red-zone -mno-mmx \
   -mno-sse -mno-sse2 -mcmodel=kernel -Wall -Wextra -Werror \
-  -Ikernel/arch/x86_64/include -Ikernel/include
+  -Ikernel/arch/x86_64/include -Ikernel/include -Iinclude
 CFLAGS := $(COMMON_CFLAGS)
 ASFLAGS := --target=x86_64-unknown-none-elf -m64 -march=x86-64 \
   -fno-pic -fno-pie -mcmodel=kernel
@@ -125,3 +125,23 @@ $(BUILD_DIR)/test_vmm_host: kernel/core/vmm.c kernel/tests/test_vmm_host.c kerne
 >mkdir -p $(BUILD_DIR)
 >$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ikernel/include -DMCSOS_HOST_TEST \
 >  kernel/core/vmm.c kernel/tests/test_vmm_host.c -o $(BUILD_DIR)/test_vmm_host
+
+.PHONY: check-m8
+
+check-m8: $(BUILD_DIR)/kmem.o $(BUILD_DIR)/test_kmem_host
+>./$(BUILD_DIR)/test_kmem_host | tee $(BUILD_DIR)/test_kmem.log
+>grep -q 'PASS' $(BUILD_DIR)/test_kmem.log
+>$(NM) -u $(BUILD_DIR)/kmem.o | tee $(BUILD_DIR)/kmem.undefined.txt
+>test ! -s $(BUILD_DIR)/kmem.undefined.txt
+>$(READELF) -h $(BUILD_DIR)/kmem.o > $(BUILD_DIR)/kmem.readelf.header.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/kmem.o > $(BUILD_DIR)/kmem.objdump.txt
+>@echo "[PASS] M8 static check selesai"
+
+$(BUILD_DIR)/kmem.o: kernel/mm/kmem.c include/mcsos/kmem.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -Iinclude -c kernel/mm/kmem.c -o $(BUILD_DIR)/kmem.o
+
+$(BUILD_DIR)/test_kmem_host: kernel/mm/kmem.c tests/test_kmem.c include/mcsos/kmem.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
+>  kernel/mm/kmem.c tests/test_kmem.c -o $(BUILD_DIR)/test_kmem_host

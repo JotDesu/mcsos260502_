@@ -8,6 +8,7 @@
 #include <mcsos/kernel/pmm.h>
 #include <mcsos/kernel/vmm.h>
 #include <mcsos/kernel/version.h>
+#include "mcsos/kmem.h"
 
 extern char __kernel_start[];
 extern char __kernel_end[];
@@ -126,6 +127,33 @@ static void kernel_vmm_init(void) {
        stack, IDT/GDT, framebuffer/serial MMIO, dan PMM metadata lengkap. */
 }
 
+#define M8_BOOT_HEAP_SIZE (64u * 1024u)
+static unsigned char m8_boot_heap[M8_BOOT_HEAP_SIZE] __attribute__((aligned(4096)));
+
+static void m8_heap_bootstrap(void) {
+    int rc = kmem_init(m8_boot_heap, sizeof(m8_boot_heap));
+    if (rc != 0) {
+        KERNEL_PANIC("M8: kmem_init failed", (uint64_t)rc);
+    }
+
+    void *probe = kmem_alloc(128);
+    if (probe == (void *)0) {
+        KERNEL_PANIC("M8: kmem_alloc probe failed", 0);
+    }
+
+    if (kmem_free_checked(probe) != 0) {
+        KERNEL_PANIC("M8: kmem_free_checked probe failed", 0);
+    }
+
+    kmem_stats_t st;
+    kmem_get_stats(&st);
+    log_writeln("[MCSOS:M8] kmem initialized");
+    log_key_value_hex64("[MCSOS:M8] heap total_bytes", (uint64_t)st.total_bytes);
+    log_key_value_hex64("[MCSOS:M8] heap free_bytes", (uint64_t)st.free_bytes);
+    log_key_value_hex64("[MCSOS:M8] heap largest_free", (uint64_t)st.largest_free);
+    log_key_value_hex64("[MCSOS:M8] heap block_count", (uint64_t)st.block_count);
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -158,6 +186,7 @@ void kmain(void) {
 
     kernel_memory_init();
     kernel_vmm_init();
+    m8_heap_bootstrap();
 
     for (;;) {
         cpu_hlt();
