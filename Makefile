@@ -145,3 +145,30 @@ $(BUILD_DIR)/test_kmem_host: kernel/mm/kmem.c tests/test_kmem.c include/mcsos/km
 >mkdir -p $(BUILD_DIR)
 >$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
 >  kernel/mm/kmem.c tests/test_kmem.c -o $(BUILD_DIR)/test_kmem_host
+
+.PHONY: check-m9
+
+check-m9: $(BUILD_DIR)/sched_combined.o $(BUILD_DIR)/test_sched_host
+>./$(BUILD_DIR)/test_sched_host | tee $(BUILD_DIR)/test_sched.log
+>grep -q 'PASS' $(BUILD_DIR)/test_sched.log
+>$(NM) -u $(BUILD_DIR)/sched_combined.o | tee $(BUILD_DIR)/sched.undefined.txt
+>test ! -s $(BUILD_DIR)/sched.undefined.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/sched_combined.o > $(BUILD_DIR)/sched.objdump.txt
+>grep -q 'mcsos_context_switch' $(BUILD_DIR)/sched.objdump.txt
+>@echo "[PASS] M9 static check selesai"
+
+$(BUILD_DIR)/sched.o: kernel/core/sched.c kernel/include/mcsos/kernel/sched.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/core/sched.c -o $(BUILD_DIR)/sched.o
+
+$(BUILD_DIR)/context_switch.o: kernel/arch/x86_64/src/context_switch.S
+>mkdir -p $(BUILD_DIR)
+>$(AS) $(ASFLAGS) -c kernel/arch/x86_64/src/context_switch.S -o $(BUILD_DIR)/context_switch.o
+
+$(BUILD_DIR)/sched_combined.o: $(BUILD_DIR)/sched.o $(BUILD_DIR)/context_switch.o
+>$(LD) -r -o $(BUILD_DIR)/sched_combined.o $(BUILD_DIR)/sched.o $(BUILD_DIR)/context_switch.o
+
+$(BUILD_DIR)/test_sched_host: kernel/core/sched.c kernel/tests/test_sched_host.c kernel/include/mcsos/kernel/sched.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ikernel/include -DMCSOS_HOST_TEST \
+>  kernel/core/sched.c kernel/tests/test_sched_host.c -o $(BUILD_DIR)/test_sched_host
