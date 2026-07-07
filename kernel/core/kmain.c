@@ -7,6 +7,7 @@
 #include <mcsos/kernel/panic.h>
 #include <mcsos/kernel/pmm.h>
 #include <mcsos/kernel/vmm.h>
+#include <mcsos/kernel/sched.h>
 #include <mcsos/kernel/version.h>
 #include "mcsos/kmem.h"
 
@@ -154,6 +155,75 @@ static void m8_heap_bootstrap(void) {
     log_key_value_hex64("[MCSOS:M8] heap block_count", (uint64_t)st.block_count);
 }
 
+/* ===== M9: kernel thread scheduler (cooperative, stack statik) ===== */
+
+#define M9_DEMO_MAX_TICKS 6u
+
+static mcsos_scheduler_t g_sched;
+static mcsos_thread_t g_boot_thread;
+static mcsos_thread_t g_thread_a;
+static mcsos_thread_t g_thread_b;
+static unsigned char g_stack_a[8192] __attribute__((aligned(16)));
+static unsigned char g_stack_b[8192] __attribute__((aligned(16)));
+
+static void m9_demo_thread_a(void *arg) {
+    (void)arg;
+    for (unsigned i = 0; i < M9_DEMO_MAX_TICKS; i++) {
+        log_writeln("[MCSOS:M9] thread A tick");
+        mcsos_sched_yield(&g_sched);
+    }
+    for (;;) {
+        mcsos_sched_yield(&g_sched);
+    }
+}
+
+static void m9_demo_thread_b(void *arg) {
+    (void)arg;
+    for (unsigned i = 0; i < M9_DEMO_MAX_TICKS; i++) {
+        log_writeln("[MCSOS:M9] thread B tick");
+        mcsos_sched_yield(&g_sched);
+    }
+    for (;;) {
+        mcsos_sched_yield(&g_sched);
+    }
+}
+
+static void m9_scheduler_bootstrap(void) {
+    int rc = mcsos_scheduler_init(&g_sched, &g_boot_thread);
+    if (rc != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: mcsos_scheduler_init failed", (uint64_t)rc);
+    }
+
+    rc = mcsos_thread_prepare(&g_thread_a, "demo-a", m9_demo_thread_a, (void *)0,
+                              g_stack_a, sizeof(g_stack_a), g_sched.next_id++);
+    if (rc != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: mcsos_thread_prepare a failed", (uint64_t)rc);
+    }
+
+    rc = mcsos_thread_prepare(&g_thread_b, "demo-b", m9_demo_thread_b, (void *)0,
+                              g_stack_b, sizeof(g_stack_b), g_sched.next_id++);
+    if (rc != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: mcsos_thread_prepare b failed", (uint64_t)rc);
+    }
+
+    rc = mcsos_sched_enqueue(&g_sched, &g_thread_a);
+    if (rc != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: enqueue thread a failed", (uint64_t)rc);
+    }
+
+    rc = mcsos_sched_enqueue(&g_sched, &g_thread_b);
+    if (rc != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: enqueue thread b failed", (uint64_t)rc);
+    }
+
+    if (mcsos_sched_validate(&g_sched) != MCSOS_SCHED_OK) {
+        KERNEL_PANIC("M9: sched_validate failed after setup", 0);
+    }
+
+    log_writeln("[MCSOS:M9] scheduler initialized");
+    mcsos_sched_yield(&g_sched);
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -187,6 +257,7 @@ void kmain(void) {
     kernel_memory_init();
     kernel_vmm_init();
     m8_heap_bootstrap();
+    m9_scheduler_bootstrap();
 
     for (;;) {
         cpu_hlt();
