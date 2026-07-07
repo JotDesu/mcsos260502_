@@ -9,6 +9,8 @@ static int valid_thread_object(const mcsos_thread_t *thread) {
     return thread != (const mcsos_thread_t *)0 && thread->magic == MCSOS_THREAD_MAGIC;
 }
 
+static mcsos_scheduler_t *g_active_scheduler = (mcsos_scheduler_t *)0;
+
 static void zero_context(mcsos_context_t *context) {
     context->rsp = 0;
     context->rbp = 0;
@@ -21,6 +23,18 @@ static void zero_context(mcsos_context_t *context) {
 }
 
 void mcsos_thread_trampoline(void) {
+    mcsos_scheduler_t *sched = g_active_scheduler;
+    if (sched != (mcsos_scheduler_t *)0) {
+        mcsos_thread_t *self = sched->current;
+        if (self != (mcsos_thread_t *)0 && self->entry != (mcsos_thread_entry_t)0) {
+            self->entry(self->arg);
+            self->exit_code = 0;
+            self->state = MCSOS_THREAD_ZOMBIE;
+        }
+        for (;;) {
+            mcsos_sched_yield(sched);
+        }
+    }
     for (;;) {
 #if defined(__x86_64__)
         __asm__ volatile("hlt");
@@ -57,6 +71,7 @@ int mcsos_scheduler_init(mcsos_scheduler_t *sched, mcsos_thread_t *boot_thread) 
     sched->context_switches = 0;
     sched->ticks = 0;
     sched->initialized = 1;
+    g_active_scheduler = sched;
     return MCSOS_SCHED_OK;
 }
 
