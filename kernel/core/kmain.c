@@ -32,8 +32,6 @@ static void kernel_vmm_free(void *ctx, uint64_t frame_paddr) {
 
 static void *kernel_phys_to_virt(void *ctx, uint64_t paddr) {
     (void)ctx;
-    /* M7 awal: identity map sementara untuk frame dalam demo range PMM.
-       Belum memakai HHDM asli dari Limine. */
     return (void *)(uintptr_t)paddr;
 }
 
@@ -89,7 +87,6 @@ static void kernel_vmm_init(void) {
     log_writeln("[MCSOS:M7] VMM core initialized");
     log_key_value_hex64("[MCSOS:M7] root_paddr", root);
 
-    /* Demo map/query/unmap satu halaman untuk membuktikan table walker bekerja. */
     uint64_t test_vaddr = 0x0000000000600000ULL;
     uint64_t test_paddr = pmm_alloc_frame(&g_pmm);
     if (test_paddr == PMM_INVALID_FRAME) {
@@ -123,9 +120,6 @@ static void kernel_vmm_init(void) {
 #endif
 
     pmm_free_frame(&g_pmm, test_paddr);
-
-    /* Tugas wajib berhenti di sini. Jangan write_cr3 sebelum mapping kernel,
-       stack, IDT/GDT, framebuffer/serial MMIO, dan PMM metadata lengkap. */
 }
 
 #define M8_BOOT_HEAP_SIZE (64u * 1024u)
@@ -194,6 +188,19 @@ static void m9_scheduler_bootstrap(void) {
         KERNEL_PANIC("M9: mcsos_scheduler_init failed", (uint64_t)rc);
     }
 
+#ifdef MCSOS_M9_DEMO_BAD_STACK
+    {
+        log_writeln("[MCSOS:M9] triggering controlled bad-stack panic test");
+        static unsigned char tiny_stack[64] __attribute__((aligned(16)));
+        mcsos_thread_t bad_thread;
+        int bad_rc = mcsos_thread_prepare(&bad_thread, "bad-stack", m9_demo_thread_a, (void *)0,
+                                           tiny_stack, sizeof(tiny_stack), 999);
+        if (bad_rc != MCSOS_SCHED_OK) {
+            KERNEL_PANIC("M9: demo undersized stack correctly rejected", (uint64_t)bad_rc);
+        }
+    }
+#endif
+
     rc = mcsos_thread_prepare(&g_thread_a, "demo-a", m9_demo_thread_a, (void *)0,
                               g_stack_a, sizeof(g_stack_a), g_sched.next_id++);
     if (rc != MCSOS_SCHED_OK) {
@@ -211,9 +218,14 @@ static void m9_scheduler_bootstrap(void) {
         KERNEL_PANIC("M9: enqueue thread a failed", (uint64_t)rc);
     }
 
+#ifdef MCSOS_M9_DEMO_BAD_MAGIC
+    log_writeln("[MCSOS:M9] triggering controlled bad-magic panic test");
+    g_thread_b.magic = 0xdeaddeaddeadbeefULL;
+#endif
+
     rc = mcsos_sched_enqueue(&g_sched, &g_thread_b);
     if (rc != MCSOS_SCHED_OK) {
-        KERNEL_PANIC("M9: enqueue thread b failed", (uint64_t)rc);
+        KERNEL_PANIC("M9: enqueue thread b failed (corrupt TCB rejected)", (uint64_t)rc);
     }
 
     if (mcsos_sched_validate(&g_sched) != MCSOS_SCHED_OK) {
