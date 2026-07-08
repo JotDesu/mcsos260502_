@@ -2,7 +2,9 @@
 #define MCSOS_ARCH_IDT_H
 #include <stdint.h>
 
-#define IDT_ENTRIES 48u
+#define IDT_ENTRIES 129u
+#define ISR_STUB_COUNT 48u
+#define VECTOR_SYSCALL 0x80u
 
 typedef struct __attribute__((packed)) {
     uint64_t r15, r14, r13, r12, r11, r10, r9, r8;

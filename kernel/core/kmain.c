@@ -9,7 +9,9 @@
 #include <mcsos/kernel/vmm.h>
 #include <mcsos/kernel/sched.h>
 #include <mcsos/kernel/version.h>
+#include <mcsos/kernel/serial.h>
 #include "mcsos/kmem.h"
+#include <mcsos/syscall.h>
 
 extern char __kernel_start[];
 extern char __kernel_end[];
@@ -236,6 +238,59 @@ static void m9_scheduler_bootstrap(void) {
     mcsos_sched_yield(&g_sched);
 }
 
+
+/* ===== M10: syscall ABI bootstrap ===== */
+
+static uint64_t m10_get_ticks(void) {
+    return timer_ticks();
+}
+
+static void m10_yield_current(void) {
+    mcsos_sched_yield(&g_sched);
+}
+
+static void m10_exit_current(int code) {
+    log_writeln("[MCSOS:M10] exit_thread called (no teardown yet)");
+    log_key_value_hex64("[MCSOS:M10] exit code", (uint64_t)code);
+    KERNEL_PANIC("M10: exit_thread invoked before M9 teardown ready", (uint64_t)code);
+}
+
+static int64_t m10_write_serial(const char *buf, size_t len) {
+    if (buf == 0) return -1;
+    for (size_t i = 0; i < len; i++) {
+        serial_putc(buf[i]);
+    }
+    return (int64_t)len;
+}
+
+static void m10_syscall_bootstrap(void) {
+    mcsos_syscall_ops_t ops = {
+        .get_ticks = m10_get_ticks,
+        .yield_current = m10_yield_current,
+        .exit_current = m10_exit_current,
+        .write_serial = m10_write_serial,
+    };
+    mcsos_syscall_init(&ops);
+    log_writeln("[MCSOS:M10] syscall init");
+}
+
+
+static void m10_syscall_smoke_test(void) {
+    int64_t ret;
+    __asm__ volatile (
+        "int $0x80"
+        : "=a"(ret)
+        : "a"((uint64_t)MCSOS_SYS_PING)
+        : "memory"
+    );
+    log_writeln("[MCSOS:M10] int 0x80 smoke test executed");
+    log_key_value_hex64("[MCSOS:M10] ping ret", (uint64_t)ret);
+    if (ret != 0x2605020AL) {
+        KERNEL_PANIC("M10: int 0x80 smoke test returned unexpected value", (uint64_t)ret);
+    }
+    log_writeln("[MCSOS:M10] int 0x80 smoke test PASS");
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -269,6 +324,8 @@ void kmain(void) {
     kernel_memory_init();
     kernel_vmm_init();
     m8_heap_bootstrap();
+    m10_syscall_bootstrap();
+    m10_syscall_smoke_test();
     m9_scheduler_bootstrap();
 
     for (;;) {

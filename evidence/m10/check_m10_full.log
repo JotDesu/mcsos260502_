@@ -1,0 +1,20 @@
+=== check-m10 ===
+mkdir -p build
+clang --target=x86_64-unknown-none-elf -std=c17 -ffreestanding -fno-builtin -fno-stack-protector -fno-stack-check -fno-pic -fno-pie -fno-lto -m64 -march=x86-64 -mabi=sysv -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mcmodel=kernel -Wall -Wextra -Werror -Ikernel/arch/x86_64/include -Ikernel/include -Iinclude -c kernel/syscall/syscall.c -o build/syscall.o
+mkdir -p build
+clang --target=x86_64-unknown-none-elf -m64 -march=x86-64 -fno-pic -fno-pie -mcmodel=kernel -c kernel/arch/x86_64/src/syscall_entry.S -o build/syscall_entry.o
+ld.lld -r -o build/syscall_combined.o build/syscall.o build/syscall_entry.o
+mkdir -p build
+clang -std=c17 -Wall -Wextra -Werror -Iinclude \
+  kernel/syscall/syscall.c tests/test_syscall_host.c -o build/test_syscall_host
+./build/test_syscall_host | tee build/test_syscall.log
+M10 syscall host tests passed
+grep -q 'M10 syscall host tests passed' build/test_syscall.log
+nm -u build/syscall_combined.o | tee build/syscall.undefined.txt
+test ! -s build/syscall.undefined.txt
+readelf -h build/syscall_combined.o > build/syscall.readelf.header.txt
+grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' build/syscall.readelf.header.txt
+objdump -dr build/syscall_combined.o > build/syscall.objdump.txt
+grep -q 'x86_64_syscall_int80_stub' build/syscall.objdump.txt
+grep -q 'iretq' build/syscall.objdump.txt
+[PASS] M10 static check selesai

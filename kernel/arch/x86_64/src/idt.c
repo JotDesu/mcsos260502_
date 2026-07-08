@@ -7,6 +7,7 @@
 #include <mcsos/kernel/vmm.h>
 
 #define IDT_TYPE_INTERRUPT 0x8Eu
+#define IDT_TYPE_INTERRUPT_USER 0xEEu
 #define VECTOR_PAGE_FAULT 14u
 
 typedef struct __attribute__((packed)) {
@@ -27,24 +28,31 @@ typedef struct __attribute__((packed)) {
 static idt_entry_t g_idt[IDT_ENTRIES];
 
 extern void *isr_stub_table[];
+extern void x86_64_syscall_int80_stub(void);
 
-static void idt_set_entry(uint8_t vector, void *handler, uint16_t cs) {
+static void idt_set_entry_ex(uint16_t vector, void *handler, uint16_t cs, uint8_t type_attr) {
     uint64_t addr = (uint64_t)handler;
     idt_entry_t *e = &g_idt[vector];
     e->offset_low  = (uint16_t)(addr & 0xFFFFu);
     e->selector    = cs;
     e->ist         = 0;
-    e->type_attr   = IDT_TYPE_INTERRUPT;
+    e->type_attr   = type_attr;
     e->offset_mid  = (uint16_t)((addr >> 16u) & 0xFFFFu);
     e->offset_high = (uint32_t)((addr >> 32u) & 0xFFFFFFFFu);
     e->zero        = 0;
 }
 
+static void idt_set_entry(uint8_t vector, void *handler, uint16_t cs) {
+    idt_set_entry_ex(vector, handler, cs, IDT_TYPE_INTERRUPT);
+}
+
 void idt_init(void) {
     uint16_t cs = cpu_read_cs();
-    for (uint8_t i = 0; i < IDT_ENTRIES; i++) {
+    for (uint8_t i = 0; i < ISR_STUB_COUNT; i++) {
         idt_set_entry(i, isr_stub_table[i], cs);
     }
+    idt_set_entry_ex(VECTOR_SYSCALL, (void *)x86_64_syscall_int80_stub, cs, IDT_TYPE_INTERRUPT_USER);
+    log_writeln("[MCSOS:M10] idt: vector 0x80 installed (DPL=3)");
     idtr_t idtr = {
         .limit = (uint16_t)(sizeof(g_idt) - 1u),
         .base  = (uint64_t)g_idt,

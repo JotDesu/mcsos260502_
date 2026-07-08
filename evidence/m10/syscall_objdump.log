@@ -1,0 +1,437 @@
+
+build/syscall_combined.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <mcsos_syscall_init>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	50                   	push   %rax
+   5:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   9:	48 c7 05 00 00 00 00 	movq   $0x0,0x0(%rip)        # 14 <mcsos_syscall_init+0x14>
+  10:	00 00 00 00 
+			c: R_X86_64_PC32	.bss-0x8
+  14:	48 c7 05 00 00 00 00 	movq   $0x0,0x0(%rip)        # 1f <mcsos_syscall_init+0x1f>
+  1b:	00 00 00 00 
+			17: R_X86_64_PC32	.bss
+  1f:	48 c7 05 00 00 00 00 	movq   $0x0,0x0(%rip)        # 2a <mcsos_syscall_init+0x2a>
+  26:	00 00 00 00 
+			22: R_X86_64_PC32	.bss+0x8
+  2a:	48 c7 05 00 00 00 00 	movq   $0x0,0x0(%rip)        # 35 <mcsos_syscall_init+0x35>
+  31:	00 00 00 00 
+			2d: R_X86_64_PC32	.bss+0x10
+			31: R_X86_64_32S	.text+0xb0
+  35:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+  3a:	74 68                	je     a4 <mcsos_syscall_init+0xa4>
+  3c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  40:	48 83 38 00          	cmpq   $0x0,(%rax)
+  44:	74 0e                	je     54 <mcsos_syscall_init+0x54>
+  46:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  4a:	48 8b 00             	mov    (%rax),%rax
+  4d:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 54 <mcsos_syscall_init+0x54>
+			50: R_X86_64_PC32	.bss-0x4
+  54:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  58:	48 83 78 08 00       	cmpq   $0x0,0x8(%rax)
+  5d:	74 0f                	je     6e <mcsos_syscall_init+0x6e>
+  5f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  63:	48 8b 40 08          	mov    0x8(%rax),%rax
+  67:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 6e <mcsos_syscall_init+0x6e>
+			6a: R_X86_64_PC32	.bss+0x4
+  6e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  72:	48 83 78 10 00       	cmpq   $0x0,0x10(%rax)
+  77:	74 0f                	je     88 <mcsos_syscall_init+0x88>
+  79:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  7d:	48 8b 40 10          	mov    0x10(%rax),%rax
+  81:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 88 <mcsos_syscall_init+0x88>
+			84: R_X86_64_PC32	.bss+0xc
+  88:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  8c:	48 83 78 18 00       	cmpq   $0x0,0x18(%rax)
+  91:	74 0f                	je     a2 <mcsos_syscall_init+0xa2>
+  93:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  97:	48 8b 40 18          	mov    0x18(%rax),%rax
+  9b:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # a2 <mcsos_syscall_init+0xa2>
+			9e: R_X86_64_PC32	.bss+0x14
+  a2:	eb 00                	jmp    a4 <mcsos_syscall_init+0xa4>
+  a4:	48 83 c4 08          	add    $0x8,%rsp
+  a8:	5d                   	pop    %rbp
+  a9:	c3                   	ret
+  aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000000b0 <default_write_serial>:
+  b0:	55                   	push   %rbp
+  b1:	48 89 e5             	mov    %rsp,%rbp
+  b4:	48 83 ec 10          	sub    $0x10,%rsp
+  b8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  bc:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+  c0:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  c4:	48 83 c4 10          	add    $0x10,%rsp
+  c8:	5d                   	pop    %rbp
+  c9:	c3                   	ret
+  ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000000d0 <mcsos_syscall_set_user_region>:
+  d0:	55                   	push   %rbp
+  d1:	48 89 e5             	mov    %rsp,%rbp
+  d4:	48 83 ec 10          	sub    $0x10,%rsp
+  d8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  dc:	48 89 75 f8          	mov    %rsi,-0x8(%rbp)
+  e0:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  e4:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+  e8:	48 89 0d 00 00 00 00 	mov    %rcx,0x0(%rip)        # ef <mcsos_syscall_set_user_region+0x1f>
+			eb: R_X86_64_PC32	.bss+0x24
+  ef:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # f6 <mcsos_syscall_set_user_region+0x26>
+			f2: R_X86_64_PC32	.bss+0x1c
+  f6:	48 83 c4 10          	add    $0x10,%rsp
+  fa:	5d                   	pop    %rbp
+  fb:	c3                   	ret
+  fc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000100 <mcsos_user_check_range>:
+ 100:	55                   	push   %rbp
+ 101:	48 89 e5             	mov    %rsp,%rbp
+ 104:	48 83 ec 20          	sub    $0x20,%rsp
+ 108:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 10c:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 110:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+ 115:	75 0c                	jne    123 <mcsos_user_check_range+0x23>
+ 117:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+ 11e:	e9 9e 00 00 00       	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 123:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 12a <mcsos_user_check_range+0x2a>
+			126: R_X86_64_PC32	.bss+0x1c
+ 12a:	48 83 f8 00          	cmp    $0x0,%rax
+ 12e:	74 13                	je     143 <mcsos_user_check_range+0x43>
+ 130:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 137 <mcsos_user_check_range+0x37>
+			133: R_X86_64_PC32	.bss+0x24
+ 137:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 13e <mcsos_user_check_range+0x3e>
+			13a: R_X86_64_PC32	.bss+0x1c
+ 13e:	48 39 c8             	cmp    %rcx,%rax
+ 141:	77 09                	ja     14c <mcsos_user_check_range+0x4c>
+ 143:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 14a:	eb 75                	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 14c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 150:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 157 <mcsos_user_check_range+0x57>
+			153: R_X86_64_PC32	.bss+0x1c
+ 157:	48 39 c8             	cmp    %rcx,%rax
+ 15a:	73 09                	jae    165 <mcsos_user_check_range+0x65>
+ 15c:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 163:	eb 5c                	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 165:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 169:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 170 <mcsos_user_check_range+0x70>
+			16c: R_X86_64_PC32	.bss+0x24
+ 170:	48 39 c8             	cmp    %rcx,%rax
+ 173:	76 09                	jbe    17e <mcsos_user_check_range+0x7e>
+ 175:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 17c:	eb 43                	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 17e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 182:	48 03 45 e8          	add    -0x18(%rbp),%rax
+ 186:	48 83 e8 01          	sub    $0x1,%rax
+ 18a:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+ 18e:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 192:	48 3b 45 f0          	cmp    -0x10(%rbp),%rax
+ 196:	73 09                	jae    1a1 <mcsos_user_check_range+0xa1>
+ 198:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 19f:	eb 20                	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 1a1:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 1a5:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 1ac <mcsos_user_check_range+0xac>
+			1a8: R_X86_64_PC32	.bss+0x24
+ 1ac:	48 39 c8             	cmp    %rcx,%rax
+ 1af:	72 09                	jb     1ba <mcsos_user_check_range+0xba>
+ 1b1:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 1b8:	eb 07                	jmp    1c1 <mcsos_user_check_range+0xc1>
+ 1ba:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+ 1c1:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 1c4:	48 83 c4 20          	add    $0x20,%rsp
+ 1c8:	5d                   	pop    %rbp
+ 1c9:	c3                   	ret
+ 1ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000001d0 <mcsos_copy_from_user>:
+ 1d0:	55                   	push   %rbp
+ 1d1:	48 89 e5             	mov    %rsp,%rbp
+ 1d4:	48 83 ec 40          	sub    $0x40,%rsp
+ 1d8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 1dc:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 1e0:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 1e4:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+ 1e9:	75 09                	jne    1f4 <mcsos_copy_from_user+0x24>
+ 1eb:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 1f2:	eb 7f                	jmp    273 <mcsos_copy_from_user+0xa3>
+ 1f4:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 1f9:	74 07                	je     202 <mcsos_copy_from_user+0x32>
+ 1fb:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+ 200:	75 09                	jne    20b <mcsos_copy_from_user+0x3b>
+ 202:	c7 45 fc ea ff ff ff 	movl   $0xffffffea,-0x4(%rbp)
+ 209:	eb 68                	jmp    273 <mcsos_copy_from_user+0xa3>
+ 20b:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 20f:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
+ 213:	e8 00 00 00 00       	call   218 <mcsos_copy_from_user+0x48>
+			214: R_X86_64_PLT32	mcsos_user_check_range-0x4
+ 218:	83 f8 00             	cmp    $0x0,%eax
+ 21b:	75 09                	jne    226 <mcsos_copy_from_user+0x56>
+ 21d:	c7 45 fc f2 ff ff ff 	movl   $0xfffffff2,-0x4(%rbp)
+ 224:	eb 4d                	jmp    273 <mcsos_copy_from_user+0xa3>
+ 226:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 22a:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+ 22e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 232:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+ 236:	48 c7 45 c8 00 00 00 	movq   $0x0,-0x38(%rbp)
+ 23d:	00 
+ 23e:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+ 242:	48 3b 45 e0          	cmp    -0x20(%rbp),%rax
+ 246:	73 24                	jae    26c <mcsos_copy_from_user+0x9c>
+ 248:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+ 24c:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+ 250:	8a 14 08             	mov    (%rax,%rcx,1),%dl
+ 253:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+ 257:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+ 25b:	88 14 08             	mov    %dl,(%rax,%rcx,1)
+ 25e:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+ 262:	48 83 c0 01          	add    $0x1,%rax
+ 266:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+ 26a:	eb d2                	jmp    23e <mcsos_copy_from_user+0x6e>
+ 26c:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 273:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 276:	48 83 c4 40          	add    $0x40,%rsp
+ 27a:	5d                   	pop    %rbp
+ 27b:	c3                   	ret
+ 27c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000280 <mcsos_syscall_dispatch>:
+ 280:	55                   	push   %rbp
+ 281:	48 89 e5             	mov    %rsp,%rbp
+ 284:	48 83 ec 40          	sub    $0x40,%rsp
+ 288:	48 8b 45 10          	mov    0x10(%rbp),%rax
+ 28c:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 290:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 294:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 298:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 29c:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 2a0:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 2a4:	48 83 7d f0 05       	cmpq   $0x5,-0x10(%rbp)
+ 2a9:	72 0a                	jb     2b5 <mcsos_syscall_dispatch+0x35>
+ 2ab:	48 c7 45 f8 da ff ff 	movq   $0xffffffffffffffda,-0x8(%rbp)
+ 2b2:	ff 
+ 2b3:	eb 46                	jmp    2fb <mcsos_syscall_dispatch+0x7b>
+ 2b5:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2b9:	48 8d 04 c5 00 00 00 	lea    0x0(,%rax,8),%rax
+ 2c0:	00 
+			2bd: R_X86_64_32S	.data
+ 2c1:	48 8b 00             	mov    (%rax),%rax
+ 2c4:	48 89 45 c0          	mov    %rax,-0x40(%rbp)
+ 2c8:	48 83 7d c0 00       	cmpq   $0x0,-0x40(%rbp)
+ 2cd:	75 0a                	jne    2d9 <mcsos_syscall_dispatch+0x59>
+ 2cf:	48 c7 45 f8 da ff ff 	movq   $0xffffffffffffffda,-0x8(%rbp)
+ 2d6:	ff 
+ 2d7:	eb 22                	jmp    2fb <mcsos_syscall_dispatch+0x7b>
+ 2d9:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+ 2dd:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 2e1:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
+ 2e5:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
+ 2e9:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+ 2ed:	4c 8b 45 c8          	mov    -0x38(%rbp),%r8
+ 2f1:	4c 8b 4d 10          	mov    0x10(%rbp),%r9
+ 2f5:	ff d0                	call   *%rax
+ 2f7:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 2fb:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 2ff:	48 83 c4 40          	add    $0x40,%rsp
+ 303:	5d                   	pop    %rbp
+ 304:	c3                   	ret
+ 305:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+ 30c:	00 00 00 00 
+
+0000000000000310 <mcsos_syscall_dispatch_frame>:
+ 310:	55                   	push   %rbp
+ 311:	48 89 e5             	mov    %rsp,%rbp
+ 314:	48 83 ec 10          	sub    $0x10,%rsp
+ 318:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+ 31c:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+ 321:	75 02                	jne    325 <mcsos_syscall_dispatch_frame+0x15>
+ 323:	eb 4d                	jmp    372 <mcsos_syscall_dispatch_frame+0x62>
+ 325:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 329:	48 8b 38             	mov    (%rax),%rdi
+ 32c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 330:	48 8b 70 08          	mov    0x8(%rax),%rsi
+ 334:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 338:	48 8b 50 10          	mov    0x10(%rax),%rdx
+ 33c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 340:	48 8b 48 18          	mov    0x18(%rax),%rcx
+ 344:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 348:	4c 8b 40 20          	mov    0x20(%rax),%r8
+ 34c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 350:	4c 8b 48 28          	mov    0x28(%rax),%r9
+ 354:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 358:	4c 8b 50 30          	mov    0x30(%rax),%r10
+ 35c:	48 89 e0             	mov    %rsp,%rax
+ 35f:	4c 89 10             	mov    %r10,(%rax)
+ 362:	e8 00 00 00 00       	call   367 <mcsos_syscall_dispatch_frame+0x57>
+			363: R_X86_64_PLT32	mcsos_syscall_dispatch-0x4
+ 367:	48 89 c1             	mov    %rax,%rcx
+ 36a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 36e:	48 89 48 38          	mov    %rcx,0x38(%rax)
+ 372:	48 83 c4 10          	add    $0x10,%rsp
+ 376:	5d                   	pop    %rbp
+ 377:	c3                   	ret
+ 378:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 37f:	00 
+
+0000000000000380 <sys_ping>:
+ 380:	55                   	push   %rbp
+ 381:	48 89 e5             	mov    %rsp,%rbp
+ 384:	48 83 ec 30          	sub    $0x30,%rsp
+ 388:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+ 38c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+ 390:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+ 394:	48 89 4d e0          	mov    %rcx,-0x20(%rbp)
+ 398:	4c 89 45 d8          	mov    %r8,-0x28(%rbp)
+ 39c:	4c 89 4d d0          	mov    %r9,-0x30(%rbp)
+ 3a0:	b8 0a 02 05 26       	mov    $0x2605020a,%eax
+ 3a5:	48 83 c4 30          	add    $0x30,%rsp
+ 3a9:	5d                   	pop    %rbp
+ 3aa:	c3                   	ret
+ 3ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000003b0 <sys_get_ticks>:
+ 3b0:	55                   	push   %rbp
+ 3b1:	48 89 e5             	mov    %rsp,%rbp
+ 3b4:	48 83 ec 40          	sub    $0x40,%rsp
+ 3b8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 3bc:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 3c0:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 3c4:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 3c8:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 3cc:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 3d0:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3d7 <sys_get_ticks+0x27>
+			3d3: R_X86_64_PC32	.bss-0x4
+ 3d7:	48 83 f8 00          	cmp    $0x0,%rax
+ 3db:	75 0a                	jne    3e7 <sys_get_ticks+0x37>
+ 3dd:	48 c7 45 f8 f0 ff ff 	movq   $0xfffffffffffffff0,-0x8(%rbp)
+ 3e4:	ff 
+ 3e5:	eb 0d                	jmp    3f4 <sys_get_ticks+0x44>
+ 3e7:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3ee <sys_get_ticks+0x3e>
+			3ea: R_X86_64_PC32	.bss-0x4
+ 3ee:	ff d0                	call   *%rax
+ 3f0:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 3f4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 3f8:	48 83 c4 40          	add    $0x40,%rsp
+ 3fc:	5d                   	pop    %rbp
+ 3fd:	c3                   	ret
+ 3fe:	66 90                	xchg   %ax,%ax
+
+0000000000000400 <sys_write_serial>:
+ 400:	55                   	push   %rbp
+ 401:	48 89 e5             	mov    %rsp,%rbp
+ 404:	48 83 ec 40          	sub    $0x40,%rsp
+ 408:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 40c:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 410:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 414:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 418:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 41c:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 420:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 425:	75 0a                	jne    431 <sys_write_serial+0x31>
+ 427:	48 c7 45 f8 ea ff ff 	movq   $0xffffffffffffffea,-0x8(%rbp)
+ 42e:	ff 
+ 42f:	eb 45                	jmp    476 <sys_write_serial+0x76>
+ 431:	48 81 7d e8 00 10 00 	cmpq   $0x1000,-0x18(%rbp)
+ 438:	00 
+ 439:	76 0a                	jbe    445 <sys_write_serial+0x45>
+ 43b:	48 c7 45 f8 ea ff ff 	movq   $0xffffffffffffffea,-0x8(%rbp)
+ 442:	ff 
+ 443:	eb 31                	jmp    476 <sys_write_serial+0x76>
+ 445:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 449:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+ 44d:	e8 00 00 00 00       	call   452 <sys_write_serial+0x52>
+			44e: R_X86_64_PLT32	mcsos_user_check_range-0x4
+ 452:	83 f8 00             	cmp    $0x0,%eax
+ 455:	75 0a                	jne    461 <sys_write_serial+0x61>
+ 457:	48 c7 45 f8 f2 ff ff 	movq   $0xfffffffffffffff2,-0x8(%rbp)
+ 45e:	ff 
+ 45f:	eb 15                	jmp    476 <sys_write_serial+0x76>
+ 461:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 468 <sys_write_serial+0x68>
+			464: R_X86_64_PC32	.bss+0x14
+ 468:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 46c:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+ 470:	ff d0                	call   *%rax
+ 472:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 476:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 47a:	48 83 c4 40          	add    $0x40,%rsp
+ 47e:	5d                   	pop    %rbp
+ 47f:	c3                   	ret
+
+0000000000000480 <sys_yield>:
+ 480:	55                   	push   %rbp
+ 481:	48 89 e5             	mov    %rsp,%rbp
+ 484:	48 83 ec 40          	sub    $0x40,%rsp
+ 488:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 48c:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 490:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 494:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 498:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 49c:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 4a0:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 4a7 <sys_yield+0x27>
+			4a3: R_X86_64_PC32	.bss+0x4
+ 4a7:	48 83 f8 00          	cmp    $0x0,%rax
+ 4ab:	75 0a                	jne    4b7 <sys_yield+0x37>
+ 4ad:	48 c7 45 f8 f0 ff ff 	movq   $0xfffffffffffffff0,-0x8(%rbp)
+ 4b4:	ff 
+ 4b5:	eb 11                	jmp    4c8 <sys_yield+0x48>
+ 4b7:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 4be <sys_yield+0x3e>
+			4ba: R_X86_64_PC32	.bss+0x4
+ 4be:	ff d0                	call   *%rax
+ 4c0:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+ 4c7:	00 
+ 4c8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 4cc:	48 83 c4 40          	add    $0x40,%rsp
+ 4d0:	5d                   	pop    %rbp
+ 4d1:	c3                   	ret
+ 4d2:	66 66 66 66 66 2e 0f 	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 4d9:	1f 84 00 00 00 00 00 
+
+00000000000004e0 <sys_exit_thread>:
+ 4e0:	55                   	push   %rbp
+ 4e1:	48 89 e5             	mov    %rsp,%rbp
+ 4e4:	48 83 ec 40          	sub    $0x40,%rsp
+ 4e8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 4ec:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 4f0:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 4f4:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 4f8:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 4fc:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 500:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 507 <sys_exit_thread+0x27>
+			503: R_X86_64_PC32	.bss+0xc
+ 507:	48 83 f8 00          	cmp    $0x0,%rax
+ 50b:	75 0a                	jne    517 <sys_exit_thread+0x37>
+ 50d:	48 c7 45 f8 f0 ff ff 	movq   $0xfffffffffffffff0,-0x8(%rbp)
+ 514:	ff 
+ 515:	eb 17                	jmp    52e <sys_exit_thread+0x4e>
+ 517:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 51e <sys_exit_thread+0x3e>
+			51a: R_X86_64_PC32	.bss+0xc
+ 51e:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 522:	89 cf                	mov    %ecx,%edi
+ 524:	ff d0                	call   *%rax
+ 526:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+ 52d:	00 
+ 52e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 532:	48 83 c4 40          	add    $0x40,%rsp
+ 536:	5d                   	pop    %rbp
+ 537:	c3                   	ret
+
+0000000000000538 <x86_64_syscall_int80_stub>:
+ 538:	fc                   	cld
+ 539:	48 83 ec 40          	sub    $0x40,%rsp
+ 53d:	48 89 04 24          	mov    %rax,(%rsp)
+ 541:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+ 546:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+ 54b:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+ 550:	4c 89 54 24 20       	mov    %r10,0x20(%rsp)
+ 555:	4c 89 44 24 28       	mov    %r8,0x28(%rsp)
+ 55a:	4c 89 4c 24 30       	mov    %r9,0x30(%rsp)
+ 55f:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+ 566:	00 00 
+ 568:	48 89 e7             	mov    %rsp,%rdi
+ 56b:	e8 00 00 00 00       	call   570 <x86_64_syscall_int80_stub+0x38>
+			56c: R_X86_64_PLT32	mcsos_syscall_dispatch_frame-0x4
+ 570:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+ 575:	48 83 c4 40          	add    $0x40,%rsp
+ 579:	48 cf                	iretq
