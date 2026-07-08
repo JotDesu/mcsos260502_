@@ -1,0 +1,738 @@
+
+build/sched_combined.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <mcsos_thread_trampoline>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # f <mcsos_thread_trampoline+0xf>
+			b: R_X86_64_PC32	.bss-0x4
+   f:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  13:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+  18:	74 55                	je     6f <mcsos_thread_trampoline+0x6f>
+  1a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  1e:	48 8b 00             	mov    (%rax),%rax
+  21:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+  25:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+  2a:	74 36                	je     62 <mcsos_thread_trampoline+0x62>
+  2c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  30:	48 83 78 60 00       	cmpq   $0x0,0x60(%rax)
+  35:	74 2b                	je     62 <mcsos_thread_trampoline+0x62>
+  37:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  3b:	48 8b 40 60          	mov    0x60(%rax),%rax
+  3f:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+  43:	48 8b 79 68          	mov    0x68(%rcx),%rdi
+  47:	ff d0                	call   *%rax
+  49:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  4d:	c7 80 98 00 00 00 00 	movl   $0x0,0x98(%rax)
+  54:	00 00 00 
+  57:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  5b:	c7 40 18 04 00 00 00 	movl   $0x4,0x18(%rax)
+  62:	eb 00                	jmp    64 <mcsos_thread_trampoline+0x64>
+  64:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
+  68:	e8 00 00 00 00       	call   6d <mcsos_thread_trampoline+0x6d>
+			69: R_X86_64_PLT32	mcsos_sched_yield-0x4
+  6d:	eb f5                	jmp    64 <mcsos_thread_trampoline+0x64>
+  6f:	eb 00                	jmp    71 <mcsos_thread_trampoline+0x71>
+  71:	f4                   	hlt
+  72:	eb fd                	jmp    71 <mcsos_thread_trampoline+0x71>
+  74:	66 66 66 2e 0f 1f 84 	data16 data16 cs nopw 0x0(%rax,%rax,1)
+  7b:	00 00 00 00 00 
+
+0000000000000080 <mcsos_sched_yield>:
+  80:	55                   	push   %rbp
+  81:	48 89 e5             	mov    %rsp,%rbp
+  84:	48 83 ec 30          	sub    $0x30,%rsp
+  88:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  8c:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+  91:	74 1b                	je     ae <mcsos_sched_yield+0x2e>
+  93:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  97:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+  9b:	74 11                	je     ae <mcsos_sched_yield+0x2e>
+  9d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  a1:	48 8b 38             	mov    (%rax),%rdi
+  a4:	e8 b7 05 00 00       	call   660 <valid_thread_object>
+  a9:	83 f8 00             	cmp    $0x0,%eax
+  ac:	75 0c                	jne    ba <mcsos_sched_yield+0x3a>
+  ae:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+  b5:	e9 04 01 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+  ba:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  be:	48 8b 00             	mov    (%rax),%rax
+  c1:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+  c5:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+  c9:	e8 00 00 00 00       	call   ce <mcsos_sched_yield+0x4e>
+			ca: R_X86_64_PLT32	mcsos_sched_pick_next-0x4
+  ce:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+  d2:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
+  d6:	e8 85 05 00 00       	call   660 <valid_thread_object>
+  db:	83 f8 00             	cmp    $0x0,%eax
+  de:	75 0c                	jne    ec <mcsos_sched_yield+0x6c>
+  e0:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+  e7:	e9 d2 00 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+  ec:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+  f0:	48 3b 45 e8          	cmp    -0x18(%rbp),%rax
+  f4:	75 17                	jne    10d <mcsos_sched_yield+0x8d>
+  f6:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  fa:	c7 40 18 02 00 00 00 	movl   $0x2,0x18(%rax)
+ 101:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 108:	e9 b1 00 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+ 10d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 111:	83 78 18 02          	cmpl   $0x2,0x18(%rax)
+ 115:	75 39                	jne    150 <mcsos_sched_yield+0xd0>
+ 117:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 11b:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 11f:	48 3b 41 08          	cmp    0x8(%rcx),%rax
+ 123:	74 2b                	je     150 <mcsos_sched_yield+0xd0>
+ 125:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 129:	c7 40 18 01 00 00 00 	movl   $0x1,0x18(%rax)
+ 130:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 134:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+ 138:	e8 00 00 00 00       	call   13d <mcsos_sched_yield+0xbd>
+			139: R_X86_64_PLT32	mcsos_sched_enqueue-0x4
+ 13d:	89 45 dc             	mov    %eax,-0x24(%rbp)
+ 140:	83 7d dc 00          	cmpl   $0x0,-0x24(%rbp)
+ 144:	74 08                	je     14e <mcsos_sched_yield+0xce>
+ 146:	8b 45 dc             	mov    -0x24(%rbp),%eax
+ 149:	89 45 fc             	mov    %eax,-0x4(%rbp)
+ 14c:	eb 70                	jmp    1be <mcsos_sched_yield+0x13e>
+ 14e:	eb 00                	jmp    150 <mcsos_sched_yield+0xd0>
+ 150:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 154:	c7 40 18 02 00 00 00 	movl   $0x2,0x18(%rax)
+ 15b:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+ 15f:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 163:	48 89 08             	mov    %rcx,(%rax)
+ 166:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 16a:	48 8b 88 88 00 00 00 	mov    0x88(%rax),%rcx
+ 171:	48 83 c1 01          	add    $0x1,%rcx
+ 175:	48 89 88 88 00 00 00 	mov    %rcx,0x88(%rax)
+ 17c:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 180:	48 8b 88 88 00 00 00 	mov    0x88(%rax),%rcx
+ 187:	48 83 c1 01          	add    $0x1,%rcx
+ 18b:	48 89 88 88 00 00 00 	mov    %rcx,0x88(%rax)
+ 192:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 196:	48 8b 48 30          	mov    0x30(%rax),%rcx
+ 19a:	48 83 c1 01          	add    $0x1,%rcx
+ 19e:	48 89 48 30          	mov    %rcx,0x30(%rax)
+ 1a2:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 1a6:	48 83 c7 20          	add    $0x20,%rdi
+ 1aa:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
+ 1ae:	48 83 c6 20          	add    $0x20,%rsi
+ 1b2:	e8 00 00 00 00       	call   1b7 <mcsos_sched_yield+0x137>
+			1b3: R_X86_64_PLT32	mcsos_context_switch-0x4
+ 1b7:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 1be:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 1c1:	48 83 c4 30          	add    $0x30,%rsp
+ 1c5:	5d                   	pop    %rbp
+ 1c6:	c3                   	ret
+ 1c7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+ 1ce:	00 00 
+
+00000000000001d0 <mcsos_scheduler_init>:
+ 1d0:	55                   	push   %rbp
+ 1d1:	48 89 e5             	mov    %rsp,%rbp
+ 1d4:	48 83 ec 20          	sub    $0x20,%rsp
+ 1d8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 1dc:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 1e0:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 1e5:	74 07                	je     1ee <mcsos_scheduler_init+0x1e>
+ 1e7:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+ 1ec:	75 0c                	jne    1fa <mcsos_scheduler_init+0x2a>
+ 1ee:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 1f5:	e9 28 01 00 00       	jmp    322 <mcsos_scheduler_init+0x152>
+ 1fa:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 1fe:	48 b9 52 48 54 53 4f 	movabs $0x4d43534f53544852,%rcx
+ 205:	53 43 4d 
+ 208:	48 89 08             	mov    %rcx,(%rax)
+ 20b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 20f:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+ 216:	00 
+ 217:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 21b:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+ 222:	00 
+			21f: R_X86_64_32S	.rodata.str1.1
+ 223:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 227:	c7 40 18 02 00 00 00 	movl   $0x2,0x18(%rax)
+ 22e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 232:	48 c7 40 60 00 00 00 	movq   $0x0,0x60(%rax)
+ 239:	00 
+ 23a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 23e:	48 c7 40 68 00 00 00 	movq   $0x0,0x68(%rax)
+ 245:	00 
+ 246:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 24a:	48 c7 40 70 00 00 00 	movq   $0x0,0x70(%rax)
+ 251:	00 
+ 252:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 256:	48 c7 40 78 00 00 00 	movq   $0x0,0x78(%rax)
+ 25d:	00 
+ 25e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 262:	48 c7 80 80 00 00 00 	movq   $0x0,0x80(%rax)
+ 269:	00 00 00 00 
+ 26d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 271:	48 c7 80 88 00 00 00 	movq   $0x0,0x88(%rax)
+ 278:	00 00 00 00 
+ 27c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 280:	48 c7 80 90 00 00 00 	movq   $0x0,0x90(%rax)
+ 287:	00 00 00 00 
+ 28b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 28f:	c7 80 98 00 00 00 00 	movl   $0x0,0x98(%rax)
+ 296:	00 00 00 
+ 299:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 29d:	48 83 c7 20          	add    $0x20,%rdi
+ 2a1:	e8 8a 00 00 00       	call   330 <zero_context>
+ 2a6:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 2aa:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2ae:	48 89 08             	mov    %rcx,(%rax)
+ 2b1:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 2b5:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2b9:	48 89 48 08          	mov    %rcx,0x8(%rax)
+ 2bd:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2c1:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+ 2c8:	00 
+ 2c9:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2cd:	48 c7 40 18 00 00 00 	movq   $0x0,0x18(%rax)
+ 2d4:	00 
+ 2d5:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2d9:	48 c7 40 20 01 00 00 	movq   $0x1,0x20(%rax)
+ 2e0:	00 
+ 2e1:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2e5:	48 c7 40 28 00 00 00 	movq   $0x0,0x28(%rax)
+ 2ec:	00 
+ 2ed:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2f1:	48 c7 40 30 00 00 00 	movq   $0x0,0x30(%rax)
+ 2f8:	00 
+ 2f9:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 2fd:	48 c7 40 38 00 00 00 	movq   $0x0,0x38(%rax)
+ 304:	00 
+ 305:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 309:	c7 40 40 01 00 00 00 	movl   $0x1,0x40(%rax)
+ 310:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 314:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 31b <mcsos_scheduler_init+0x14b>
+			317: R_X86_64_PC32	.bss-0x4
+ 31b:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 322:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 325:	48 83 c4 20          	add    $0x20,%rsp
+ 329:	5d                   	pop    %rbp
+ 32a:	c3                   	ret
+ 32b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000330 <zero_context>:
+ 330:	55                   	push   %rbp
+ 331:	48 89 e5             	mov    %rsp,%rbp
+ 334:	50                   	push   %rax
+ 335:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+ 339:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 33d:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+ 344:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 348:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+ 34f:	00 
+ 350:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 354:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+ 35b:	00 
+ 35c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 360:	48 c7 40 18 00 00 00 	movq   $0x0,0x18(%rax)
+ 367:	00 
+ 368:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 36c:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+ 373:	00 
+ 374:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 378:	48 c7 40 28 00 00 00 	movq   $0x0,0x28(%rax)
+ 37f:	00 
+ 380:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 384:	48 c7 40 30 00 00 00 	movq   $0x0,0x30(%rax)
+ 38b:	00 
+ 38c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 390:	48 c7 40 38 00 00 00 	movq   $0x0,0x38(%rax)
+ 397:	00 
+ 398:	48 83 c4 08          	add    $0x8,%rsp
+ 39c:	5d                   	pop    %rbp
+ 39d:	c3                   	ret
+ 39e:	66 90                	xchg   %ax,%ax
+
+00000000000003a0 <mcsos_thread_prepare>:
+ 3a0:	55                   	push   %rbp
+ 3a1:	48 89 e5             	mov    %rsp,%rbp
+ 3a4:	48 83 ec 50          	sub    $0x50,%rsp
+ 3a8:	48 8b 45 10          	mov    0x10(%rbp),%rax
+ 3ac:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 3b0:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 3b4:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+ 3b8:	48 89 4d d8          	mov    %rcx,-0x28(%rbp)
+ 3bc:	4c 89 45 d0          	mov    %r8,-0x30(%rbp)
+ 3c0:	4c 89 4d c8          	mov    %r9,-0x38(%rbp)
+ 3c4:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 3c9:	74 0e                	je     3d9 <mcsos_thread_prepare+0x39>
+ 3cb:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+ 3d0:	74 07                	je     3d9 <mcsos_thread_prepare+0x39>
+ 3d2:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+ 3d7:	75 0c                	jne    3e5 <mcsos_thread_prepare+0x45>
+ 3d9:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 3e0:	e9 54 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 3e5:	48 81 7d c8 00 10 00 	cmpq   $0x1000,-0x38(%rbp)
+ 3ec:	00 
+ 3ed:	73 0c                	jae    3fb <mcsos_thread_prepare+0x5b>
+ 3ef:	c7 45 fc fd ff ff ff 	movl   $0xfffffffd,-0x4(%rbp)
+ 3f6:	e9 3e 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 3fb:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+ 3ff:	48 89 45 c0          	mov    %rax,-0x40(%rbp)
+ 403:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+ 407:	48 03 45 c8          	add    -0x38(%rbp),%rax
+ 40b:	48 89 45 b8          	mov    %rax,-0x48(%rbp)
+ 40f:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+ 413:	48 3b 45 c0          	cmp    -0x40(%rbp),%rax
+ 417:	77 0c                	ja     425 <mcsos_thread_prepare+0x85>
+ 419:	c7 45 fc fd ff ff ff 	movl   $0xfffffffd,-0x4(%rbp)
+ 420:	e9 14 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 425:	48 8b 7d b8          	mov    -0x48(%rbp),%rdi
+ 429:	be 10 00 00 00       	mov    $0x10,%esi
+ 42e:	e8 1d 01 00 00       	call   550 <align_down_uintptr>
+ 433:	48 89 45 b0          	mov    %rax,-0x50(%rbp)
+ 437:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+ 43b:	48 8b 4d c0          	mov    -0x40(%rbp),%rcx
+ 43f:	48 81 c1 80 00 00 00 	add    $0x80,%rcx
+ 446:	48 39 c8             	cmp    %rcx,%rax
+ 449:	77 0c                	ja     457 <mcsos_thread_prepare+0xb7>
+ 44b:	c7 45 fc fd ff ff ff 	movl   $0xfffffffd,-0x4(%rbp)
+ 452:	e9 e2 00 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 457:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+ 45b:	48 83 c0 f8          	add    $0xfffffffffffffff8,%rax
+ 45f:	48 89 45 b0          	mov    %rax,-0x50(%rbp)
+ 463:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+ 467:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+ 46e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 472:	48 b9 52 48 54 53 4f 	movabs $0x4d43534f53544852,%rcx
+ 479:	53 43 4d 
+ 47c:	48 89 08             	mov    %rcx,(%rax)
+ 47f:	48 8b 4d 10          	mov    0x10(%rbp),%rcx
+ 483:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 487:	48 89 48 08          	mov    %rcx,0x8(%rax)
+ 48b:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 48f:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 493:	48 89 48 10          	mov    %rcx,0x10(%rax)
+ 497:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 49b:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+ 4a2:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 4a6:	48 83 c7 20          	add    $0x20,%rdi
+ 4aa:	e8 81 fe ff ff       	call   330 <zero_context>
+ 4af:	48 8b 4d b0          	mov    -0x50(%rbp),%rcx
+ 4b3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4b7:	48 89 48 20          	mov    %rcx,0x20(%rax)
+ 4bb:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4bf:	48 c7 40 58 00 00 00 	movq   $0x0,0x58(%rax)
+ 4c6:	00 
+			4c3: R_X86_64_32S	mcsos_thread_trampoline
+ 4c7:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+ 4cb:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4cf:	48 89 48 60          	mov    %rcx,0x60(%rax)
+ 4d3:	48 8b 4d d8          	mov    -0x28(%rbp),%rcx
+ 4d7:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4db:	48 89 48 68          	mov    %rcx,0x68(%rax)
+ 4df:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+ 4e3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4e7:	48 89 48 70          	mov    %rcx,0x70(%rax)
+ 4eb:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+ 4ef:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4f3:	48 89 48 78          	mov    %rcx,0x78(%rax)
+ 4f7:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 4fb:	48 c7 80 80 00 00 00 	movq   $0x0,0x80(%rax)
+ 502:	00 00 00 00 
+ 506:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 50a:	48 c7 80 88 00 00 00 	movq   $0x0,0x88(%rax)
+ 511:	00 00 00 00 
+ 515:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 519:	48 c7 80 90 00 00 00 	movq   $0x0,0x90(%rax)
+ 520:	00 00 00 00 
+ 524:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 528:	c7 80 98 00 00 00 00 	movl   $0x0,0x98(%rax)
+ 52f:	00 00 00 
+ 532:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 539:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 53c:	48 83 c4 50          	add    $0x50,%rsp
+ 540:	5d                   	pop    %rbp
+ 541:	c3                   	ret
+ 542:	66 66 66 66 66 2e 0f 	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 549:	1f 84 00 00 00 00 00 
+
+0000000000000550 <align_down_uintptr>:
+ 550:	55                   	push   %rbp
+ 551:	48 89 e5             	mov    %rsp,%rbp
+ 554:	48 83 ec 10          	sub    $0x10,%rsp
+ 558:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+ 55c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+ 560:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 564:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 568:	48 83 e9 01          	sub    $0x1,%rcx
+ 56c:	48 83 f1 ff          	xor    $0xffffffffffffffff,%rcx
+ 570:	48 21 c8             	and    %rcx,%rax
+ 573:	48 83 c4 10          	add    $0x10,%rsp
+ 577:	5d                   	pop    %rbp
+ 578:	c3                   	ret
+ 579:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000000580 <mcsos_sched_enqueue>:
+ 580:	55                   	push   %rbp
+ 581:	48 89 e5             	mov    %rsp,%rbp
+ 584:	48 83 ec 20          	sub    $0x20,%rsp
+ 588:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 58c:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 590:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 595:	74 18                	je     5af <mcsos_sched_enqueue+0x2f>
+ 597:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 59b:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 59f:	74 0e                	je     5af <mcsos_sched_enqueue+0x2f>
+ 5a1:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 5a5:	e8 b6 00 00 00       	call   660 <valid_thread_object>
+ 5aa:	83 f8 00             	cmp    $0x0,%eax
+ 5ad:	75 0c                	jne    5bb <mcsos_sched_enqueue+0x3b>
+ 5af:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 5b6:	e9 9c 00 00 00       	jmp    657 <mcsos_sched_enqueue+0xd7>
+ 5bb:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 5bf:	83 78 18 00          	cmpl   $0x0,0x18(%rax)
+ 5c3:	74 1d                	je     5e2 <mcsos_sched_enqueue+0x62>
+ 5c5:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 5c9:	83 78 18 01          	cmpl   $0x1,0x18(%rax)
+ 5cd:	74 13                	je     5e2 <mcsos_sched_enqueue+0x62>
+ 5cf:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 5d3:	83 78 18 03          	cmpl   $0x3,0x18(%rax)
+ 5d7:	74 09                	je     5e2 <mcsos_sched_enqueue+0x62>
+ 5d9:	c7 45 fc fe ff ff ff 	movl   $0xfffffffe,-0x4(%rbp)
+ 5e0:	eb 75                	jmp    657 <mcsos_sched_enqueue+0xd7>
+ 5e2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 5e6:	c7 40 18 01 00 00 00 	movl   $0x1,0x18(%rax)
+ 5ed:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 5f1:	48 c7 80 80 00 00 00 	movq   $0x0,0x80(%rax)
+ 5f8:	00 00 00 00 
+ 5fc:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 600:	48 83 78 18 00       	cmpq   $0x0,0x18(%rax)
+ 605:	75 1a                	jne    621 <mcsos_sched_enqueue+0xa1>
+ 607:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 60b:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 60f:	48 89 48 10          	mov    %rcx,0x10(%rax)
+ 613:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 617:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 61b:	48 89 48 18          	mov    %rcx,0x18(%rax)
+ 61f:	eb 1f                	jmp    640 <mcsos_sched_enqueue+0xc0>
+ 621:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 625:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 629:	48 8b 40 18          	mov    0x18(%rax),%rax
+ 62d:	48 89 88 80 00 00 00 	mov    %rcx,0x80(%rax)
+ 634:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+ 638:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 63c:	48 89 48 18          	mov    %rcx,0x18(%rax)
+ 640:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 644:	48 8b 48 28          	mov    0x28(%rax),%rcx
+ 648:	48 83 c1 01          	add    $0x1,%rcx
+ 64c:	48 89 48 28          	mov    %rcx,0x28(%rax)
+ 650:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 657:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 65a:	48 83 c4 20          	add    $0x20,%rsp
+ 65e:	5d                   	pop    %rbp
+ 65f:	c3                   	ret
+
+0000000000000660 <valid_thread_object>:
+ 660:	55                   	push   %rbp
+ 661:	48 89 e5             	mov    %rsp,%rbp
+ 664:	48 83 ec 10          	sub    $0x10,%rsp
+ 668:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+ 66c:	31 c0                	xor    %eax,%eax
+ 66e:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+ 673:	88 45 f7             	mov    %al,-0x9(%rbp)
+ 676:	74 17                	je     68f <valid_thread_object+0x2f>
+ 678:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 67c:	48 b9 52 48 54 53 4f 	movabs $0x4d43534f53544852,%rcx
+ 683:	53 43 4d 
+ 686:	48 39 08             	cmp    %rcx,(%rax)
+ 689:	0f 94 c0             	sete   %al
+ 68c:	88 45 f7             	mov    %al,-0x9(%rbp)
+ 68f:	8a 45 f7             	mov    -0x9(%rbp),%al
+ 692:	24 01                	and    $0x1,%al
+ 694:	0f b6 c0             	movzbl %al,%eax
+ 697:	48 83 c4 10          	add    $0x10,%rsp
+ 69b:	5d                   	pop    %rbp
+ 69c:	c3                   	ret
+ 69d:	0f 1f 00             	nopl   (%rax)
+
+00000000000006a0 <mcsos_sched_pick_next>:
+ 6a0:	55                   	push   %rbp
+ 6a1:	48 89 e5             	mov    %rsp,%rbp
+ 6a4:	48 83 ec 18          	sub    $0x18,%rsp
+ 6a8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 6ac:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 6b1:	74 0a                	je     6bd <mcsos_sched_pick_next+0x1d>
+ 6b3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 6b7:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 6bb:	75 0a                	jne    6c7 <mcsos_sched_pick_next+0x27>
+ 6bd:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+ 6c4:	00 
+ 6c5:	eb 7d                	jmp    744 <mcsos_sched_pick_next+0xa4>
+ 6c7:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 6cb:	48 8b 40 10          	mov    0x10(%rax),%rax
+ 6cf:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+ 6d3:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+ 6d8:	75 0e                	jne    6e8 <mcsos_sched_pick_next+0x48>
+ 6da:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 6de:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 6e2:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 6e6:	eb 5c                	jmp    744 <mcsos_sched_pick_next+0xa4>
+ 6e8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 6ec:	48 8b 88 80 00 00 00 	mov    0x80(%rax),%rcx
+ 6f3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 6f7:	48 89 48 10          	mov    %rcx,0x10(%rax)
+ 6fb:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 6ff:	48 83 78 10 00       	cmpq   $0x0,0x10(%rax)
+ 704:	75 0c                	jne    712 <mcsos_sched_pick_next+0x72>
+ 706:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 70a:	48 c7 40 18 00 00 00 	movq   $0x0,0x18(%rax)
+ 711:	00 
+ 712:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 716:	48 c7 80 80 00 00 00 	movq   $0x0,0x80(%rax)
+ 71d:	00 00 00 00 
+ 721:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 725:	48 83 78 28 00       	cmpq   $0x0,0x28(%rax)
+ 72a:	76 10                	jbe    73c <mcsos_sched_pick_next+0x9c>
+ 72c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 730:	48 8b 48 28          	mov    0x28(%rax),%rcx
+ 734:	48 83 c1 ff          	add    $0xffffffffffffffff,%rcx
+ 738:	48 89 48 28          	mov    %rcx,0x28(%rax)
+ 73c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 740:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 744:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 748:	48 83 c4 18          	add    $0x18,%rsp
+ 74c:	5d                   	pop    %rbp
+ 74d:	c3                   	ret
+ 74e:	66 90                	xchg   %ax,%ax
+
+0000000000000750 <mcsos_sched_tick>:
+ 750:	55                   	push   %rbp
+ 751:	48 89 e5             	mov    %rsp,%rbp
+ 754:	48 83 ec 10          	sub    $0x10,%rsp
+ 758:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 75c:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 761:	74 1b                	je     77e <mcsos_sched_tick+0x2e>
+ 763:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 767:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 76b:	74 11                	je     77e <mcsos_sched_tick+0x2e>
+ 76d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 771:	48 8b 38             	mov    (%rax),%rdi
+ 774:	e8 e7 fe ff ff       	call   660 <valid_thread_object>
+ 779:	83 f8 00             	cmp    $0x0,%eax
+ 77c:	75 09                	jne    787 <mcsos_sched_tick+0x37>
+ 77e:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 785:	eb 30                	jmp    7b7 <mcsos_sched_tick+0x67>
+ 787:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 78b:	48 8b 48 38          	mov    0x38(%rax),%rcx
+ 78f:	48 83 c1 01          	add    $0x1,%rcx
+ 793:	48 89 48 38          	mov    %rcx,0x38(%rax)
+ 797:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 79b:	48 8b 00             	mov    (%rax),%rax
+ 79e:	48 8b 88 90 00 00 00 	mov    0x90(%rax),%rcx
+ 7a5:	48 83 c1 01          	add    $0x1,%rcx
+ 7a9:	48 89 88 90 00 00 00 	mov    %rcx,0x90(%rax)
+ 7b0:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ 7b7:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 7ba:	48 83 c4 10          	add    $0x10,%rsp
+ 7be:	5d                   	pop    %rbp
+ 7bf:	c3                   	ret
+
+00000000000007c0 <mcsos_thread_block_current>:
+ 7c0:	55                   	push   %rbp
+ 7c1:	48 89 e5             	mov    %rsp,%rbp
+ 7c4:	48 83 ec 10          	sub    $0x10,%rsp
+ 7c8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 7cc:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 7d1:	74 1b                	je     7ee <mcsos_thread_block_current+0x2e>
+ 7d3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 7d7:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 7db:	74 11                	je     7ee <mcsos_thread_block_current+0x2e>
+ 7dd:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 7e1:	48 8b 38             	mov    (%rax),%rdi
+ 7e4:	e8 77 fe ff ff       	call   660 <valid_thread_object>
+ 7e9:	83 f8 00             	cmp    $0x0,%eax
+ 7ec:	75 09                	jne    7f7 <mcsos_thread_block_current+0x37>
+ 7ee:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 7f5:	eb 34                	jmp    82b <mcsos_thread_block_current+0x6b>
+ 7f7:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 7fb:	48 8b 00             	mov    (%rax),%rax
+ 7fe:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 802:	48 3b 41 08          	cmp    0x8(%rcx),%rax
+ 806:	75 09                	jne    811 <mcsos_thread_block_current+0x51>
+ 808:	c7 45 fc fe ff ff ff 	movl   $0xfffffffe,-0x4(%rbp)
+ 80f:	eb 1a                	jmp    82b <mcsos_thread_block_current+0x6b>
+ 811:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 815:	48 8b 00             	mov    (%rax),%rax
+ 818:	c7 40 18 03 00 00 00 	movl   $0x3,0x18(%rax)
+ 81f:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 823:	e8 00 00 00 00       	call   828 <mcsos_thread_block_current+0x68>
+			824: R_X86_64_PLT32	mcsos_sched_yield-0x4
+ 828:	89 45 fc             	mov    %eax,-0x4(%rbp)
+ 82b:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 82e:	48 83 c4 10          	add    $0x10,%rsp
+ 832:	5d                   	pop    %rbp
+ 833:	c3                   	ret
+ 834:	66 66 66 2e 0f 1f 84 	data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 83b:	00 00 00 00 00 
+
+0000000000000840 <mcsos_thread_mark_ready>:
+ 840:	55                   	push   %rbp
+ 841:	48 89 e5             	mov    %rsp,%rbp
+ 844:	48 83 ec 20          	sub    $0x20,%rsp
+ 848:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 84c:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+ 850:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+ 854:	e8 07 fe ff ff       	call   660 <valid_thread_object>
+ 859:	83 f8 00             	cmp    $0x0,%eax
+ 85c:	75 09                	jne    867 <mcsos_thread_mark_ready+0x27>
+ 85e:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 865:	eb 23                	jmp    88a <mcsos_thread_mark_ready+0x4a>
+ 867:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 86b:	83 78 18 03          	cmpl   $0x3,0x18(%rax)
+ 86f:	74 09                	je     87a <mcsos_thread_mark_ready+0x3a>
+ 871:	c7 45 fc fe ff ff ff 	movl   $0xfffffffe,-0x4(%rbp)
+ 878:	eb 10                	jmp    88a <mcsos_thread_mark_ready+0x4a>
+ 87a:	48 8b 7d f0          	mov    -0x10(%rbp),%rdi
+ 87e:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
+ 882:	e8 00 00 00 00       	call   887 <mcsos_thread_mark_ready+0x47>
+			883: R_X86_64_PLT32	mcsos_sched_enqueue-0x4
+ 887:	89 45 fc             	mov    %eax,-0x4(%rbp)
+ 88a:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ 88d:	48 83 c4 20          	add    $0x20,%rsp
+ 891:	5d                   	pop    %rbp
+ 892:	c3                   	ret
+ 893:	66 66 66 66 2e 0f 1f 	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 89a:	84 00 00 00 00 00 
+
+00000000000008a0 <mcsos_sched_ready_count>:
+ 8a0:	55                   	push   %rbp
+ 8a1:	48 89 e5             	mov    %rsp,%rbp
+ 8a4:	48 83 ec 20          	sub    $0x20,%rsp
+ 8a8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 8ac:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 8b1:	74 0a                	je     8bd <mcsos_sched_ready_count+0x1d>
+ 8b3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 8b7:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 8bb:	75 0a                	jne    8c7 <mcsos_sched_ready_count+0x27>
+ 8bd:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+ 8c4:	00 
+ 8c5:	eb 40                	jmp    907 <mcsos_sched_ready_count+0x67>
+ 8c7:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+ 8ce:	00 
+ 8cf:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 8d3:	48 8b 40 10          	mov    0x10(%rax),%rax
+ 8d7:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+ 8db:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+ 8e0:	74 1d                	je     8ff <mcsos_sched_ready_count+0x5f>
+ 8e2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 8e6:	48 83 c0 01          	add    $0x1,%rax
+ 8ea:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+ 8ee:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 8f2:	48 8b 80 80 00 00 00 	mov    0x80(%rax),%rax
+ 8f9:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+ 8fd:	eb dc                	jmp    8db <mcsos_sched_ready_count+0x3b>
+ 8ff:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 903:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 907:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 90b:	48 83 c4 20          	add    $0x20,%rsp
+ 90f:	5d                   	pop    %rbp
+ 910:	c3                   	ret
+ 911:	66 66 66 66 66 66 2e 	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 918:	0f 1f 84 00 00 00 00 
+ 91f:	00 
+
+0000000000000920 <mcsos_sched_validate>:
+ 920:	55                   	push   %rbp
+ 921:	48 89 e5             	mov    %rsp,%rbp
+ 924:	48 83 ec 30          	sub    $0x30,%rsp
+ 928:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+ 92c:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+ 931:	74 1b                	je     94e <mcsos_sched_validate+0x2e>
+ 933:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 937:	83 78 40 00          	cmpl   $0x0,0x40(%rax)
+ 93b:	74 11                	je     94e <mcsos_sched_validate+0x2e>
+ 93d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 941:	48 8b 38             	mov    (%rax),%rdi
+ 944:	e8 17 fd ff ff       	call   660 <valid_thread_object>
+ 949:	83 f8 00             	cmp    $0x0,%eax
+ 94c:	75 0c                	jne    95a <mcsos_sched_validate+0x3a>
+ 94e:	c7 45 fc ff ff ff ff 	movl   $0xffffffff,-0x4(%rbp)
+ 955:	e9 dc 00 00 00       	jmp    a36 <mcsos_sched_validate+0x116>
+ 95a:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+ 961:	00 
+ 962:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 966:	48 8b 40 10          	mov    0x10(%rax),%rax
+ 96a:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+ 96e:	48 c7 45 d8 00 00 00 	movq   $0x0,-0x28(%rbp)
+ 975:	00 
+ 976:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+ 97b:	0f 84 80 00 00 00    	je     a01 <mcsos_sched_validate+0xe1>
+ 981:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
+ 985:	e8 d6 fc ff ff       	call   660 <valid_thread_object>
+ 98a:	83 f8 00             	cmp    $0x0,%eax
+ 98d:	74 0a                	je     999 <mcsos_sched_validate+0x79>
+ 98f:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 993:	83 78 18 01          	cmpl   $0x1,0x18(%rax)
+ 997:	74 0c                	je     9a5 <mcsos_sched_validate+0x85>
+ 999:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+ 9a0:	e9 91 00 00 00       	jmp    a36 <mcsos_sched_validate+0x116>
+ 9a5:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 9a9:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 9ad:	48 3b 01             	cmp    (%rcx),%rax
+ 9b0:	75 09                	jne    9bb <mcsos_sched_validate+0x9b>
+ 9b2:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+ 9b9:	eb 7b                	jmp    a36 <mcsos_sched_validate+0x116>
+ 9bb:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 9bf:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+ 9c3:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+ 9c7:	48 8b 80 80 00 00 00 	mov    0x80(%rax),%rax
+ 9ce:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+ 9d2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 9d6:	48 83 c0 01          	add    $0x1,%rax
+ 9da:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+ 9de:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ 9e2:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ 9e6:	48 8b 49 28          	mov    0x28(%rcx),%rcx
+ 9ea:	48 83 c1 01          	add    $0x1,%rcx
+ 9ee:	48 39 c8             	cmp    %rcx,%rax
+ 9f1:	76 09                	jbe    9fc <mcsos_sched_validate+0xdc>
+ 9f3:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+ 9fa:	eb 3a                	jmp    a36 <mcsos_sched_validate+0x116>
+ 9fc:	e9 75 ff ff ff       	jmp    976 <mcsos_sched_validate+0x56>
+ a01:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+ a05:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ a09:	48 3b 41 18          	cmp    0x18(%rcx),%rax
+ a0d:	74 09                	je     a18 <mcsos_sched_validate+0xf8>
+ a0f:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+ a16:	eb 1e                	jmp    a36 <mcsos_sched_validate+0x116>
+ a18:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+ a1c:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+ a20:	48 3b 41 28          	cmp    0x28(%rcx),%rax
+ a24:	74 09                	je     a2f <mcsos_sched_validate+0x10f>
+ a26:	c7 45 fc fc ff ff ff 	movl   $0xfffffffc,-0x4(%rbp)
+ a2d:	eb 07                	jmp    a36 <mcsos_sched_validate+0x116>
+ a2f:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+ a36:	8b 45 fc             	mov    -0x4(%rbp),%eax
+ a39:	48 83 c4 30          	add    $0x30,%rsp
+ a3d:	5d                   	pop    %rbp
+ a3e:	c3                   	ret
+ a3f:	cc                   	int3
+
+0000000000000a40 <mcsos_context_switch>:
+ a40:	48 8d 05 3d 00 00 00 	lea    0x3d(%rip),%rax        # a84 <mcsos_context_switch+0x44>
+ a47:	48 89 27             	mov    %rsp,(%rdi)
+ a4a:	48 89 6f 08          	mov    %rbp,0x8(%rdi)
+ a4e:	48 89 5f 10          	mov    %rbx,0x10(%rdi)
+ a52:	4c 89 67 18          	mov    %r12,0x18(%rdi)
+ a56:	4c 89 6f 20          	mov    %r13,0x20(%rdi)
+ a5a:	4c 89 77 28          	mov    %r14,0x28(%rdi)
+ a5e:	4c 89 7f 30          	mov    %r15,0x30(%rdi)
+ a62:	48 89 47 38          	mov    %rax,0x38(%rdi)
+ a66:	48 8b 26             	mov    (%rsi),%rsp
+ a69:	48 8b 6e 08          	mov    0x8(%rsi),%rbp
+ a6d:	48 8b 5e 10          	mov    0x10(%rsi),%rbx
+ a71:	4c 8b 66 18          	mov    0x18(%rsi),%r12
+ a75:	4c 8b 6e 20          	mov    0x20(%rsi),%r13
+ a79:	4c 8b 76 28          	mov    0x28(%rsi),%r14
+ a7d:	4c 8b 7e 30          	mov    0x30(%rsi),%r15
+ a81:	ff 66 38             	jmp    *0x38(%rsi)
+ a84:	c3                   	ret

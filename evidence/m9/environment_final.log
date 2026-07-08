@@ -1,0 +1,22 @@
+== OS ==
+PRETTY_NAME="Ubuntu 26.04 LTS"
+6.6.87.2-microsoft-standard-WSL2
+
+== Toolchain ==
+Ubuntu clang version 21.1.8 (6ubuntu1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-21/bin
+Ubuntu LLD 21.1.8 (compatible with GNU linkers)
+GNU gdb (Ubuntu 17.1-2ubuntu1) 17.1
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3)
+Copyright (c) 2003-2025 Fabrice Bellard and the QEMU Project developers
+
+== Git ==
+18c6c35 M9: verified panic path for undersized stack and corrupt TCB magic (kriteria #10 PASS)
+6ddfdd0 M9: fix trampoline to invoke thread entry; QEMU smoke test PASS (A/B alternate)
+dd2d183 M9: integrate scheduler into kmain, ISO builds clean
+d95b198 M9: header, sched.c, context_switch.S, host test - check-m9 PASS
+aa5d1b9 checkpoint before M9 scheduler
+b2ca43a M8: integrasikan kernel heap ke kmain.c dan tambah target check-m8 di Makefile
+18c6c35

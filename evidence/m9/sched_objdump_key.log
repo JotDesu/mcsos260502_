@@ -1,0 +1,52 @@
+  62:	eb 00                	jmp    64 <mcsos_thread_trampoline+0x64>
+  6d:	eb f5                	jmp    64 <mcsos_thread_trampoline+0x64>
+  6f:	eb 00                	jmp    71 <mcsos_thread_trampoline+0x71>
+  71:	f4                   	hlt
+  72:	eb fd                	jmp    71 <mcsos_thread_trampoline+0x71>
+  b5:	e9 04 01 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+  e7:	e9 d2 00 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+ 108:	e9 b1 00 00 00       	jmp    1be <mcsos_sched_yield+0x13e>
+ 14c:	eb 70                	jmp    1be <mcsos_sched_yield+0x13e>
+ 14e:	eb 00                	jmp    150 <mcsos_sched_yield+0xd0>
+			1b3: R_X86_64_PLT32	mcsos_context_switch-0x4
+ 1c6:	c3                   	ret
+ 1f5:	e9 28 01 00 00       	jmp    322 <mcsos_scheduler_init+0x152>
+ 32a:	c3                   	ret
+ 39d:	c3                   	ret
+ 3e0:	e9 54 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 3f6:	e9 3e 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 420:	e9 14 01 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 452:	e9 e2 00 00 00       	jmp    539 <mcsos_thread_prepare+0x199>
+ 541:	c3                   	ret
+ 578:	c3                   	ret
+ 5b6:	e9 9c 00 00 00       	jmp    657 <mcsos_sched_enqueue+0xd7>
+ 5e0:	eb 75                	jmp    657 <mcsos_sched_enqueue+0xd7>
+ 61f:	eb 1f                	jmp    640 <mcsos_sched_enqueue+0xc0>
+ 65f:	c3                   	ret
+ 69c:	c3                   	ret
+ 6c5:	eb 7d                	jmp    744 <mcsos_sched_pick_next+0xa4>
+ 6e6:	eb 5c                	jmp    744 <mcsos_sched_pick_next+0xa4>
+ 74d:	c3                   	ret
+ 785:	eb 30                	jmp    7b7 <mcsos_sched_tick+0x67>
+ 7bf:	c3                   	ret
+ 7f5:	eb 34                	jmp    82b <mcsos_thread_block_current+0x6b>
+ 80f:	eb 1a                	jmp    82b <mcsos_thread_block_current+0x6b>
+ 833:	c3                   	ret
+ 865:	eb 23                	jmp    88a <mcsos_thread_mark_ready+0x4a>
+ 878:	eb 10                	jmp    88a <mcsos_thread_mark_ready+0x4a>
+ 892:	c3                   	ret
+ 8c5:	eb 40                	jmp    907 <mcsos_sched_ready_count+0x67>
+ 8fd:	eb dc                	jmp    8db <mcsos_sched_ready_count+0x3b>
+ 910:	c3                   	ret
+ 955:	e9 dc 00 00 00       	jmp    a36 <mcsos_sched_validate+0x116>
+ 9a0:	e9 91 00 00 00       	jmp    a36 <mcsos_sched_validate+0x116>
+ 9b9:	eb 7b                	jmp    a36 <mcsos_sched_validate+0x116>
+ 9fa:	eb 3a                	jmp    a36 <mcsos_sched_validate+0x116>
+ 9fc:	e9 75 ff ff ff       	jmp    976 <mcsos_sched_validate+0x56>
+ a16:	eb 1e                	jmp    a36 <mcsos_sched_validate+0x116>
+ a2d:	eb 07                	jmp    a36 <mcsos_sched_validate+0x116>
+ a3e:	c3                   	ret
+0000000000000a40 <mcsos_context_switch>:
+ a40:	48 8d 05 3d 00 00 00 	lea    0x3d(%rip),%rax        # a84 <mcsos_context_switch+0x44>
+ a81:	ff 66 38             	jmp    *0x38(%rsi)
+ a84:	c3                   	ret

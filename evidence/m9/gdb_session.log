@@ -1,0 +1,29 @@
+Remote debugging using localhost:1234
+0x000000000000fff0 in ?? ()
+Breakpoint 1 at 0xffffffff8000420c
+Breakpoint 2 at 0xffffffff80001ee0
+Continuing.
+
+Breakpoint 2, 0xffffffff80001ee0 in mcsos_sched_yield ()
+Continuing.
+
+Breakpoint 1, 0xffffffff8000420c in mcsos_context_switch ()
+rsp            0xffff80000ff9cf88  0xffff80000ff9cf88
+rbp            0xffff80000ff9cfc0  0xffff80000ff9cfc0
+rip            0xffffffff8000420c  0xffffffff8000420c <mcsos_context_switch>
+rdi            0xffffffff80219068  -2145283992
+rsi            0xffffffff80219108  -2145283832
+rbx            0x0                 0
+r12            0x0                 0
+r13            0x0                 0
+r14            0x0                 0
+r15            0x0                 0
+0xffffffff80219108 <g_thread_a+32>:	0xffffffff8021b188	0x0000000000000000
+0xffffffff80219118 <g_thread_a+48>:	0x0000000000000000	0x0000000000000000
+
+Breakpoint 1, 0xffffffff8000420c in mcsos_context_switch ()
+rsp            0xffff80000ff9cf88  0xffff80000ff9cf88
+rip            0xffffffff8000420c  0xffffffff8000420c <mcsos_context_switch>
+0xffffffff8000422e in mcsos_context_switch ()
+rip            0xffffffff8000422e  0xffffffff8000422e <mcsos_context_switch+34>
+rsp            0xffff80000ff9cf88  0xffff80000ff9cf88

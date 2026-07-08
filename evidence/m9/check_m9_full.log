@@ -1,0 +1,16 @@
+mkdir -p build
+clang --target=x86_64-unknown-none-elf -std=c17 -ffreestanding -fno-builtin -fno-stack-protector -fno-stack-check -fno-pic -fno-pie -fno-lto -m64 -march=x86-64 -mabi=sysv -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mcmodel=kernel -Wall -Wextra -Werror -Ikernel/arch/x86_64/include -Ikernel/include -Iinclude -c kernel/core/sched.c -o build/sched.o
+mkdir -p build
+clang --target=x86_64-unknown-none-elf -m64 -march=x86-64 -fno-pic -fno-pie -mcmodel=kernel -c kernel/arch/x86_64/src/context_switch.S -o build/context_switch.o
+ld.lld -r -o build/sched_combined.o build/sched.o build/context_switch.o
+mkdir -p build
+clang -std=c17 -Wall -Wextra -Werror -Ikernel/include -DMCSOS_HOST_TEST \
+  kernel/core/sched.c kernel/tests/test_sched_host.c -o build/test_sched_host
+./build/test_sched_host | tee build/test_sched.log
+M9 scheduler host unit test PASS
+grep -q 'PASS' build/test_sched.log
+nm -u build/sched_combined.o | tee build/sched.undefined.txt
+test ! -s build/sched.undefined.txt
+objdump -dr build/sched_combined.o > build/sched.objdump.txt
+grep -q 'mcsos_context_switch' build/sched.objdump.txt
+[PASS] M9 static check selesai
