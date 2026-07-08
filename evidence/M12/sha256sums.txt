@@ -1,0 +1,4 @@
+33ec8f024ce9cdcc3de3c7b77f009ee1c27c1ffc1286fbe77e8b6e53cea1ae0d  build/m12/lockdep.o
+e31f45d64eda89034651cb6b421cebf35d5b88b83af9fa49777b2cb036bb3415  build/m12/spinlock.o
+384e6e12412a02a95dc2606064c894adb8a52267f3ef7a3a66bf6d4afff3f4b3  build/m12/mutex.o
+fb42f00b52cd116769d9049cf0d2f48f2b0c2f9cf283cb439b90a2597766a3f6  build/m12/m12_sync_host_test

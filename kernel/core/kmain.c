@@ -14,6 +14,9 @@
 #include <mcsos/syscall.h>
 #include <mcsos/user/m11_elf_loader.h>
 #include <mcsos/lib/string.h>
+#include "mcs_sync.h"
+
+void m12_sync_selftest(void);
 
 extern char __kernel_start[];
 extern char __kernel_end[];
@@ -396,6 +399,7 @@ void kmain(void) {
     m10_syscall_bootstrap();
     m10_syscall_smoke_test();
     m11_elf_loader_bootstrap();
+    m12_sync_selftest();
     m9_scheduler_bootstrap();
 
     for (;;) {

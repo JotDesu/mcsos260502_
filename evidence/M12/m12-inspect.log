@@ -1,0 +1,16 @@
+readelf -h build/kernel.elf > build/kernel.readelf.header.txt
+readelf -l build/kernel.elf > build/kernel.readelf.programs.txt
+nm -n build/kernel.elf > build/kernel.syms.txt
+objdump -d -Mintel build/kernel.elf > build/kernel.disasm.txt
+grep -q 'ELF64' build/kernel.readelf.header.txt
+grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' build/kernel.readelf.header.txt
+grep -q 'kmain' build/kernel.syms.txt
+grep -q 'kernel_panic_at' build/kernel.syms.txt
+grep -q 'cpu_halt_forever' build/kernel.disasm.txt
+grep -q 'idt_init' build/kernel.syms.txt
+grep -q 'pic_remap' build/kernel.syms.txt
+grep -q 'pit_configure_hz' build/kernel.syms.txt
+grep -q 'isr_stub_32' build/kernel.syms.txt
+grep -q 'timer_on_irq0' build/kernel.syms.txt
+grep -q 'pmm_init_from_map' build/kernel.syms.txt
+grep -q 'pmm_alloc_frame' build/kernel.syms.txt

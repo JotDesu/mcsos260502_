@@ -1,0 +1,47 @@
+mkdir -p iso_root/boot/limine iso_root/EFI/BOOT
+cp -v build/kernel.elf iso_root/boot/kernel.elf
+'build/kernel.elf' -> 'iso_root/boot/kernel.elf'
+cp -v configs/limine/limine.conf iso_root/boot/limine/
+'configs/limine/limine.conf' -> 'iso_root/boot/limine/limine.conf'
+cp -v third_party/limine/limine-bios.sys iso_root/boot/limine/
+'third_party/limine/limine-bios.sys' -> 'iso_root/boot/limine/limine-bios.sys'
+cp -v third_party/limine/limine-bios-cd.bin iso_root/boot/limine/
+'third_party/limine/limine-bios-cd.bin' -> 'iso_root/boot/limine/limine-bios-cd.bin'
+cp -v third_party/limine/limine-uefi-cd.bin iso_root/boot/limine/
+'third_party/limine/limine-uefi-cd.bin' -> 'iso_root/boot/limine/limine-uefi-cd.bin'
+cp -v third_party/limine/BOOTX64.EFI iso_root/EFI/BOOT/
+'third_party/limine/BOOTX64.EFI' -> 'iso_root/EFI/BOOT/BOOTX64.EFI'
+xorriso -as mkisofs -R -r -J -b boot/limine/limine-bios-cd.bin \
+  -no-emul-boot -boot-load-size 4 -boot-info-table \
+  --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part \
+  --efi-boot-image --protective-msdos-label iso_root -o build/mcsos.iso
+xorriso 1.5.6 : RockRidge filesystem manipulator, libburnia project.
+
+Drive current: -outdev 'stdio:build/mcsos.iso'
+Media current: stdio file, overwriteable
+Media status : is blank
+Media summary: 0 sessions, 0 data blocks, 0 data,  952g free
+Added to ISO image: directory '/'='/home/andianaaji/src/mcsos/iso_root'
+xorriso : UPDATE :      11 files added in 1 seconds
+xorriso : UPDATE :      11 files added in 1 seconds
+ISO image produced: 3230 sectors
+Written to medium : 3230 sectors at LBA 0
+Writing to 'stdio:build/mcsos.iso' completed successfully.
+
+third_party/limine/limine bios-install build/mcsos.iso
+Physical block size of 512 bytes.
+Installing to GPT. Logical block size of 512 bytes.
+Secondary header at LBA 0x3277.
+Secondary header valid.
+Detected ISOHYBRID with a GUID partition table (GPT).
+Converting to MBR for improved compatibility...
+Conversion successful.
+No active partition found, some systems may not boot.
+Setting partition 1 as active to work around the issue...
+Installing to MBR.
+Stage 2 to be located at byte offset 0x200.
+Reminder: Remember to copy the limine-bios.sys file in either
+          the root, /boot, /limine, or /boot/limine directories of
+          one of the partitions on the device, or boot will fail!
+Limine BIOS stages installed successfully.
+sha256sum build/mcsos.iso > build/mcsos.iso.sha256
