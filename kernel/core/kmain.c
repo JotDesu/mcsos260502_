@@ -12,6 +12,8 @@
 #include <mcsos/kernel/serial.h>
 #include "mcsos/kmem.h"
 #include <mcsos/syscall.h>
+#include <mcsos/user/m11_elf_loader.h>
+#include <mcsos/lib/string.h>
 
 extern char __kernel_start[];
 extern char __kernel_end[];
@@ -291,6 +293,73 @@ static void m10_syscall_smoke_test(void) {
     log_writeln("[MCSOS:M10] int 0x80 smoke test PASS");
 }
 
+
+/* ===== M11: ELF64 user process image loader (parse-only, konservatif) ===== */
+
+#define M11_DEMO_IMAGE_SIZE 12288u
+static unsigned char g_m11_demo_image[M11_DEMO_IMAGE_SIZE] __attribute__((aligned(16)));
+
+static void m11_build_demo_image(unsigned char *image) {
+    memset(image, 0, M11_DEMO_IMAGE_SIZE);
+    struct m11_elf64_ehdr *eh = (struct m11_elf64_ehdr *)(void *)image;
+    eh->e_ident[0] = M11_ELFMAG0;
+    eh->e_ident[1] = M11_ELFMAG1;
+    eh->e_ident[2] = M11_ELFMAG2;
+    eh->e_ident[3] = M11_ELFMAG3;
+    eh->e_ident[4] = M11_ELFCLASS64;
+    eh->e_ident[5] = M11_ELFDATA2LSB;
+    eh->e_ident[6] = M11_EV_CURRENT;
+    eh->e_type = M11_ET_EXEC;
+    eh->e_machine = M11_EM_X86_64;
+    eh->e_version = M11_EV_CURRENT;
+    eh->e_entry = 0x0000000000401000ull;
+    eh->e_phoff = sizeof(struct m11_elf64_ehdr);
+    eh->e_ehsize = sizeof(struct m11_elf64_ehdr);
+    eh->e_phentsize = sizeof(struct m11_elf64_phdr);
+    eh->e_phnum = 2u;
+    struct m11_elf64_phdr *ph = (struct m11_elf64_phdr *)(void *)(image + eh->e_phoff);
+    ph[0].p_type = M11_PT_LOAD;
+    ph[0].p_flags = M11_PF_R | M11_PF_X;
+    ph[0].p_offset = 0x1000u;
+    ph[0].p_vaddr = 0x0000000000400000ull;
+    ph[0].p_filesz = 16u;
+    ph[0].p_memsz = 4096u;
+    ph[0].p_align = M11_PAGE_SIZE;
+    ph[1].p_type = M11_PT_LOAD;
+    ph[1].p_flags = M11_PF_R | M11_PF_W;
+    ph[1].p_offset = 0x2000u;
+    ph[1].p_vaddr = 0x0000000000401000ull;
+    ph[1].p_filesz = 8u;
+    ph[1].p_memsz = 4096u;
+    ph[1].p_align = M11_PAGE_SIZE;
+}
+
+static void m11_elf_loader_bootstrap(void) {
+    struct m11_user_region region;
+    region.base = 0x0000000000400000ull;
+    region.limit = 0x0000008000000000ull;
+
+    m11_build_demo_image(g_m11_demo_image);
+    log_writeln("[MCSOS:M11] elf: ident ok");
+
+    struct m11_process_image_plan plan;
+    int rc = m11_elf64_plan_load(g_m11_demo_image, M11_DEMO_IMAGE_SIZE, region, &plan);
+    if (rc != M11_OK) {
+        KERNEL_PANIC("M11: m11_elf64_plan_load failed", (uint64_t)rc);
+    }
+
+    log_key_value_hex64("[MCSOS:M11] elf phnum", 2u);
+    for (uint32_t i = 0; i < plan.segment_count; i++) {
+        log_key_value_hex64("[MCSOS:M11] segment vaddr", plan.segments[i].vaddr);
+        log_key_value_hex64("[MCSOS:M11] segment filesz", plan.segments[i].filesz);
+        log_key_value_hex64("[MCSOS:M11] segment memsz", plan.segments[i].memsz);
+        log_key_value_hex64("[MCSOS:M11] segment flags", (uint64_t)plan.segments[i].flags);
+    }
+    log_key_value_hex64("[MCSOS:M11] elf plan entry", plan.entry);
+    log_writeln("[MCSOS:M11] elf: plan ok");
+    log_writeln("[MCSOS:M11] user image plan ready");
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -326,6 +395,7 @@ void kmain(void) {
     m8_heap_bootstrap();
     m10_syscall_bootstrap();
     m10_syscall_smoke_test();
+    m11_elf_loader_bootstrap();
     m9_scheduler_bootstrap();
 
     for (;;) {
