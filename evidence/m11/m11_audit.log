@@ -1,0 +1,7 @@
+nm -u build/m11_elf_loader.o > build/m11_nm_undefined.txt
+test ! -s build/m11_nm_undefined.txt
+readelf -h build/m11_elf_loader.o > build/m11_readelf_header.txt
+objdump -dr build/m11_elf_loader.o > build/m11_objdump.txt
+sha256sum build/m11_elf_loader.o kernel/user/m11_elf_loader.c include/mcsos/user/m11_elf_loader.h tests/m11/m11_host_test.c > build/m11_sha256.txt
+grep -q 'ELF64' build/m11_readelf_header.txt
+grep -q 'm11_elf64_plan_load' build/m11_objdump.txt
