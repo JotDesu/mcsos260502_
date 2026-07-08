@@ -1,0 +1,26 @@
+mkdir -p build/normal/kernel/user/
+clang --target=x86_64-unknown-none-elf -std=c17 -ffreestanding -fno-builtin -fno-stack-protector -fno-stack-check -fno-pic -fno-pie -fno-lto -m64 -march=x86-64 -mabi=sysv -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mcmodel=kernel -Wall -Wextra -Werror -Ikernel/arch/x86_64/include -Ikernel/include -Iinclude -c kernel/user/m11_elf_loader.c -o build/normal/kernel/user/m11_elf_loader.o
+mkdir -p build/normal/kernel/arch/x86_64/src/
+clang --target=x86_64-unknown-none-elf -m64 -march=x86-64 -fno-pic -fno-pie -mcmodel=kernel -c kernel/arch/x86_64/src/context_switch.S -o build/normal/kernel/arch/x86_64/src/context_switch.o
+mkdir -p build/normal/kernel/arch/x86_64/src/
+clang --target=x86_64-unknown-none-elf -m64 -march=x86-64 -fno-pic -fno-pie -mcmodel=kernel -c kernel/arch/x86_64/src/interrupts.S -o build/normal/kernel/arch/x86_64/src/interrupts.o
+mkdir -p build/normal/kernel/arch/x86_64/src/
+clang --target=x86_64-unknown-none-elf -m64 -march=x86-64 -fno-pic -fno-pie -mcmodel=kernel -c kernel/arch/x86_64/src/syscall_entry.S -o build/normal/kernel/arch/x86_64/src/syscall_entry.o
+mkdir -p build
+ld.lld -nostdlib -static -z max-page-size=0x1000 -T linker.ld -Map=build/kernel.map -o build/kernel.elf  build/normal/kernel/arch/x86_64/src/idt.o  build/normal/kernel/arch/x86_64/src/pic.o  build/normal/kernel/arch/x86_64/src/pit.o  build/normal/kernel/core/kmain.o  build/normal/kernel/core/log.o  build/normal/kernel/core/panic.o  build/normal/kernel/core/pmm.o  build/normal/kernel/core/sched.o  build/normal/kernel/core/serial.o  build/normal/kernel/core/vmm.o  build/normal/kernel/lib/memory.o  build/normal/kernel/mm/kmem.o  build/normal/kernel/syscall/syscall.o  build/normal/kernel/user/m11_elf_loader.o  build/normal/kernel/arch/x86_64/src/context_switch.o  build/normal/kernel/arch/x86_64/src/interrupts.o  build/normal/kernel/arch/x86_64/src/syscall_entry.o
+readelf -h build/kernel.elf > build/kernel.readelf.header.txt
+readelf -l build/kernel.elf > build/kernel.readelf.programs.txt
+nm -n build/kernel.elf > build/kernel.syms.txt
+objdump -d -Mintel build/kernel.elf > build/kernel.disasm.txt
+grep -q 'ELF64' build/kernel.readelf.header.txt
+grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' build/kernel.readelf.header.txt
+grep -q 'kmain' build/kernel.syms.txt
+grep -q 'kernel_panic_at' build/kernel.syms.txt
+grep -q 'cpu_halt_forever' build/kernel.disasm.txt
+grep -q 'idt_init' build/kernel.syms.txt
+grep -q 'pic_remap' build/kernel.syms.txt
+grep -q 'pit_configure_hz' build/kernel.syms.txt
+grep -q 'isr_stub_32' build/kernel.syms.txt
+grep -q 'timer_on_irq0' build/kernel.syms.txt
+grep -q 'pmm_init_from_map' build/kernel.syms.txt
+grep -q 'pmm_alloc_frame' build/kernel.syms.txt
