@@ -172,3 +172,33 @@ $(BUILD_DIR)/test_sched_host: kernel/core/sched.c kernel/tests/test_sched_host.c
 >mkdir -p $(BUILD_DIR)
 >$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ikernel/include -DMCSOS_HOST_TEST \
 >  kernel/core/sched.c kernel/tests/test_sched_host.c -o $(BUILD_DIR)/test_sched_host
+
+.PHONY: check-m10
+
+check-m10: $(BUILD_DIR)/syscall_combined.o $(BUILD_DIR)/test_syscall_host
+>./$(BUILD_DIR)/test_syscall_host | tee $(BUILD_DIR)/test_syscall.log
+>grep -q 'M10 syscall host tests passed' $(BUILD_DIR)/test_syscall.log
+>$(NM) -u $(BUILD_DIR)/syscall_combined.o | tee $(BUILD_DIR)/syscall.undefined.txt
+>test ! -s $(BUILD_DIR)/syscall.undefined.txt
+>$(READELF) -h $(BUILD_DIR)/syscall_combined.o > $(BUILD_DIR)/syscall.readelf.header.txt
+>grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' $(BUILD_DIR)/syscall.readelf.header.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/syscall_combined.o > $(BUILD_DIR)/syscall.objdump.txt
+>grep -q 'x86_64_syscall_int80_stub' $(BUILD_DIR)/syscall.objdump.txt
+>grep -q 'iretq' $(BUILD_DIR)/syscall.objdump.txt
+>@echo "[PASS] M10 static check selesai"
+
+$(BUILD_DIR)/syscall.o: kernel/syscall/syscall.c include/mcsos/syscall.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/syscall/syscall.c -o $(BUILD_DIR)/syscall.o
+
+$(BUILD_DIR)/syscall_entry.o: kernel/arch/x86_64/src/syscall_entry.S
+>mkdir -p $(BUILD_DIR)
+>$(AS) $(ASFLAGS) -c kernel/arch/x86_64/src/syscall_entry.S -o $(BUILD_DIR)/syscall_entry.o
+
+$(BUILD_DIR)/syscall_combined.o: $(BUILD_DIR)/syscall.o $(BUILD_DIR)/syscall_entry.o
+>$(LD) -r -o $(BUILD_DIR)/syscall_combined.o $(BUILD_DIR)/syscall.o $(BUILD_DIR)/syscall_entry.o
+
+$(BUILD_DIR)/test_syscall_host: kernel/syscall/syscall.c tests/test_syscall_host.c include/mcsos/syscall.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
+>  kernel/syscall/syscall.c tests/test_syscall_host.c -o $(BUILD_DIR)/test_syscall_host
