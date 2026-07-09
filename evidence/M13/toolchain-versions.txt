@@ -1,0 +1,12 @@
+=== toolchain versions (M13) ===
+GNU bash, version 5.3.9(1)-release (x86_64-pc-linux-gnu)
+Ubuntu clang version 21.1.8 (6ubuntu1)
+Ubuntu LLD 21.1.8 (compatible with GNU linkers)
+GNU readelf (GNU Binutils for Ubuntu) 2.46
+GNU objdump (GNU Binutils for Ubuntu) 2.46
+GNU nm (GNU Binutils for Ubuntu) 2.46
+GNU Make 4.4.1
+sha256sum (uutils coreutils) 0.8.0
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3)
+=== git commit at time of evidence ===
+3727d4c M12: implementasi spinlock, mutex, dan lockdep validator dengan self-test terintegrasi

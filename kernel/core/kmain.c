@@ -15,6 +15,7 @@
 #include <mcsos/user/m11_elf_loader.h>
 #include <mcsos/lib/string.h>
 #include "mcs_sync.h"
+#include "mcs_vfs.h"
 
 void m12_sync_selftest(void);
 
@@ -363,6 +364,65 @@ static void m11_elf_loader_bootstrap(void) {
     log_writeln("[MCSOS:M11] user image plan ready");
 }
 
+
+/* ===== M13: VFS minimal, FD table, RAMFS self-test ===== */
+
+static mcs_ramfs_t g_m13_ramfs;
+static mcs_process_t g_m13_test_process;
+
+static void m13_vfs_selftest(void) {
+    int fd;
+    mcs_ssize_t n;
+    char buf[32];
+
+    mcs_ramfs_init(&g_m13_ramfs);
+    if (mcs_ramfs_seed_file(&g_m13_ramfs, "/m13-demo.txt",
+                             (const uint8_t *)"mcsos-m13-ramfs-ok", 18) != MCS_OK) {
+        KERNEL_PANIC("M13: ramfs seed failed", 0);
+    }
+
+    g_m13_test_process.pid = 1;
+    mcs_fd_table_init(&g_m13_test_process.fd_table);
+
+    fd = mcs_sys_open(&g_m13_test_process, &g_m13_ramfs, "/m13-demo.txt", MCS_O_RDONLY);
+    if (fd < 0) {
+        KERNEL_PANIC("M13: sys_open demo failed", (uint64_t)(int64_t)fd);
+    }
+
+    memset(buf, 0, sizeof(buf));
+    n = mcs_sys_read(&g_m13_test_process, fd, buf, 18);
+    if (n != 18) {
+        KERNEL_PANIC("M13: sys_read demo failed", (uint64_t)(int64_t)n);
+    }
+
+    if (mcs_sys_lseek(&g_m13_test_process, fd, 0, MCS_SEEK_SET) != 0) {
+        KERNEL_PANIC("M13: sys_lseek demo failed", 0);
+    }
+
+    if (mcs_sys_close(&g_m13_test_process, fd) != MCS_OK) {
+        KERNEL_PANIC("M13: sys_close demo failed", 0);
+    }
+
+    if (mcs_sys_read(&g_m13_test_process, fd, buf, 1) != MCS_EBADF) {
+        KERNEL_PANIC("M13: EBADF check failed after close", 0);
+    }
+
+    fd = mcs_sys_open(&g_m13_test_process, &g_m13_ramfs, "/m13-log.txt",
+                       MCS_O_CREAT | MCS_O_RDWR | MCS_O_TRUNC);
+    if (fd < 0) {
+        KERNEL_PANIC("M13: sys_open create failed", (uint64_t)(int64_t)fd);
+    }
+    n = mcs_sys_write(&g_m13_test_process, fd, "kernel-write-ok", 15);
+    if (n != 15) {
+        KERNEL_PANIC("M13: sys_write demo failed", (uint64_t)(int64_t)n);
+    }
+    if (mcs_sys_close(&g_m13_test_process, fd) != MCS_OK) {
+        KERNEL_PANIC("M13: sys_close after write failed", 0);
+    }
+
+    log_writeln("[MCSOS:M13] vfs/fd/ramfs self-test PASS");
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -400,6 +460,7 @@ void kmain(void) {
     m10_syscall_smoke_test();
     m11_elf_loader_bootstrap();
     m12_sync_selftest();
+    m13_vfs_selftest();
     m9_scheduler_bootstrap();
 
     for (;;) {

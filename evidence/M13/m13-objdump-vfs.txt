@@ -1,0 +1,1539 @@
+
+build/m13/vfs.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <mcs_ramfs_init>:
+       0:	48 85 ff             	test   %rdi,%rdi
+       3:	0f 84 c5 00 00 00    	je     ce <mcs_ramfs_init+0xce>
+       9:	b8 88 00 00 00       	mov    $0x88,%eax
+       e:	0f 28 05 00 00 00 00 	movaps 0x0(%rip),%xmm0        # 15 <mcs_ramfs_init+0x15>
+			11: R_X86_64_PC32	.LCPI0_0-0x4
+      15:	0f 57 c9             	xorps  %xmm1,%xmm1
+      18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+      1f:	00 
+      20:	0f 11 84 07 78 ff ff 	movups %xmm0,-0x88(%rdi,%rax,1)
+      27:	ff 
+      28:	c6 44 07 88 00       	movb   $0x0,-0x78(%rdi,%rax,1)
+      2d:	0f 11 4c 07 a8       	movups %xmm1,-0x58(%rdi,%rax,1)
+      32:	48 c7 44 07 b8 00 00 	movq   $0x0,-0x48(%rdi,%rax,1)
+      39:	00 00 
+      3b:	0f 11 44 07 c0       	movups %xmm0,-0x40(%rdi,%rax,1)
+      40:	c6 44 07 d0 00       	movb   $0x0,-0x30(%rdi,%rax,1)
+      45:	0f 11 4c 07 f0       	movups %xmm1,-0x10(%rdi,%rax,1)
+      4a:	48 c7 04 07 00 00 00 	movq   $0x0,(%rdi,%rax,1)
+      51:	00 
+      52:	48 05 90 00 00 00    	add    $0x90,%rax
+      58:	48 3d 88 12 00 00    	cmp    $0x1288,%rax
+      5e:	75 c0                	jne    20 <mcs_ramfs_init+0x20>
+      60:	b8 78 12 00 00       	mov    $0x1278,%eax
+      65:	0f 57 c0             	xorps  %xmm0,%xmm0
+      68:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+      6f:	00 
+      70:	0f 11 44 07 90       	movups %xmm0,-0x70(%rdi,%rax,1)
+      75:	0f 11 44 07 a0       	movups %xmm0,-0x60(%rdi,%rax,1)
+      7a:	0f 11 44 07 b0       	movups %xmm0,-0x50(%rdi,%rax,1)
+      7f:	0f 11 44 07 c0       	movups %xmm0,-0x40(%rdi,%rax,1)
+      84:	0f 11 44 07 d0       	movups %xmm0,-0x30(%rdi,%rax,1)
+      89:	0f 11 44 07 e0       	movups %xmm0,-0x20(%rdi,%rax,1)
+      8e:	0f 11 44 07 f0       	movups %xmm0,-0x10(%rdi,%rax,1)
+      93:	0f 11 04 07          	movups %xmm0,(%rdi,%rax,1)
+      97:	48 83 e8 80          	sub    $0xffffffffffffff80,%rax
+      9b:	48 3d 78 32 00 00    	cmp    $0x3278,%rax
+      a1:	75 cd                	jne    70 <mcs_ramfs_init+0x70>
+      a3:	55                   	push   %rbp
+      a4:	48 89 e5             	mov    %rsp,%rbp
+      a7:	48 c7 87 00 12 00 00 	movq   $0x1,0x1200(%rdi)
+      ae:	01 00 00 00 
+      b2:	48 c7 87 08 32 00 00 	movq   $0x0,0x3208(%rdi)
+      b9:	00 00 00 00 
+      bd:	0f 28 05 00 00 00 00 	movaps 0x0(%rip),%xmm0        # c4 <mcs_ramfs_init+0xc4>
+			c0: R_X86_64_PC32	.LCPI0_1-0x4
+      c4:	0f 11 07             	movups %xmm0,(%rdi)
+      c7:	66 c7 47 10 2f 00    	movw   $0x2f,0x10(%rdi)
+      cd:	5d                   	pop    %rbp
+      ce:	c3                   	ret
+      cf:	90                   	nop
+
+00000000000000d0 <mcs_ramfs_lookup>:
+      d0:	48 85 ff             	test   %rdi,%rdi
+      d3:	0f 94 c0             	sete   %al
+      d6:	48 85 f6             	test   %rsi,%rsi
+      d9:	0f 94 c1             	sete   %cl
+      dc:	08 c1                	or     %al,%cl
+      de:	48 85 d2             	test   %rdx,%rdx
+      e1:	0f 94 c0             	sete   %al
+      e4:	08 c8                	or     %cl,%al
+      e6:	0f 85 4d 01 00 00    	jne    239 <mcs_ramfs_lookup+0x169>
+      ec:	80 3e 2f             	cmpb   $0x2f,(%rsi)
+      ef:	0f 85 44 01 00 00    	jne    239 <mcs_ramfs_lookup+0x169>
+      f5:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+      fc:	0f 1f 40 00          	nopl   0x0(%rax)
+     100:	80 7c 0e 01 00       	cmpb   $0x0,0x1(%rsi,%rcx,1)
+     105:	48 8d 49 01          	lea    0x1(%rcx),%rcx
+     109:	75 f5                	jne    100 <mcs_ramfs_lookup+0x30>
+     10b:	b8 dc ff ff ff       	mov    $0xffffffdc,%eax
+     110:	48 83 f9 7f          	cmp    $0x7f,%rcx
+     114:	0f 87 24 01 00 00    	ja     23e <mcs_ramfs_lookup+0x16e>
+     11a:	55                   	push   %rbp
+     11b:	48 89 e5             	mov    %rsp,%rbp
+     11e:	41 57                	push   %r15
+     120:	41 56                	push   %r14
+     122:	41 55                	push   %r13
+     124:	41 54                	push   %r12
+     126:	53                   	push   %rbx
+     127:	48 83 ec 18          	sub    $0x18,%rsp
+     12b:	44 0f b6 46 01       	movzbl 0x1(%rsi),%r8d
+     130:	45 84 c0             	test   %r8b,%r8b
+     133:	0f 84 0d 01 00 00    	je     246 <mcs_ramfs_lookup+0x176>
+     139:	48 89 55 d0          	mov    %rdx,-0x30(%rbp)
+     13d:	48 ff c6             	inc    %rsi
+     140:	4c 8d 67 10          	lea    0x10(%rdi),%r12
+     144:	49 89 fa             	mov    %rdi,%r10
+     147:	49 89 f1             	mov    %rsi,%r9
+     14a:	4c 89 65 c8          	mov    %r12,-0x38(%rbp)
+     14e:	31 c9                	xor    %ecx,%ecx
+     150:	45 84 c0             	test   %r8b,%r8b
+     153:	74 24                	je     179 <mcs_ramfs_lookup+0xa9>
+     155:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+     15c:	00 00 00 00 
+     160:	41 0f b6 c0          	movzbl %r8b,%eax
+     164:	83 f8 2f             	cmp    $0x2f,%eax
+     167:	74 10                	je     179 <mcs_ramfs_lookup+0xa9>
+     169:	45 0f b6 41 01       	movzbl 0x1(%r9),%r8d
+     16e:	49 ff c1             	inc    %r9
+     171:	48 ff c1             	inc    %rcx
+     174:	45 84 c0             	test   %r8b,%r8b
+     177:	75 e7                	jne    160 <mcs_ramfs_lookup+0x90>
+     179:	4c 89 ca             	mov    %r9,%rdx
+     17c:	48 29 f2             	sub    %rsi,%rdx
+     17f:	0f 84 ad 00 00 00    	je     232 <mcs_ramfs_lookup+0x162>
+     185:	48 83 fa 1f          	cmp    $0x1f,%rdx
+     189:	0f 87 a3 00 00 00    	ja     232 <mcs_ramfs_lookup+0x162>
+     18f:	4c 8b b7 00 12 00 00 	mov    0x1200(%rdi),%r14
+     196:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+     19b:	4d 85 f6             	test   %r14,%r14
+     19e:	0f 84 a7 00 00 00    	je     24b <mcs_ramfs_lookup+0x17b>
+     1a4:	48 89 55 c0          	mov    %rdx,-0x40(%rbp)
+     1a8:	45 8b 7a 04          	mov    0x4(%r10),%r15d
+     1ac:	45 31 ed             	xor    %r13d,%r13d
+     1af:	eb 1b                	jmp    1cc <mcs_ramfs_lookup+0xfc>
+     1b1:	66 66 66 66 66 66 2e 	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+     1b8:	0f 1f 84 00 00 00 00 
+     1bf:	00 
+     1c0:	49 ff c5             	inc    %r13
+     1c3:	49 83 c4 48          	add    $0x48,%r12
+     1c7:	4d 39 f5             	cmp    %r14,%r13
+     1ca:	74 7f                	je     24b <mcs_ramfs_lookup+0x17b>
+     1cc:	4e 8d 14 ed 00 00 00 	lea    0x0(,%r13,8),%r10
+     1d3:	00 
+     1d4:	4d 01 ea             	add    %r13,%r10
+     1d7:	42 83 3c d7 00       	cmpl   $0x0,(%rdi,%r10,8)
+     1dc:	74 e2                	je     1c0 <mcs_ramfs_lookup+0xf0>
+     1de:	4e 8d 14 d7          	lea    (%rdi,%r10,8),%r10
+     1e2:	45 39 7a 08          	cmp    %r15d,0x8(%r10)
+     1e6:	75 d8                	jne    1c0 <mcs_ramfs_lookup+0xf0>
+     1e8:	49 89 cb             	mov    %rcx,%r11
+     1eb:	31 db                	xor    %ebx,%ebx
+     1ed:	0f 1f 00             	nopl   (%rax)
+     1f0:	0f b6 14 1e          	movzbl (%rsi,%rbx,1),%edx
+     1f4:	41 3a 14 1c          	cmp    (%r12,%rbx,1),%dl
+     1f8:	75 c6                	jne    1c0 <mcs_ramfs_lookup+0xf0>
+     1fa:	48 ff c3             	inc    %rbx
+     1fd:	49 ff cb             	dec    %r11
+     200:	75 ee                	jne    1f0 <mcs_ramfs_lookup+0x120>
+     202:	48 8b 55 c0          	mov    -0x40(%rbp),%rdx
+     206:	41 80 7c 12 10 00    	cmpb   $0x0,0x10(%r10,%rdx,1)
+     20c:	75 b2                	jne    1c0 <mcs_ramfs_lookup+0xf0>
+     20e:	45 84 c0             	test   %r8b,%r8b
+     211:	74 2c                	je     23f <mcs_ramfs_lookup+0x16f>
+     213:	41 83 7a 0c 01       	cmpl   $0x1,0xc(%r10)
+     218:	75 40                	jne    25a <mcs_ramfs_lookup+0x18a>
+     21a:	45 0f b6 41 01       	movzbl 0x1(%r9),%r8d
+     21f:	49 ff c1             	inc    %r9
+     222:	4c 89 ce             	mov    %r9,%rsi
+     225:	45 84 c0             	test   %r8b,%r8b
+     228:	4c 8b 65 c8          	mov    -0x38(%rbp),%r12
+     22c:	0f 85 1c ff ff ff    	jne    14e <mcs_ramfs_lookup+0x7e>
+     232:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     237:	eb 12                	jmp    24b <mcs_ramfs_lookup+0x17b>
+     239:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     23e:	c3                   	ret
+     23f:	4c 89 d7             	mov    %r10,%rdi
+     242:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
+     246:	48 89 3a             	mov    %rdi,(%rdx)
+     249:	31 c0                	xor    %eax,%eax
+     24b:	48 83 c4 18          	add    $0x18,%rsp
+     24f:	5b                   	pop    %rbx
+     250:	41 5c                	pop    %r12
+     252:	41 5d                	pop    %r13
+     254:	41 5e                	pop    %r14
+     256:	41 5f                	pop    %r15
+     258:	5d                   	pop    %rbp
+     259:	c3                   	ret
+     25a:	b8 ec ff ff ff       	mov    $0xffffffec,%eax
+     25f:	eb ea                	jmp    24b <mcs_ramfs_lookup+0x17b>
+     261:	66 66 66 66 66 66 2e 	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+     268:	0f 1f 84 00 00 00 00 
+     26f:	00 
+
+0000000000000270 <mcs_ramfs_create_file>:
+     270:	55                   	push   %rbp
+     271:	48 89 e5             	mov    %rsp,%rbp
+     274:	41 57                	push   %r15
+     276:	41 56                	push   %r14
+     278:	41 55                	push   %r13
+     27a:	41 54                	push   %r12
+     27c:	53                   	push   %rbx
+     27d:	48 83 ec 18          	sub    $0x18,%rsp
+     281:	48 85 ff             	test   %rdi,%rdi
+     284:	0f 94 c0             	sete   %al
+     287:	48 85 f6             	test   %rsi,%rsi
+     28a:	0f 94 c1             	sete   %cl
+     28d:	08 c1                	or     %al,%cl
+     28f:	48 85 d2             	test   %rdx,%rdx
+     292:	0f 94 c0             	sete   %al
+     295:	08 c8                	or     %cl,%al
+     297:	0f 85 3a 01 00 00    	jne    3d7 <mcs_ramfs_create_file+0x167>
+     29d:	48 89 f3             	mov    %rsi,%rbx
+     2a0:	48 89 55 c8          	mov    %rdx,-0x38(%rbp)
+     2a4:	48 8d 55 c0          	lea    -0x40(%rbp),%rdx
+     2a8:	49 89 ff             	mov    %rdi,%r15
+     2ab:	e8 00 00 00 00       	call   2b0 <mcs_ramfs_create_file+0x40>
+			2ac: R_X86_64_PLT32	mcs_ramfs_lookup-0x4
+     2b0:	85 c0                	test   %eax,%eax
+     2b2:	0f 84 33 01 00 00    	je     3eb <mcs_ramfs_create_file+0x17b>
+     2b8:	80 3b 2f             	cmpb   $0x2f,(%rbx)
+     2bb:	0f 85 16 01 00 00    	jne    3d7 <mcs_ramfs_create_file+0x167>
+     2c1:	80 7b 01 00          	cmpb   $0x0,0x1(%rbx)
+     2c5:	0f 84 0c 01 00 00    	je     3d7 <mcs_ramfs_create_file+0x167>
+     2cb:	48 8d 4b 01          	lea    0x1(%rbx),%rcx
+     2cf:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+     2d6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+     2dd:	00 00 00 
+     2e0:	80 7c 13 01 00       	cmpb   $0x0,0x1(%rbx,%rdx,1)
+     2e5:	48 8d 52 01          	lea    0x1(%rdx),%rdx
+     2e9:	75 f5                	jne    2e0 <mcs_ramfs_create_file+0x70>
+     2eb:	b8 dc ff ff ff       	mov    $0xffffffdc,%eax
+     2f0:	48 83 fa 7f          	cmp    $0x7f,%rdx
+     2f4:	0f 87 e2 00 00 00    	ja     3dc <mcs_ramfs_create_file+0x16c>
+     2fa:	4c 89 fa             	mov    %r15,%rdx
+     2fd:	4d 8d 67 10          	lea    0x10(%r15),%r12
+     301:	4d 89 fa             	mov    %r15,%r10
+     304:	49 89 cb             	mov    %rcx,%r11
+     307:	4c 89 65 d0          	mov    %r12,-0x30(%rbp)
+     30b:	be 01 00 00 00       	mov    $0x1,%esi
+     310:	45 31 c9             	xor    %r9d,%r9d
+     313:	66 66 66 66 2e 0f 1f 	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+     31a:	84 00 00 00 00 00 
+     320:	41 0f b6 03          	movzbl (%r11),%eax
+     324:	85 c0                	test   %eax,%eax
+     326:	74 10                	je     338 <mcs_ramfs_create_file+0xc8>
+     328:	83 f8 2f             	cmp    $0x2f,%eax
+     32b:	74 0b                	je     338 <mcs_ramfs_create_file+0xc8>
+     32d:	49 ff c3             	inc    %r11
+     330:	48 ff c6             	inc    %rsi
+     333:	49 ff c1             	inc    %r9
+     336:	eb e8                	jmp    320 <mcs_ramfs_create_file+0xb0>
+     338:	4c 89 df             	mov    %r11,%rdi
+     33b:	48 29 cf             	sub    %rcx,%rdi
+     33e:	0f 84 93 00 00 00    	je     3d7 <mcs_ramfs_create_file+0x167>
+     344:	48 83 ff 1f          	cmp    $0x1f,%rdi
+     348:	0f 87 89 00 00 00    	ja     3d7 <mcs_ramfs_create_file+0x167>
+     34e:	84 c0                	test   %al,%al
+     350:	0f 84 b0 00 00 00    	je     406 <mcs_ramfs_create_file+0x196>
+     356:	48 8b b2 00 12 00 00 	mov    0x1200(%rdx),%rsi
+     35d:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+     362:	48 85 f6             	test   %rsi,%rsi
+     365:	74 75                	je     3dc <mcs_ramfs_create_file+0x16c>
+     367:	41 8b 5a 04          	mov    0x4(%r10),%ebx
+     36b:	45 31 ed             	xor    %r13d,%r13d
+     36e:	eb 0c                	jmp    37c <mcs_ramfs_create_file+0x10c>
+     370:	49 ff c5             	inc    %r13
+     373:	49 83 c4 48          	add    $0x48,%r12
+     377:	49 39 f5             	cmp    %rsi,%r13
+     37a:	74 60                	je     3dc <mcs_ramfs_create_file+0x16c>
+     37c:	4e 8d 04 ed 00 00 00 	lea    0x0(,%r13,8),%r8
+     383:	00 
+     384:	4d 01 e8             	add    %r13,%r8
+     387:	42 83 3c c2 00       	cmpl   $0x0,(%rdx,%r8,8)
+     38c:	74 e2                	je     370 <mcs_ramfs_create_file+0x100>
+     38e:	4e 8d 14 c2          	lea    (%rdx,%r8,8),%r10
+     392:	41 39 5a 08          	cmp    %ebx,0x8(%r10)
+     396:	75 d8                	jne    370 <mcs_ramfs_create_file+0x100>
+     398:	45 31 c0             	xor    %r8d,%r8d
+     39b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+     3a0:	46 0f b6 34 01       	movzbl (%rcx,%r8,1),%r14d
+     3a5:	47 3a 34 04          	cmp    (%r12,%r8,1),%r14b
+     3a9:	75 c5                	jne    370 <mcs_ramfs_create_file+0x100>
+     3ab:	49 ff c0             	inc    %r8
+     3ae:	4d 39 c1             	cmp    %r8,%r9
+     3b1:	75 ed                	jne    3a0 <mcs_ramfs_create_file+0x130>
+     3b3:	41 80 7c 3a 10 00    	cmpb   $0x0,0x10(%r10,%rdi,1)
+     3b9:	75 b5                	jne    370 <mcs_ramfs_create_file+0x100>
+     3bb:	49 ff c3             	inc    %r11
+     3be:	41 83 7a 0c 01       	cmpl   $0x1,0xc(%r10)
+     3c3:	b8 ec ff ff ff       	mov    $0xffffffec,%eax
+     3c8:	4c 89 d9             	mov    %r11,%rcx
+     3cb:	4c 8b 65 d0          	mov    -0x30(%rbp),%r12
+     3cf:	0f 84 36 ff ff ff    	je     30b <mcs_ramfs_create_file+0x9b>
+     3d5:	eb 05                	jmp    3dc <mcs_ramfs_create_file+0x16c>
+     3d7:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     3dc:	48 83 c4 18          	add    $0x18,%rsp
+     3e0:	5b                   	pop    %rbx
+     3e1:	41 5c                	pop    %r12
+     3e3:	41 5d                	pop    %r13
+     3e5:	41 5e                	pop    %r14
+     3e7:	41 5f                	pop    %r15
+     3e9:	5d                   	pop    %rbp
+     3ea:	c3                   	ret
+     3eb:	4c 8b 45 c0          	mov    -0x40(%rbp),%r8
+     3ef:	b8 eb ff ff ff       	mov    $0xffffffeb,%eax
+     3f4:	41 83 78 0c 02       	cmpl   $0x2,0xc(%r8)
+     3f9:	75 e1                	jne    3dc <mcs_ramfs_create_file+0x16c>
+     3fb:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     3ff:	4c 89 00             	mov    %r8,(%rax)
+     402:	31 c0                	xor    %eax,%eax
+     404:	eb d6                	jmp    3dc <mcs_ramfs_create_file+0x16c>
+     406:	b8 ec ff ff ff       	mov    $0xffffffec,%eax
+     40b:	41 83 7a 0c 01       	cmpl   $0x1,0xc(%r10)
+     410:	75 ca                	jne    3dc <mcs_ramfs_create_file+0x16c>
+     412:	4c 8b 9a 00 12 00 00 	mov    0x1200(%rdx),%r11
+     419:	b8 e4 ff ff ff       	mov    $0xffffffe4,%eax
+     41e:	49 83 fb 3f          	cmp    $0x3f,%r11
+     422:	77 b8                	ja     3dc <mcs_ramfs_create_file+0x16c>
+     424:	49 c7 c0 ff e0 ff ff 	mov    $0xffffffffffffe0ff,%r8
+     42b:	4c 03 82 08 32 00 00 	add    0x3208(%rdx),%r8
+     432:	49 81 f8 ff df ff ff 	cmp    $0xffffffffffffdfff,%r8
+     439:	72 a1                	jb     3dc <mcs_ramfs_create_file+0x16c>
+     43b:	45 8b 52 04          	mov    0x4(%r10),%r10d
+     43f:	4b 8d 04 db          	lea    (%r11,%r11,8),%rax
+     443:	4c 8d 04 c2          	lea    (%rdx,%rax,8),%r8
+     447:	c7 04 c2 01 00 00 00 	movl   $0x1,(%rdx,%rax,8)
+     44e:	44 89 5c c2 04       	mov    %r11d,0x4(%rdx,%rax,8)
+     453:	44 89 54 c2 08       	mov    %r10d,0x8(%rdx,%rax,8)
+     458:	c7 44 c2 0c 02 00 00 	movl   $0x2,0xc(%rdx,%rax,8)
+     45f:	00 
+     460:	0f 57 c0             	xorps  %xmm0,%xmm0
+     463:	0f 11 44 c2 10       	movups %xmm0,0x10(%rdx,%rax,8)
+     468:	0f 11 44 c2 20       	movups %xmm0,0x20(%rdx,%rax,8)
+     46d:	41 bb 01 00 00 00    	mov    $0x1,%r11d
+     473:	48 83 ff 04          	cmp    $0x4,%rdi
+     477:	72 15                	jb     48e <mcs_ramfs_create_file+0x21e>
+     479:	4c 8d 14 c2          	lea    (%rdx,%rax,8),%r10
+     47d:	49 29 ca             	sub    %rcx,%r10
+     480:	49 83 c2 10          	add    $0x10,%r10
+     484:	49 83 fa 20          	cmp    $0x20,%r10
+     488:	0f 83 c9 00 00 00    	jae    557 <mcs_ramfs_create_file+0x2e7>
+     48e:	45 31 d2             	xor    %r10d,%r10d
+     491:	41 89 f9             	mov    %edi,%r9d
+     494:	45 29 d9             	sub    %r11d,%r9d
+     497:	41 ff c1             	inc    %r9d
+     49a:	4c 29 df             	sub    %r11,%rdi
+     49d:	41 f6 c1 03          	test   $0x3,%r9b
+     4a1:	74 27                	je     4ca <mcs_ramfs_create_file+0x25a>
+     4a3:	41 89 f1             	mov    %esi,%r9d
+     4a6:	45 28 d9             	sub    %r11b,%r9b
+     4a9:	45 0f b6 c9          	movzbl %r9b,%r9d
+     4ad:	41 83 e1 03          	and    $0x3,%r9d
+     4b1:	42 0f b6 1c 11       	movzbl (%rcx,%r10,1),%ebx
+     4b6:	43 88 5c 10 10       	mov    %bl,0x10(%r8,%r10,1)
+     4bb:	4d 89 da             	mov    %r11,%r10
+     4be:	49 ff c3             	inc    %r11
+     4c1:	49 ff c9             	dec    %r9
+     4c4:	75 eb                	jne    4b1 <mcs_ramfs_create_file+0x241>
+     4c6:	4d 8d 53 ff          	lea    -0x1(%r11),%r10
+     4ca:	48 83 ff 03          	cmp    $0x3,%rdi
+     4ce:	72 53                	jb     523 <mcs_ramfs_create_file+0x2b3>
+     4d0:	49 8d 7b 03          	lea    0x3(%r11),%rdi
+     4d4:	4c 29 de             	sub    %r11,%rsi
+     4d7:	49 8d 04 c3          	lea    (%r11,%rax,8),%rax
+     4db:	48 01 d0             	add    %rdx,%rax
+     4de:	48 83 c0 12          	add    $0x12,%rax
+     4e2:	4d 8d 0c 0b          	lea    (%r11,%rcx,1),%r9
+     4e6:	49 83 c1 02          	add    $0x2,%r9
+     4ea:	45 31 db             	xor    %r11d,%r11d
+     4ed:	42 0f b6 1c 11       	movzbl (%rcx,%r10,1),%ebx
+     4f2:	43 88 5c 10 10       	mov    %bl,0x10(%r8,%r10,1)
+     4f7:	47 0f b6 54 19 fe    	movzbl -0x2(%r9,%r11,1),%r10d
+     4fd:	46 88 54 18 fe       	mov    %r10b,-0x2(%rax,%r11,1)
+     502:	47 0f b6 54 19 ff    	movzbl -0x1(%r9,%r11,1),%r10d
+     508:	46 88 54 18 ff       	mov    %r10b,-0x1(%rax,%r11,1)
+     50d:	4e 8d 14 1f          	lea    (%rdi,%r11,1),%r10
+     511:	43 0f b6 1c 19       	movzbl (%r9,%r11,1),%ebx
+     516:	42 88 1c 18          	mov    %bl,(%rax,%r11,1)
+     51a:	49 83 c3 04          	add    $0x4,%r11
+     51e:	4c 39 de             	cmp    %r11,%rsi
+     521:	75 ca                	jne    4ed <mcs_ramfs_create_file+0x27d>
+     523:	49 c7 40 30 00 00 00 	movq   $0x0,0x30(%r8)
+     52a:	00 
+     52b:	48 8b 82 08 32 00 00 	mov    0x3208(%rdx),%rax
+     532:	49 89 40 38          	mov    %rax,0x38(%r8)
+     536:	49 c7 40 40 00 01 00 	movq   $0x100,0x40(%r8)
+     53d:	00 
+     53e:	48 05 00 01 00 00    	add    $0x100,%rax
+     544:	48 89 82 08 32 00 00 	mov    %rax,0x3208(%rdx)
+     54b:	48 ff 82 00 12 00 00 	incq   0x1200(%rdx)
+     552:	e9 a4 fe ff ff       	jmp    3fb <mcs_ramfs_create_file+0x18b>
+     557:	48 83 ff 20          	cmp    $0x20,%rdi
+     55b:	73 30                	jae    58d <mcs_ramfs_create_file+0x31d>
+     55d:	41 89 fa             	mov    %edi,%r10d
+     560:	41 83 e2 1c          	and    $0x1c,%r10d
+     564:	4d 8d 5a 01          	lea    0x1(%r10),%r11
+     568:	41 83 e1 1c          	and    $0x1c,%r9d
+     56c:	31 d2                	xor    %edx,%edx
+     56e:	8b 1c 11             	mov    (%rcx,%rdx,1),%ebx
+     571:	41 89 5c 10 10       	mov    %ebx,0x10(%r8,%rdx,1)
+     576:	48 83 c2 04          	add    $0x4,%rdx
+     57a:	49 39 d1             	cmp    %rdx,%r9
+     57d:	75 ef                	jne    56e <mcs_ramfs_create_file+0x2fe>
+     57f:	4c 39 d7             	cmp    %r10,%rdi
+     582:	4c 89 fa             	mov    %r15,%rdx
+     585:	0f 85 06 ff ff ff    	jne    491 <mcs_ramfs_create_file+0x221>
+     58b:	eb 96                	jmp    523 <mcs_ramfs_create_file+0x2b3>
+     58d:	b8 10 00 00 00       	mov    $0x10,%eax
+     592:	0f 10 44 01 f0       	movups -0x10(%rcx,%rax,1),%xmm0
+     597:	0f 10 0c 01          	movups (%rcx,%rax,1),%xmm1
+     59b:	41 0f 11 04 00       	movups %xmm0,(%r8,%rax,1)
+     5a0:	41 0f 11 4c 00 10    	movups %xmm1,0x10(%r8,%rax,1)
+     5a6:	48 83 c0 20          	add    $0x20,%rax
+     5aa:	eb e6                	jmp    592 <mcs_ramfs_create_file+0x322>
+     5ac:	0f 1f 40 00          	nopl   0x0(%rax)
+
+00000000000005b0 <mcs_ramfs_seed_file>:
+     5b0:	48 85 ff             	test   %rdi,%rdi
+     5b3:	41 0f 94 c0          	sete   %r8b
+     5b7:	48 85 f6             	test   %rsi,%rsi
+     5ba:	41 0f 94 c1          	sete   %r9b
+     5be:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     5c3:	45 08 c1             	or     %r8b,%r9b
+     5c6:	0f 85 17 01 00 00    	jne    6e3 <mcs_ramfs_seed_file+0x133>
+     5cc:	48 85 d2             	test   %rdx,%rdx
+     5cf:	41 0f 94 c0          	sete   %r8b
+     5d3:	48 85 c9             	test   %rcx,%rcx
+     5d6:	41 0f 95 c1          	setne  %r9b
+     5da:	45 84 c8             	test   %r9b,%r8b
+     5dd:	0f 85 00 01 00 00    	jne    6e3 <mcs_ramfs_seed_file+0x133>
+     5e3:	55                   	push   %rbp
+     5e4:	48 89 e5             	mov    %rsp,%rbp
+     5e7:	41 57                	push   %r15
+     5e9:	41 56                	push   %r14
+     5eb:	53                   	push   %rbx
+     5ec:	50                   	push   %rax
+     5ed:	48 8d 45 e0          	lea    -0x20(%rbp),%rax
+     5f1:	48 89 fb             	mov    %rdi,%rbx
+     5f4:	49 89 d6             	mov    %rdx,%r14
+     5f7:	48 89 c2             	mov    %rax,%rdx
+     5fa:	49 89 cf             	mov    %rcx,%r15
+     5fd:	e8 00 00 00 00       	call   602 <mcs_ramfs_seed_file+0x52>
+			5fe: R_X86_64_PLT32	mcs_ramfs_create_file-0x4
+     602:	85 c0                	test   %eax,%eax
+     604:	0f 85 cf 00 00 00    	jne    6d9 <mcs_ramfs_seed_file+0x129>
+     60a:	4c 89 f9             	mov    %r15,%rcx
+     60d:	48 8b 75 e0          	mov    -0x20(%rbp),%rsi
+     611:	b8 e4 ff ff ff       	mov    $0xffffffe4,%eax
+     616:	4c 3b 7e 40          	cmp    0x40(%rsi),%r15
+     61a:	0f 87 b9 00 00 00    	ja     6d9 <mcs_ramfs_seed_file+0x129>
+     620:	48 85 c9             	test   %rcx,%rcx
+     623:	0f 84 aa 00 00 00    	je     6d3 <mcs_ramfs_seed_file+0x123>
+     629:	4c 89 f2             	mov    %r14,%rdx
+     62c:	48 8b 46 38          	mov    0x38(%rsi),%rax
+     630:	48 8d 3c 03          	lea    (%rbx,%rax,1),%rdi
+     634:	48 81 c7 08 12 00 00 	add    $0x1208,%rdi
+     63b:	48 83 f9 04          	cmp    $0x4,%rcx
+     63f:	72 18                	jb     659 <mcs_ramfs_seed_file+0xa9>
+     641:	4c 8d 04 18          	lea    (%rax,%rbx,1),%r8
+     645:	49 29 d0             	sub    %rdx,%r8
+     648:	49 81 c0 08 12 00 00 	add    $0x1208,%r8
+     64f:	49 83 f8 20          	cmp    $0x20,%r8
+     653:	0f 83 8b 00 00 00    	jae    6e4 <mcs_ramfs_seed_file+0x134>
+     659:	45 31 c0             	xor    %r8d,%r8d
+     65c:	49 89 ca             	mov    %rcx,%r10
+     65f:	4d 89 c1             	mov    %r8,%r9
+     662:	49 83 e2 03          	and    $0x3,%r10
+     666:	74 19                	je     681 <mcs_ramfs_seed_file+0xd1>
+     668:	4d 89 c1             	mov    %r8,%r9
+     66b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+     670:	46 0f b6 1c 0a       	movzbl (%rdx,%r9,1),%r11d
+     675:	46 88 1c 0f          	mov    %r11b,(%rdi,%r9,1)
+     679:	49 ff c1             	inc    %r9
+     67c:	49 ff ca             	dec    %r10
+     67f:	75 ef                	jne    670 <mcs_ramfs_seed_file+0xc0>
+     681:	49 29 c8             	sub    %rcx,%r8
+     684:	49 83 f8 fc          	cmp    $0xfffffffffffffffc,%r8
+     688:	77 49                	ja     6d3 <mcs_ramfs_seed_file+0x123>
+     68a:	48 01 d8             	add    %rbx,%rax
+     68d:	48 05 0b 12 00 00    	add    $0x120b,%rax
+     693:	66 66 66 66 2e 0f 1f 	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+     69a:	84 00 00 00 00 00 
+     6a0:	42 0f b6 3c 0a       	movzbl (%rdx,%r9,1),%edi
+     6a5:	42 88 7c 08 fd       	mov    %dil,-0x3(%rax,%r9,1)
+     6aa:	42 0f b6 7c 0a 01    	movzbl 0x1(%rdx,%r9,1),%edi
+     6b0:	42 88 7c 08 fe       	mov    %dil,-0x2(%rax,%r9,1)
+     6b5:	42 0f b6 7c 0a 02    	movzbl 0x2(%rdx,%r9,1),%edi
+     6bb:	42 88 7c 08 ff       	mov    %dil,-0x1(%rax,%r9,1)
+     6c0:	42 0f b6 7c 0a 03    	movzbl 0x3(%rdx,%r9,1),%edi
+     6c6:	42 88 3c 08          	mov    %dil,(%rax,%r9,1)
+     6ca:	49 83 c1 04          	add    $0x4,%r9
+     6ce:	4c 39 c9             	cmp    %r9,%rcx
+     6d1:	75 cd                	jne    6a0 <mcs_ramfs_seed_file+0xf0>
+     6d3:	48 89 4e 30          	mov    %rcx,0x30(%rsi)
+     6d7:	31 c0                	xor    %eax,%eax
+     6d9:	48 83 c4 08          	add    $0x8,%rsp
+     6dd:	5b                   	pop    %rbx
+     6de:	41 5e                	pop    %r14
+     6e0:	41 5f                	pop    %r15
+     6e2:	5d                   	pop    %rbp
+     6e3:	c3                   	ret
+     6e4:	48 83 f9 20          	cmp    $0x20,%rcx
+     6e8:	73 05                	jae    6ef <mcs_ramfs_seed_file+0x13f>
+     6ea:	45 31 c0             	xor    %r8d,%r8d
+     6ed:	eb 42                	jmp    731 <mcs_ramfs_seed_file+0x181>
+     6ef:	49 89 c8             	mov    %rcx,%r8
+     6f2:	49 83 e0 e0          	and    $0xffffffffffffffe0,%r8
+     6f6:	4c 8d 0c 18          	lea    (%rax,%rbx,1),%r9
+     6fa:	49 81 c1 18 12 00 00 	add    $0x1218,%r9
+     701:	45 31 d2             	xor    %r10d,%r10d
+     704:	42 0f 10 04 12       	movups (%rdx,%r10,1),%xmm0
+     709:	42 0f 10 4c 12 10    	movups 0x10(%rdx,%r10,1),%xmm1
+     70f:	43 0f 11 44 11 f0    	movups %xmm0,-0x10(%r9,%r10,1)
+     715:	43 0f 11 0c 11       	movups %xmm1,(%r9,%r10,1)
+     71a:	49 83 c2 20          	add    $0x20,%r10
+     71e:	4d 39 d0             	cmp    %r10,%r8
+     721:	75 e1                	jne    704 <mcs_ramfs_seed_file+0x154>
+     723:	4c 39 c1             	cmp    %r8,%rcx
+     726:	74 ab                	je     6d3 <mcs_ramfs_seed_file+0x123>
+     728:	f6 c1 1c             	test   $0x1c,%cl
+     72b:	0f 84 2b ff ff ff    	je     65c <mcs_ramfs_seed_file+0xac>
+     731:	4d 89 c1             	mov    %r8,%r9
+     734:	49 89 c8             	mov    %rcx,%r8
+     737:	49 83 e0 fc          	and    $0xfffffffffffffffc,%r8
+     73b:	46 8b 14 0a          	mov    (%rdx,%r9,1),%r10d
+     73f:	46 89 14 0f          	mov    %r10d,(%rdi,%r9,1)
+     743:	49 83 c1 04          	add    $0x4,%r9
+     747:	4d 39 c8             	cmp    %r9,%r8
+     74a:	75 ef                	jne    73b <mcs_ramfs_seed_file+0x18b>
+     74c:	4c 39 c1             	cmp    %r8,%rcx
+     74f:	74 82                	je     6d3 <mcs_ramfs_seed_file+0x123>
+     751:	e9 06 ff ff ff       	jmp    65c <mcs_ramfs_seed_file+0xac>
+     756:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+     75d:	00 00 00 
+
+0000000000000760 <mcs_fd_table_init>:
+     760:	55                   	push   %rbp
+     761:	48 89 e5             	mov    %rsp,%rbp
+     764:	48 85 ff             	test   %rdi,%rdi
+     767:	0f 84 d6 00 00 00    	je     843 <mcs_fd_table_init+0xe3>
+     76d:	48 c7 07 00 00 00 00 	movq   $0x0,(%rdi)
+     774:	0f 57 c0             	xorps  %xmm0,%xmm0
+     777:	0f 11 47 08          	movups %xmm0,0x8(%rdi)
+     77b:	0f 11 47 18          	movups %xmm0,0x18(%rdi)
+     77f:	0f 11 47 28          	movups %xmm0,0x28(%rdi)
+     783:	0f 11 47 38          	movups %xmm0,0x38(%rdi)
+     787:	0f 11 47 48          	movups %xmm0,0x48(%rdi)
+     78b:	0f 11 47 58          	movups %xmm0,0x58(%rdi)
+     78f:	0f 11 47 68          	movups %xmm0,0x68(%rdi)
+     793:	0f 11 47 78          	movups %xmm0,0x78(%rdi)
+     797:	0f 11 87 88 00 00 00 	movups %xmm0,0x88(%rdi)
+     79e:	0f 11 87 98 00 00 00 	movups %xmm0,0x98(%rdi)
+     7a5:	0f 11 87 a8 00 00 00 	movups %xmm0,0xa8(%rdi)
+     7ac:	0f 11 87 b8 00 00 00 	movups %xmm0,0xb8(%rdi)
+     7b3:	0f 11 87 c8 00 00 00 	movups %xmm0,0xc8(%rdi)
+     7ba:	0f 11 87 d8 00 00 00 	movups %xmm0,0xd8(%rdi)
+     7c1:	0f 11 87 e8 00 00 00 	movups %xmm0,0xe8(%rdi)
+     7c8:	0f 11 87 f8 00 00 00 	movups %xmm0,0xf8(%rdi)
+     7cf:	0f 11 87 08 01 00 00 	movups %xmm0,0x108(%rdi)
+     7d6:	0f 11 87 18 01 00 00 	movups %xmm0,0x118(%rdi)
+     7dd:	0f 11 87 28 01 00 00 	movups %xmm0,0x128(%rdi)
+     7e4:	0f 11 87 38 01 00 00 	movups %xmm0,0x138(%rdi)
+     7eb:	0f 11 87 48 01 00 00 	movups %xmm0,0x148(%rdi)
+     7f2:	0f 11 87 58 01 00 00 	movups %xmm0,0x158(%rdi)
+     7f9:	0f 11 87 68 01 00 00 	movups %xmm0,0x168(%rdi)
+     800:	0f 11 87 78 01 00 00 	movups %xmm0,0x178(%rdi)
+     807:	0f 11 87 88 01 00 00 	movups %xmm0,0x188(%rdi)
+     80e:	0f 11 87 98 01 00 00 	movups %xmm0,0x198(%rdi)
+     815:	0f 11 87 a8 01 00 00 	movups %xmm0,0x1a8(%rdi)
+     81c:	0f 11 87 b8 01 00 00 	movups %xmm0,0x1b8(%rdi)
+     823:	0f 11 87 c8 01 00 00 	movups %xmm0,0x1c8(%rdi)
+     82a:	0f 11 87 d8 01 00 00 	movups %xmm0,0x1d8(%rdi)
+     831:	0f 11 87 e8 01 00 00 	movups %xmm0,0x1e8(%rdi)
+     838:	48 c7 87 f8 01 00 00 	movq   $0x0,0x1f8(%rdi)
+     83f:	00 00 00 00 
+     843:	5d                   	pop    %rbp
+     844:	c3                   	ret
+     845:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+     84c:	00 00 00 00 
+
+0000000000000850 <mcs_vfs_open>:
+     850:	55                   	push   %rbp
+     851:	48 89 e5             	mov    %rsp,%rbp
+     854:	41 57                	push   %r15
+     856:	41 56                	push   %r14
+     858:	41 55                	push   %r13
+     85a:	41 54                	push   %r12
+     85c:	53                   	push   %rbx
+     85d:	48 83 ec 18          	sub    $0x18,%rsp
+     861:	89 cb                	mov    %ecx,%ebx
+     863:	49 89 f6             	mov    %rsi,%r14
+     866:	48 85 ff             	test   %rdi,%rdi
+     869:	0f 94 c0             	sete   %al
+     86c:	48 85 f6             	test   %rsi,%rsi
+     86f:	0f 94 c1             	sete   %cl
+     872:	08 c1                	or     %al,%cl
+     874:	48 85 d2             	test   %rdx,%rdx
+     877:	40 0f 94 c6          	sete   %sil
+     87b:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     880:	40 08 ce             	or     %cl,%sil
+     883:	0f 85 87 02 00 00    	jne    b10 <mcs_vfs_open+0x2c0>
+     889:	49 89 fd             	mov    %rdi,%r13
+     88c:	45 31 e4             	xor    %r12d,%r12d
+     88f:	f6 c3 07             	test   $0x7,%bl
+     892:	0f 94 45 d7          	sete   -0x29(%rbp)
+     896:	48 8d 45 c8          	lea    -0x38(%rbp),%rax
+     89a:	4c 89 f7             	mov    %r14,%rdi
+     89d:	49 89 d7             	mov    %rdx,%r15
+     8a0:	48 89 d6             	mov    %rdx,%rsi
+     8a3:	48 89 c2             	mov    %rax,%rdx
+     8a6:	e8 00 00 00 00       	call   8ab <mcs_vfs_open+0x5b>
+			8a7: R_X86_64_PLT32	mcs_ramfs_lookup-0x4
+     8ab:	85 c0                	test   %eax,%eax
+     8ad:	74 23                	je     8d2 <mcs_vfs_open+0x82>
+     8af:	f7 c3 00 01 00 00    	test   $0x100,%ebx
+     8b5:	0f 84 55 02 00 00    	je     b10 <mcs_vfs_open+0x2c0>
+     8bb:	48 8d 55 c8          	lea    -0x38(%rbp),%rdx
+     8bf:	4c 89 f7             	mov    %r14,%rdi
+     8c2:	4c 89 fe             	mov    %r15,%rsi
+     8c5:	e8 00 00 00 00       	call   8ca <mcs_vfs_open+0x7a>
+			8c6: R_X86_64_PLT32	mcs_ramfs_create_file-0x4
+     8ca:	85 c0                	test   %eax,%eax
+     8cc:	0f 85 3e 02 00 00    	jne    b10 <mcs_vfs_open+0x2c0>
+     8d2:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+     8d6:	f6 c3 06             	test   $0x6,%bl
+     8d9:	74 0f                	je     8ea <mcs_vfs_open+0x9a>
+     8db:	b8 eb ff ff ff       	mov    $0xffffffeb,%eax
+     8e0:	83 79 0c 01          	cmpl   $0x1,0xc(%rcx)
+     8e4:	0f 84 26 02 00 00    	je     b10 <mcs_vfs_open+0x2c0>
+     8ea:	41 83 7d 00 00       	cmpl   $0x0,0x0(%r13)
+     8ef:	0f 84 df 00 00 00    	je     9d4 <mcs_vfs_open+0x184>
+     8f5:	41 83 7d 20 00       	cmpl   $0x0,0x20(%r13)
+     8fa:	0f 84 de 00 00 00    	je     9de <mcs_vfs_open+0x18e>
+     900:	41 83 7d 40 00       	cmpl   $0x0,0x40(%r13)
+     905:	0f 84 e1 00 00 00    	je     9ec <mcs_vfs_open+0x19c>
+     90b:	41 83 7d 60 00       	cmpl   $0x0,0x60(%r13)
+     910:	0f 84 e4 00 00 00    	je     9fa <mcs_vfs_open+0x1aa>
+     916:	41 83 bd 80 00 00 00 	cmpl   $0x0,0x80(%r13)
+     91d:	00 
+     91e:	0f 84 e4 00 00 00    	je     a08 <mcs_vfs_open+0x1b8>
+     924:	41 83 bd a0 00 00 00 	cmpl   $0x0,0xa0(%r13)
+     92b:	00 
+     92c:	0f 84 e7 00 00 00    	je     a19 <mcs_vfs_open+0x1c9>
+     932:	41 83 bd c0 00 00 00 	cmpl   $0x0,0xc0(%r13)
+     939:	00 
+     93a:	0f 84 e7 00 00 00    	je     a27 <mcs_vfs_open+0x1d7>
+     940:	41 83 bd e0 00 00 00 	cmpl   $0x0,0xe0(%r13)
+     947:	00 
+     948:	0f 84 e7 00 00 00    	je     a35 <mcs_vfs_open+0x1e5>
+     94e:	41 83 bd 00 01 00 00 	cmpl   $0x0,0x100(%r13)
+     955:	00 
+     956:	0f 84 e7 00 00 00    	je     a43 <mcs_vfs_open+0x1f3>
+     95c:	41 83 bd 20 01 00 00 	cmpl   $0x0,0x120(%r13)
+     963:	00 
+     964:	0f 84 e7 00 00 00    	je     a51 <mcs_vfs_open+0x201>
+     96a:	41 83 bd 40 01 00 00 	cmpl   $0x0,0x140(%r13)
+     971:	00 
+     972:	0f 84 e7 00 00 00    	je     a5f <mcs_vfs_open+0x20f>
+     978:	41 83 bd 60 01 00 00 	cmpl   $0x0,0x160(%r13)
+     97f:	00 
+     980:	0f 84 e7 00 00 00    	je     a6d <mcs_vfs_open+0x21d>
+     986:	41 83 bd 80 01 00 00 	cmpl   $0x0,0x180(%r13)
+     98d:	00 
+     98e:	0f 84 e7 00 00 00    	je     a7b <mcs_vfs_open+0x22b>
+     994:	41 83 bd a0 01 00 00 	cmpl   $0x0,0x1a0(%r13)
+     99b:	00 
+     99c:	0f 84 e7 00 00 00    	je     a89 <mcs_vfs_open+0x239>
+     9a2:	41 83 bd c0 01 00 00 	cmpl   $0x0,0x1c0(%r13)
+     9a9:	00 
+     9aa:	0f 84 e7 00 00 00    	je     a97 <mcs_vfs_open+0x247>
+     9b0:	b8 e9 ff ff ff       	mov    $0xffffffe9,%eax
+     9b5:	41 83 bd e0 01 00 00 	cmpl   $0x0,0x1e0(%r13)
+     9bc:	00 
+     9bd:	0f 85 4d 01 00 00    	jne    b10 <mcs_vfs_open+0x2c0>
+     9c3:	49 8d b5 e0 01 00 00 	lea    0x1e0(%r13),%rsi
+     9ca:	b8 0f 00 00 00       	mov    $0xf,%eax
+     9cf:	e9 cf 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     9d4:	31 c0                	xor    %eax,%eax
+     9d6:	4c 89 ee             	mov    %r13,%rsi
+     9d9:	e9 c5 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     9de:	49 8d 75 20          	lea    0x20(%r13),%rsi
+     9e2:	b8 01 00 00 00       	mov    $0x1,%eax
+     9e7:	e9 b7 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     9ec:	49 8d 75 40          	lea    0x40(%r13),%rsi
+     9f0:	b8 02 00 00 00       	mov    $0x2,%eax
+     9f5:	e9 a9 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     9fa:	49 8d 75 60          	lea    0x60(%r13),%rsi
+     9fe:	b8 03 00 00 00       	mov    $0x3,%eax
+     a03:	e9 9b 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     a08:	49 8d b5 80 00 00 00 	lea    0x80(%r13),%rsi
+     a0f:	b8 04 00 00 00       	mov    $0x4,%eax
+     a14:	e9 8a 00 00 00       	jmp    aa3 <mcs_vfs_open+0x253>
+     a19:	49 8d b5 a0 00 00 00 	lea    0xa0(%r13),%rsi
+     a20:	b8 05 00 00 00       	mov    $0x5,%eax
+     a25:	eb 7c                	jmp    aa3 <mcs_vfs_open+0x253>
+     a27:	49 8d b5 c0 00 00 00 	lea    0xc0(%r13),%rsi
+     a2e:	b8 06 00 00 00       	mov    $0x6,%eax
+     a33:	eb 6e                	jmp    aa3 <mcs_vfs_open+0x253>
+     a35:	49 8d b5 e0 00 00 00 	lea    0xe0(%r13),%rsi
+     a3c:	b8 07 00 00 00       	mov    $0x7,%eax
+     a41:	eb 60                	jmp    aa3 <mcs_vfs_open+0x253>
+     a43:	49 8d b5 00 01 00 00 	lea    0x100(%r13),%rsi
+     a4a:	b8 08 00 00 00       	mov    $0x8,%eax
+     a4f:	eb 52                	jmp    aa3 <mcs_vfs_open+0x253>
+     a51:	49 8d b5 20 01 00 00 	lea    0x120(%r13),%rsi
+     a58:	b8 09 00 00 00       	mov    $0x9,%eax
+     a5d:	eb 44                	jmp    aa3 <mcs_vfs_open+0x253>
+     a5f:	49 8d b5 40 01 00 00 	lea    0x140(%r13),%rsi
+     a66:	b8 0a 00 00 00       	mov    $0xa,%eax
+     a6b:	eb 36                	jmp    aa3 <mcs_vfs_open+0x253>
+     a6d:	49 8d b5 60 01 00 00 	lea    0x160(%r13),%rsi
+     a74:	b8 0b 00 00 00       	mov    $0xb,%eax
+     a79:	eb 28                	jmp    aa3 <mcs_vfs_open+0x253>
+     a7b:	49 8d b5 80 01 00 00 	lea    0x180(%r13),%rsi
+     a82:	b8 0c 00 00 00       	mov    $0xc,%eax
+     a87:	eb 1a                	jmp    aa3 <mcs_vfs_open+0x253>
+     a89:	49 8d b5 a0 01 00 00 	lea    0x1a0(%r13),%rsi
+     a90:	b8 0d 00 00 00       	mov    $0xd,%eax
+     a95:	eb 0c                	jmp    aa3 <mcs_vfs_open+0x253>
+     a97:	49 8d b5 c0 01 00 00 	lea    0x1c0(%r13),%rsi
+     a9e:	b8 0e 00 00 00       	mov    $0xe,%eax
+     aa3:	0f b6 7d d7          	movzbl -0x29(%rbp),%edi
+     aa7:	41 88 fc             	mov    %dil,%r12b
+     aaa:	41 09 dc             	or     %ebx,%r12d
+     aad:	c7 06 01 00 00 00    	movl   $0x1,(%rsi)
+     ab3:	89 c7                	mov    %eax,%edi
+     ab5:	c1 e7 05             	shl    $0x5,%edi
+     ab8:	4a 8d 34 2f          	lea    (%rdi,%r13,1),%rsi
+     abc:	45 89 64 3d 04       	mov    %r12d,0x4(%r13,%rdi,1)
+     ac1:	49 89 4c 3d 10       	mov    %rcx,0x10(%r13,%rdi,1)
+     ac6:	4d 89 74 3d 18       	mov    %r14,0x18(%r13,%rdi,1)
+     acb:	f7 c3 00 04 00 00    	test   $0x400,%ebx
+     ad1:	75 04                	jne    ad7 <mcs_vfs_open+0x287>
+     ad3:	31 d2                	xor    %edx,%edx
+     ad5:	eb 04                	jmp    adb <mcs_vfs_open+0x28b>
+     ad7:	48 8b 51 30          	mov    0x30(%rcx),%rdx
+     adb:	48 89 56 08          	mov    %rdx,0x8(%rsi)
+     adf:	f7 c3 00 02 00 00    	test   $0x200,%ebx
+     ae5:	74 29                	je     b10 <mcs_vfs_open+0x2c0>
+     ae7:	f6 c3 06             	test   $0x6,%bl
+     aea:	74 12                	je     afe <mcs_vfs_open+0x2ae>
+     aec:	48 c7 41 30 00 00 00 	movq   $0x0,0x30(%rcx)
+     af3:	00 
+     af4:	48 c7 46 08 00 00 00 	movq   $0x0,0x8(%rsi)
+     afb:	00 
+     afc:	eb 12                	jmp    b10 <mcs_vfs_open+0x2c0>
+     afe:	c7 06 00 00 00 00    	movl   $0x0,(%rsi)
+     b04:	0f 57 c0             	xorps  %xmm0,%xmm0
+     b07:	0f 11 46 10          	movups %xmm0,0x10(%rsi)
+     b0b:	b8 f3 ff ff ff       	mov    $0xfffffff3,%eax
+     b10:	48 83 c4 18          	add    $0x18,%rsp
+     b14:	5b                   	pop    %rbx
+     b15:	41 5c                	pop    %r12
+     b17:	41 5d                	pop    %r13
+     b19:	41 5e                	pop    %r14
+     b1b:	41 5f                	pop    %r15
+     b1d:	5d                   	pop    %rbp
+     b1e:	c3                   	ret
+     b1f:	90                   	nop
+
+0000000000000b20 <mcs_vfs_read>:
+     b20:	48 85 d2             	test   %rdx,%rdx
+     b23:	0f 94 c0             	sete   %al
+     b26:	48 85 c9             	test   %rcx,%rcx
+     b29:	41 0f 95 c0          	setne  %r8b
+     b2d:	44 84 c0             	test   %r8b,%al
+     b30:	74 08                	je     b3a <mcs_vfs_read+0x1a>
+     b32:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+     b39:	c3                   	ret
+     b3a:	48 85 ff             	test   %rdi,%rdi
+     b3d:	0f 94 c0             	sete   %al
+     b40:	83 fe 10             	cmp    $0x10,%esi
+     b43:	41 0f 93 c0          	setae  %r8b
+     b47:	41 08 c0             	or     %al,%r8b
+     b4a:	48 c7 c0 f7 ff ff ff 	mov    $0xfffffffffffffff7,%rax
+     b51:	0f 85 18 01 00 00    	jne    c6f <mcs_vfs_read+0x14f>
+     b57:	89 f6                	mov    %esi,%esi
+     b59:	48 c1 e6 05          	shl    $0x5,%rsi
+     b5d:	83 3c 37 00          	cmpl   $0x0,(%rdi,%rsi,1)
+     b61:	0f 84 08 01 00 00    	je     c6f <mcs_vfs_read+0x14f>
+     b67:	48 01 f7             	add    %rsi,%rdi
+     b6a:	f6 47 04 05          	testb  $0x5,0x4(%rdi)
+     b6e:	0f 84 fc 00 00 00    	je     c70 <mcs_vfs_read+0x150>
+     b74:	4c 8b 4f 10          	mov    0x10(%rdi),%r9
+     b78:	4d 85 c9             	test   %r9,%r9
+     b7b:	74 b5                	je     b32 <mcs_vfs_read+0x12>
+     b7d:	48 8b 77 18          	mov    0x18(%rdi),%rsi
+     b81:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+     b88:	48 85 f6             	test   %rsi,%rsi
+     b8b:	0f 84 de 00 00 00    	je     c6f <mcs_vfs_read+0x14f>
+     b91:	48 c7 c0 eb ff ff ff 	mov    $0xffffffffffffffeb,%rax
+     b98:	41 83 79 0c 01       	cmpl   $0x1,0xc(%r9)
+     b9d:	0f 84 cc 00 00 00    	je     c6f <mcs_vfs_read+0x14f>
+     ba3:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+     ba7:	49 8b 41 30          	mov    0x30(%r9),%rax
+     bab:	4c 29 c0             	sub    %r8,%rax
+     bae:	0f 86 c4 00 00 00    	jbe    c78 <mcs_vfs_read+0x158>
+     bb4:	48 39 c1             	cmp    %rax,%rcx
+     bb7:	48 0f 42 c1          	cmovb  %rcx,%rax
+     bbb:	48 85 c0             	test   %rax,%rax
+     bbe:	0f 84 a4 00 00 00    	je     c68 <mcs_vfs_read+0x148>
+     bc4:	55                   	push   %rbp
+     bc5:	48 89 e5             	mov    %rsp,%rbp
+     bc8:	53                   	push   %rbx
+     bc9:	4d 03 41 38          	add    0x38(%r9),%r8
+     bcd:	4a 8d 0c 06          	lea    (%rsi,%r8,1),%rcx
+     bd1:	48 81 c1 08 12 00 00 	add    $0x1208,%rcx
+     bd8:	48 83 f8 04          	cmp    $0x4,%rax
+     bdc:	72 1a                	jb     bf8 <mcs_vfs_read+0xd8>
+     bde:	49 89 d2             	mov    %rdx,%r10
+     be1:	4d 29 c2             	sub    %r8,%r10
+     be4:	49 29 f2             	sub    %rsi,%r10
+     be7:	49 81 c2 f8 ed ff ff 	add    $0xffffffffffffedf8,%r10
+     bee:	49 83 fa 20          	cmp    $0x20,%r10
+     bf2:	0f 83 83 00 00 00    	jae    c7b <mcs_vfs_read+0x15b>
+     bf8:	45 31 c9             	xor    %r9d,%r9d
+     bfb:	49 89 c3             	mov    %rax,%r11
+     bfe:	4d 89 ca             	mov    %r9,%r10
+     c01:	49 83 e3 03          	and    $0x3,%r11
+     c05:	74 14                	je     c1b <mcs_vfs_read+0xfb>
+     c07:	4d 89 ca             	mov    %r9,%r10
+     c0a:	42 0f b6 1c 11       	movzbl (%rcx,%r10,1),%ebx
+     c0f:	42 88 1c 12          	mov    %bl,(%rdx,%r10,1)
+     c13:	49 ff c2             	inc    %r10
+     c16:	49 ff cb             	dec    %r11
+     c19:	75 ef                	jne    c0a <mcs_vfs_read+0xea>
+     c1b:	49 29 c1             	sub    %rax,%r9
+     c1e:	49 83 f9 fc          	cmp    $0xfffffffffffffffc,%r9
+     c22:	77 3e                	ja     c62 <mcs_vfs_read+0x142>
+     c24:	4a 8d 0c 06          	lea    (%rsi,%r8,1),%rcx
+     c28:	48 81 c1 0b 12 00 00 	add    $0x120b,%rcx
+     c2f:	42 0f b6 74 11 fd    	movzbl -0x3(%rcx,%r10,1),%esi
+     c35:	42 88 34 12          	mov    %sil,(%rdx,%r10,1)
+     c39:	42 0f b6 74 11 fe    	movzbl -0x2(%rcx,%r10,1),%esi
+     c3f:	42 88 74 12 01       	mov    %sil,0x1(%rdx,%r10,1)
+     c44:	42 0f b6 74 11 ff    	movzbl -0x1(%rcx,%r10,1),%esi
+     c4a:	42 88 74 12 02       	mov    %sil,0x2(%rdx,%r10,1)
+     c4f:	42 0f b6 34 11       	movzbl (%rcx,%r10,1),%esi
+     c54:	42 88 74 12 03       	mov    %sil,0x3(%rdx,%r10,1)
+     c59:	49 83 c2 04          	add    $0x4,%r10
+     c5d:	4c 39 d0             	cmp    %r10,%rax
+     c60:	75 cd                	jne    c2f <mcs_vfs_read+0x10f>
+     c62:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+     c66:	5b                   	pop    %rbx
+     c67:	5d                   	pop    %rbp
+     c68:	49 01 c0             	add    %rax,%r8
+     c6b:	4c 89 47 08          	mov    %r8,0x8(%rdi)
+     c6f:	c3                   	ret
+     c70:	48 c7 c0 f3 ff ff ff 	mov    $0xfffffffffffffff3,%rax
+     c77:	c3                   	ret
+     c78:	31 c0                	xor    %eax,%eax
+     c7a:	c3                   	ret
+     c7b:	48 83 f8 20          	cmp    $0x20,%rax
+     c7f:	73 05                	jae    c86 <mcs_vfs_read+0x166>
+     c81:	45 31 c9             	xor    %r9d,%r9d
+     c84:	eb 41                	jmp    cc7 <mcs_vfs_read+0x1a7>
+     c86:	49 89 c1             	mov    %rax,%r9
+     c89:	49 83 e1 e0          	and    $0xffffffffffffffe0,%r9
+     c8d:	4e 8d 14 06          	lea    (%rsi,%r8,1),%r10
+     c91:	49 81 c2 18 12 00 00 	add    $0x1218,%r10
+     c98:	45 31 db             	xor    %r11d,%r11d
+     c9b:	43 0f 10 44 1a f0    	movups -0x10(%r10,%r11,1),%xmm0
+     ca1:	43 0f 10 0c 1a       	movups (%r10,%r11,1),%xmm1
+     ca6:	42 0f 11 04 1a       	movups %xmm0,(%rdx,%r11,1)
+     cab:	42 0f 11 4c 1a 10    	movups %xmm1,0x10(%rdx,%r11,1)
+     cb1:	49 83 c3 20          	add    $0x20,%r11
+     cb5:	4d 39 d9             	cmp    %r11,%r9
+     cb8:	75 e1                	jne    c9b <mcs_vfs_read+0x17b>
+     cba:	4c 39 c8             	cmp    %r9,%rax
+     cbd:	74 a3                	je     c62 <mcs_vfs_read+0x142>
+     cbf:	a8 1c                	test   $0x1c,%al
+     cc1:	0f 84 34 ff ff ff    	je     bfb <mcs_vfs_read+0xdb>
+     cc7:	4d 89 ca             	mov    %r9,%r10
+     cca:	49 89 c1             	mov    %rax,%r9
+     ccd:	49 83 e1 fc          	and    $0xfffffffffffffffc,%r9
+     cd1:	46 8b 1c 11          	mov    (%rcx,%r10,1),%r11d
+     cd5:	46 89 1c 12          	mov    %r11d,(%rdx,%r10,1)
+     cd9:	49 83 c2 04          	add    $0x4,%r10
+     cdd:	4d 39 d1             	cmp    %r10,%r9
+     ce0:	75 ef                	jne    cd1 <mcs_vfs_read+0x1b1>
+     ce2:	4c 39 c8             	cmp    %r9,%rax
+     ce5:	0f 84 77 ff ff ff    	je     c62 <mcs_vfs_read+0x142>
+     ceb:	e9 0b ff ff ff       	jmp    bfb <mcs_vfs_read+0xdb>
+
+0000000000000cf0 <mcs_vfs_write>:
+     cf0:	48 85 d2             	test   %rdx,%rdx
+     cf3:	0f 94 c0             	sete   %al
+     cf6:	48 85 c9             	test   %rcx,%rcx
+     cf9:	41 0f 95 c0          	setne  %r8b
+     cfd:	44 84 c0             	test   %r8b,%al
+     d00:	74 08                	je     d0a <mcs_vfs_write+0x1a>
+     d02:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+     d09:	c3                   	ret
+     d0a:	48 85 ff             	test   %rdi,%rdi
+     d0d:	0f 94 c0             	sete   %al
+     d10:	83 fe 10             	cmp    $0x10,%esi
+     d13:	41 0f 93 c0          	setae  %r8b
+     d17:	41 08 c0             	or     %al,%r8b
+     d1a:	48 c7 c0 f7 ff ff ff 	mov    $0xfffffffffffffff7,%rax
+     d21:	75 56                	jne    d79 <mcs_vfs_write+0x89>
+     d23:	89 f6                	mov    %esi,%esi
+     d25:	48 c1 e6 05          	shl    $0x5,%rsi
+     d29:	83 3c 37 00          	cmpl   $0x0,(%rdi,%rsi,1)
+     d2d:	74 4a                	je     d79 <mcs_vfs_write+0x89>
+     d2f:	48 01 f7             	add    %rsi,%rdi
+     d32:	8b 77 04             	mov    0x4(%rdi),%esi
+     d35:	40 f6 c6 06          	test   $0x6,%sil
+     d39:	74 37                	je     d72 <mcs_vfs_write+0x82>
+     d3b:	4c 8b 57 10          	mov    0x10(%rdi),%r10
+     d3f:	4d 85 d2             	test   %r10,%r10
+     d42:	74 be                	je     d02 <mcs_vfs_write+0x12>
+     d44:	4c 8b 4f 18          	mov    0x18(%rdi),%r9
+     d48:	4d 85 c9             	test   %r9,%r9
+     d4b:	74 b5                	je     d02 <mcs_vfs_write+0x12>
+     d4d:	55                   	push   %rbp
+     d4e:	48 89 e5             	mov    %rsp,%rbp
+     d51:	53                   	push   %rbx
+     d52:	48 c7 c0 eb ff ff ff 	mov    $0xffffffffffffffeb,%rax
+     d59:	41 83 7a 0c 01       	cmpl   $0x1,0xc(%r10)
+     d5e:	0f 84 ff 00 00 00    	je     e63 <mcs_vfs_write+0x173>
+     d64:	f7 c6 00 04 00 00    	test   $0x400,%esi
+     d6a:	75 0e                	jne    d7a <mcs_vfs_write+0x8a>
+     d6c:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+     d70:	eb 10                	jmp    d82 <mcs_vfs_write+0x92>
+     d72:	48 c7 c0 f3 ff ff ff 	mov    $0xfffffffffffffff3,%rax
+     d79:	c3                   	ret
+     d7a:	4d 8b 42 30          	mov    0x30(%r10),%r8
+     d7e:	4c 89 47 08          	mov    %r8,0x8(%rdi)
+     d82:	49 8b 72 40          	mov    0x40(%r10),%rsi
+     d86:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+     d8d:	4c 29 c6             	sub    %r8,%rsi
+     d90:	0f 82 cd 00 00 00    	jb     e63 <mcs_vfs_write+0x173>
+     d96:	48 c7 c0 e4 ff ff ff 	mov    $0xffffffffffffffe4,%rax
+     d9d:	48 39 f1             	cmp    %rsi,%rcx
+     da0:	48 0f 42 f1          	cmovb  %rcx,%rsi
+     da4:	0f 87 b9 00 00 00    	ja     e63 <mcs_vfs_write+0x173>
+     daa:	48 85 f6             	test   %rsi,%rsi
+     dad:	0f 84 9c 00 00 00    	je     e4f <mcs_vfs_write+0x15f>
+     db3:	4d 03 42 38          	add    0x38(%r10),%r8
+     db7:	4b 8d 04 01          	lea    (%r9,%r8,1),%rax
+     dbb:	48 05 08 12 00 00    	add    $0x1208,%rax
+     dc1:	48 83 fe 04          	cmp    $0x4,%rsi
+     dc5:	72 18                	jb     ddf <mcs_vfs_write+0xef>
+     dc7:	4b 8d 0c 08          	lea    (%r8,%r9,1),%rcx
+     dcb:	48 29 d1             	sub    %rdx,%rcx
+     dce:	48 81 c1 08 12 00 00 	add    $0x1208,%rcx
+     dd5:	48 83 f9 20          	cmp    $0x20,%rcx
+     dd9:	0f 83 87 00 00 00    	jae    e66 <mcs_vfs_write+0x176>
+     ddf:	31 c9                	xor    %ecx,%ecx
+     de1:	49 89 f3             	mov    %rsi,%r11
+     de4:	49 89 ca             	mov    %rcx,%r10
+     de7:	49 83 e3 03          	and    $0x3,%r11
+     deb:	74 14                	je     e01 <mcs_vfs_write+0x111>
+     ded:	49 89 ca             	mov    %rcx,%r10
+     df0:	42 0f b6 1c 12       	movzbl (%rdx,%r10,1),%ebx
+     df5:	42 88 1c 10          	mov    %bl,(%rax,%r10,1)
+     df9:	49 ff c2             	inc    %r10
+     dfc:	49 ff cb             	dec    %r11
+     dff:	75 ef                	jne    df0 <mcs_vfs_write+0x100>
+     e01:	48 29 f1             	sub    %rsi,%rcx
+     e04:	48 83 f9 fc          	cmp    $0xfffffffffffffffc,%rcx
+     e08:	77 3d                	ja     e47 <mcs_vfs_write+0x157>
+     e0a:	4b 8d 04 01          	lea    (%r9,%r8,1),%rax
+     e0e:	48 05 0b 12 00 00    	add    $0x120b,%rax
+     e14:	42 0f b6 0c 12       	movzbl (%rdx,%r10,1),%ecx
+     e19:	42 88 4c 10 fd       	mov    %cl,-0x3(%rax,%r10,1)
+     e1e:	42 0f b6 4c 12 01    	movzbl 0x1(%rdx,%r10,1),%ecx
+     e24:	42 88 4c 10 fe       	mov    %cl,-0x2(%rax,%r10,1)
+     e29:	42 0f b6 4c 12 02    	movzbl 0x2(%rdx,%r10,1),%ecx
+     e2f:	42 88 4c 10 ff       	mov    %cl,-0x1(%rax,%r10,1)
+     e34:	42 0f b6 4c 12 03    	movzbl 0x3(%rdx,%r10,1),%ecx
+     e3a:	42 88 0c 10          	mov    %cl,(%rax,%r10,1)
+     e3e:	49 83 c2 04          	add    $0x4,%r10
+     e42:	4c 39 d6             	cmp    %r10,%rsi
+     e45:	75 cd                	jne    e14 <mcs_vfs_write+0x124>
+     e47:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+     e4b:	4c 8b 57 10          	mov    0x10(%rdi),%r10
+     e4f:	49 01 f0             	add    %rsi,%r8
+     e52:	4c 89 47 08          	mov    %r8,0x8(%rdi)
+     e56:	4d 3b 42 30          	cmp    0x30(%r10),%r8
+     e5a:	76 04                	jbe    e60 <mcs_vfs_write+0x170>
+     e5c:	4d 89 42 30          	mov    %r8,0x30(%r10)
+     e60:	48 89 f0             	mov    %rsi,%rax
+     e63:	5b                   	pop    %rbx
+     e64:	5d                   	pop    %rbp
+     e65:	c3                   	ret
+     e66:	48 83 fe 20          	cmp    $0x20,%rsi
+     e6a:	73 04                	jae    e70 <mcs_vfs_write+0x180>
+     e6c:	31 c9                	xor    %ecx,%ecx
+     e6e:	eb 43                	jmp    eb3 <mcs_vfs_write+0x1c3>
+     e70:	48 89 f1             	mov    %rsi,%rcx
+     e73:	48 83 e1 e0          	and    $0xffffffffffffffe0,%rcx
+     e77:	4f 8d 14 01          	lea    (%r9,%r8,1),%r10
+     e7b:	49 81 c2 18 12 00 00 	add    $0x1218,%r10
+     e82:	45 31 db             	xor    %r11d,%r11d
+     e85:	42 0f 10 04 1a       	movups (%rdx,%r11,1),%xmm0
+     e8a:	42 0f 10 4c 1a 10    	movups 0x10(%rdx,%r11,1),%xmm1
+     e90:	43 0f 11 44 1a f0    	movups %xmm0,-0x10(%r10,%r11,1)
+     e96:	43 0f 11 0c 1a       	movups %xmm1,(%r10,%r11,1)
+     e9b:	49 83 c3 20          	add    $0x20,%r11
+     e9f:	4c 39 d9             	cmp    %r11,%rcx
+     ea2:	75 e1                	jne    e85 <mcs_vfs_write+0x195>
+     ea4:	48 39 ce             	cmp    %rcx,%rsi
+     ea7:	74 9e                	je     e47 <mcs_vfs_write+0x157>
+     ea9:	40 f6 c6 1c          	test   $0x1c,%sil
+     ead:	0f 84 2e ff ff ff    	je     de1 <mcs_vfs_write+0xf1>
+     eb3:	49 89 ca             	mov    %rcx,%r10
+     eb6:	48 89 f1             	mov    %rsi,%rcx
+     eb9:	48 83 e1 fc          	and    $0xfffffffffffffffc,%rcx
+     ebd:	46 8b 1c 12          	mov    (%rdx,%r10,1),%r11d
+     ec1:	46 89 1c 10          	mov    %r11d,(%rax,%r10,1)
+     ec5:	49 83 c2 04          	add    $0x4,%r10
+     ec9:	4c 39 d1             	cmp    %r10,%rcx
+     ecc:	75 ef                	jne    ebd <mcs_vfs_write+0x1cd>
+     ece:	48 39 ce             	cmp    %rcx,%rsi
+     ed1:	0f 84 70 ff ff ff    	je     e47 <mcs_vfs_write+0x157>
+     ed7:	e9 05 ff ff ff       	jmp    de1 <mcs_vfs_write+0xf1>
+     edc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000ee0 <mcs_vfs_lseek>:
+     ee0:	48 85 ff             	test   %rdi,%rdi
+     ee3:	0f 94 c0             	sete   %al
+     ee6:	83 fe 10             	cmp    $0x10,%esi
+     ee9:	41 0f 93 c0          	setae  %r8b
+     eed:	41 08 c0             	or     %al,%r8b
+     ef0:	b8 f7 ff ff ff       	mov    $0xfffffff7,%eax
+     ef5:	75 54                	jne    f4b <mcs_vfs_lseek+0x6b>
+     ef7:	89 f6                	mov    %esi,%esi
+     ef9:	48 c1 e6 05          	shl    $0x5,%rsi
+     efd:	83 3c 37 00          	cmpl   $0x0,(%rdi,%rsi,1)
+     f01:	74 48                	je     f4b <mcs_vfs_lseek+0x6b>
+     f03:	48 01 f7             	add    %rsi,%rdi
+     f06:	48 8b 77 10          	mov    0x10(%rdi),%rsi
+     f0a:	b8 eb ff ff ff       	mov    $0xffffffeb,%eax
+     f0f:	48 85 f6             	test   %rsi,%rsi
+     f12:	74 37                	je     f4b <mcs_vfs_lseek+0x6b>
+     f14:	55                   	push   %rbp
+     f15:	48 89 e5             	mov    %rsp,%rbp
+     f18:	83 7e 0c 01          	cmpl   $0x1,0xc(%rsi)
+     f1c:	74 2c                	je     f4a <mcs_vfs_lseek+0x6a>
+     f1e:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+     f23:	85 c9                	test   %ecx,%ecx
+     f25:	74 16                	je     f3d <mcs_vfs_lseek+0x5d>
+     f27:	83 f9 02             	cmp    $0x2,%ecx
+     f2a:	74 0b                	je     f37 <mcs_vfs_lseek+0x57>
+     f2c:	83 f9 01             	cmp    $0x1,%ecx
+     f2f:	75 19                	jne    f4a <mcs_vfs_lseek+0x6a>
+     f31:	48 8b 4f 08          	mov    0x8(%rdi),%rcx
+     f35:	eb 08                	jmp    f3f <mcs_vfs_lseek+0x5f>
+     f37:	48 8b 4e 30          	mov    0x30(%rsi),%rcx
+     f3b:	eb 02                	jmp    f3f <mcs_vfs_lseek+0x5f>
+     f3d:	89 c9                	mov    %ecx,%ecx
+     f3f:	48 01 d1             	add    %rdx,%rcx
+     f42:	78 06                	js     f4a <mcs_vfs_lseek+0x6a>
+     f44:	48 89 4f 08          	mov    %rcx,0x8(%rdi)
+     f48:	89 c8                	mov    %ecx,%eax
+     f4a:	5d                   	pop    %rbp
+     f4b:	c3                   	ret
+     f4c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000f50 <mcs_vfs_close>:
+     f50:	55                   	push   %rbp
+     f51:	48 89 e5             	mov    %rsp,%rbp
+     f54:	48 85 ff             	test   %rdi,%rdi
+     f57:	0f 94 c0             	sete   %al
+     f5a:	83 fe 10             	cmp    $0x10,%esi
+     f5d:	0f 93 c1             	setae  %cl
+     f60:	08 c1                	or     %al,%cl
+     f62:	b8 f7 ff ff ff       	mov    $0xfffffff7,%eax
+     f67:	75 27                	jne    f90 <mcs_vfs_close+0x40>
+     f69:	89 f1                	mov    %esi,%ecx
+     f6b:	48 c1 e1 05          	shl    $0x5,%rcx
+     f6f:	83 3c 0f 00          	cmpl   $0x0,(%rdi,%rcx,1)
+     f73:	74 1b                	je     f90 <mcs_vfs_close+0x40>
+     f75:	48 01 cf             	add    %rcx,%rdi
+     f78:	48 c7 07 00 00 00 00 	movq   $0x0,(%rdi)
+     f7f:	0f 57 c0             	xorps  %xmm0,%xmm0
+     f82:	0f 11 47 08          	movups %xmm0,0x8(%rdi)
+     f86:	48 c7 47 18 00 00 00 	movq   $0x0,0x18(%rdi)
+     f8d:	00 
+     f8e:	31 c0                	xor    %eax,%eax
+     f90:	5d                   	pop    %rbp
+     f91:	c3                   	ret
+     f92:	66 66 66 66 66 2e 0f 	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+     f99:	1f 84 00 00 00 00 00 
+
+0000000000000fa0 <mcs_vfs_dup>:
+     fa0:	48 85 ff             	test   %rdi,%rdi
+     fa3:	0f 94 c0             	sete   %al
+     fa6:	83 fe 10             	cmp    $0x10,%esi
+     fa9:	0f 93 c1             	setae  %cl
+     fac:	08 c1                	or     %al,%cl
+     fae:	b8 f7 ff ff ff       	mov    $0xfffffff7,%eax
+     fb3:	0f 85 e4 01 00 00    	jne    119d <mcs_vfs_dup+0x1fd>
+     fb9:	89 f1                	mov    %esi,%ecx
+     fbb:	48 c1 e1 05          	shl    $0x5,%rcx
+     fbf:	83 3c 0f 00          	cmpl   $0x0,(%rdi,%rcx,1)
+     fc3:	0f 84 d4 01 00 00    	je     119d <mcs_vfs_dup+0x1fd>
+     fc9:	83 3f 00             	cmpl   $0x0,(%rdi)
+     fcc:	0f 84 d0 00 00 00    	je     10a2 <mcs_vfs_dup+0x102>
+     fd2:	83 7f 20 00          	cmpl   $0x0,0x20(%rdi)
+     fd6:	0f 84 d0 00 00 00    	je     10ac <mcs_vfs_dup+0x10c>
+     fdc:	83 7f 40 00          	cmpl   $0x0,0x40(%rdi)
+     fe0:	0f 84 d4 00 00 00    	je     10ba <mcs_vfs_dup+0x11a>
+     fe6:	83 7f 60 00          	cmpl   $0x0,0x60(%rdi)
+     fea:	0f 84 d8 00 00 00    	je     10c8 <mcs_vfs_dup+0x128>
+     ff0:	83 bf 80 00 00 00 00 	cmpl   $0x0,0x80(%rdi)
+     ff7:	0f 84 d9 00 00 00    	je     10d6 <mcs_vfs_dup+0x136>
+     ffd:	83 bf a0 00 00 00 00 	cmpl   $0x0,0xa0(%rdi)
+    1004:	0f 84 dd 00 00 00    	je     10e7 <mcs_vfs_dup+0x147>
+    100a:	83 bf c0 00 00 00 00 	cmpl   $0x0,0xc0(%rdi)
+    1011:	0f 84 de 00 00 00    	je     10f5 <mcs_vfs_dup+0x155>
+    1017:	83 bf e0 00 00 00 00 	cmpl   $0x0,0xe0(%rdi)
+    101e:	0f 84 df 00 00 00    	je     1103 <mcs_vfs_dup+0x163>
+    1024:	83 bf 00 01 00 00 00 	cmpl   $0x0,0x100(%rdi)
+    102b:	0f 84 e0 00 00 00    	je     1111 <mcs_vfs_dup+0x171>
+    1031:	83 bf 20 01 00 00 00 	cmpl   $0x0,0x120(%rdi)
+    1038:	0f 84 e1 00 00 00    	je     111f <mcs_vfs_dup+0x17f>
+    103e:	83 bf 40 01 00 00 00 	cmpl   $0x0,0x140(%rdi)
+    1045:	0f 84 e2 00 00 00    	je     112d <mcs_vfs_dup+0x18d>
+    104b:	83 bf 60 01 00 00 00 	cmpl   $0x0,0x160(%rdi)
+    1052:	0f 84 e3 00 00 00    	je     113b <mcs_vfs_dup+0x19b>
+    1058:	83 bf 80 01 00 00 00 	cmpl   $0x0,0x180(%rdi)
+    105f:	0f 84 e4 00 00 00    	je     1149 <mcs_vfs_dup+0x1a9>
+    1065:	83 bf a0 01 00 00 00 	cmpl   $0x0,0x1a0(%rdi)
+    106c:	0f 84 e5 00 00 00    	je     1157 <mcs_vfs_dup+0x1b7>
+    1072:	83 bf c0 01 00 00 00 	cmpl   $0x0,0x1c0(%rdi)
+    1079:	0f 84 e6 00 00 00    	je     1165 <mcs_vfs_dup+0x1c5>
+    107f:	b8 e9 ff ff ff       	mov    $0xffffffe9,%eax
+    1084:	83 bf e0 01 00 00 00 	cmpl   $0x0,0x1e0(%rdi)
+    108b:	0f 85 0c 01 00 00    	jne    119d <mcs_vfs_dup+0x1fd>
+    1091:	48 8d 97 e0 01 00 00 	lea    0x1e0(%rdi),%rdx
+    1098:	b8 0f 00 00 00       	mov    $0xf,%eax
+    109d:	e9 cf 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10a2:	31 c0                	xor    %eax,%eax
+    10a4:	48 89 fa             	mov    %rdi,%rdx
+    10a7:	e9 c5 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10ac:	48 8d 57 20          	lea    0x20(%rdi),%rdx
+    10b0:	b8 01 00 00 00       	mov    $0x1,%eax
+    10b5:	e9 b7 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10ba:	48 8d 57 40          	lea    0x40(%rdi),%rdx
+    10be:	b8 02 00 00 00       	mov    $0x2,%eax
+    10c3:	e9 a9 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10c8:	48 8d 57 60          	lea    0x60(%rdi),%rdx
+    10cc:	b8 03 00 00 00       	mov    $0x3,%eax
+    10d1:	e9 9b 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10d6:	48 8d 97 80 00 00 00 	lea    0x80(%rdi),%rdx
+    10dd:	b8 04 00 00 00       	mov    $0x4,%eax
+    10e2:	e9 8a 00 00 00       	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10e7:	48 8d 97 a0 00 00 00 	lea    0xa0(%rdi),%rdx
+    10ee:	b8 05 00 00 00       	mov    $0x5,%eax
+    10f3:	eb 7c                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    10f5:	48 8d 97 c0 00 00 00 	lea    0xc0(%rdi),%rdx
+    10fc:	b8 06 00 00 00       	mov    $0x6,%eax
+    1101:	eb 6e                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    1103:	48 8d 97 e0 00 00 00 	lea    0xe0(%rdi),%rdx
+    110a:	b8 07 00 00 00       	mov    $0x7,%eax
+    110f:	eb 60                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    1111:	48 8d 97 00 01 00 00 	lea    0x100(%rdi),%rdx
+    1118:	b8 08 00 00 00       	mov    $0x8,%eax
+    111d:	eb 52                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    111f:	48 8d 97 20 01 00 00 	lea    0x120(%rdi),%rdx
+    1126:	b8 09 00 00 00       	mov    $0x9,%eax
+    112b:	eb 44                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    112d:	48 8d 97 40 01 00 00 	lea    0x140(%rdi),%rdx
+    1134:	b8 0a 00 00 00       	mov    $0xa,%eax
+    1139:	eb 36                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    113b:	48 8d 97 60 01 00 00 	lea    0x160(%rdi),%rdx
+    1142:	b8 0b 00 00 00       	mov    $0xb,%eax
+    1147:	eb 28                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    1149:	48 8d 97 80 01 00 00 	lea    0x180(%rdi),%rdx
+    1150:	b8 0c 00 00 00       	mov    $0xc,%eax
+    1155:	eb 1a                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    1157:	48 8d 97 a0 01 00 00 	lea    0x1a0(%rdi),%rdx
+    115e:	b8 0d 00 00 00       	mov    $0xd,%eax
+    1163:	eb 0c                	jmp    1171 <mcs_vfs_dup+0x1d1>
+    1165:	48 8d 97 c0 01 00 00 	lea    0x1c0(%rdi),%rdx
+    116c:	b8 0e 00 00 00       	mov    $0xe,%eax
+    1171:	55                   	push   %rbp
+    1172:	48 89 e5             	mov    %rsp,%rbp
+    1175:	48 01 f9             	add    %rdi,%rcx
+    1178:	c7 02 01 00 00 00    	movl   $0x1,(%rdx)
+    117e:	8b 51 04             	mov    0x4(%rcx),%edx
+    1181:	89 c6                	mov    %eax,%esi
+    1183:	c1 e6 05             	shl    $0x5,%esi
+    1186:	89 54 37 04          	mov    %edx,0x4(%rdi,%rsi,1)
+    118a:	48 8b 51 08          	mov    0x8(%rcx),%rdx
+    118e:	48 89 54 37 08       	mov    %rdx,0x8(%rdi,%rsi,1)
+    1193:	0f 10 41 10          	movups 0x10(%rcx),%xmm0
+    1197:	0f 11 44 37 10       	movups %xmm0,0x10(%rdi,%rsi,1)
+    119c:	5d                   	pop    %rbp
+    119d:	c3                   	ret
+    119e:	66 90                	xchg   %ax,%ax
+
+00000000000011a0 <mcs_sys_open>:
+    11a0:	55                   	push   %rbp
+    11a1:	48 89 e5             	mov    %rsp,%rbp
+    11a4:	48 85 ff             	test   %rdi,%rdi
+    11a7:	0f 94 c0             	sete   %al
+    11aa:	48 85 f6             	test   %rsi,%rsi
+    11ad:	41 0f 94 c0          	sete   %r8b
+    11b1:	41 08 c0             	or     %al,%r8b
+    11b4:	48 85 d2             	test   %rdx,%rdx
+    11b7:	0f 94 c0             	sete   %al
+    11ba:	44 08 c0             	or     %r8b,%al
+    11bd:	75 0a                	jne    11c9 <mcs_sys_open+0x29>
+    11bf:	48 83 c7 08          	add    $0x8,%rdi
+    11c3:	5d                   	pop    %rbp
+    11c4:	e9 00 00 00 00       	jmp    11c9 <mcs_sys_open+0x29>
+			11c5: R_X86_64_PLT32	mcs_vfs_open-0x4
+    11c9:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+    11ce:	5d                   	pop    %rbp
+    11cf:	c3                   	ret
+
+00000000000011d0 <mcs_sys_read>:
+    11d0:	48 85 ff             	test   %rdi,%rdi
+    11d3:	74 12                	je     11e7 <mcs_sys_read+0x17>
+    11d5:	48 85 d2             	test   %rdx,%rdx
+    11d8:	0f 94 c0             	sete   %al
+    11db:	48 85 c9             	test   %rcx,%rcx
+    11de:	41 0f 95 c0          	setne  %r8b
+    11e2:	44 84 c0             	test   %r8b,%al
+    11e5:	74 08                	je     11ef <mcs_sys_read+0x1f>
+    11e7:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+    11ee:	c3                   	ret
+    11ef:	48 c7 c0 f7 ff ff ff 	mov    $0xfffffffffffffff7,%rax
+    11f6:	83 fe 0f             	cmp    $0xf,%esi
+    11f9:	0f 87 1d 01 00 00    	ja     131c <mcs_sys_read+0x14c>
+    11ff:	89 f6                	mov    %esi,%esi
+    1201:	48 c1 e6 05          	shl    $0x5,%rsi
+    1205:	83 7c 37 08 00       	cmpl   $0x0,0x8(%rdi,%rsi,1)
+    120a:	0f 84 0c 01 00 00    	je     131c <mcs_sys_read+0x14c>
+    1210:	48 01 fe             	add    %rdi,%rsi
+    1213:	48 83 c6 08          	add    $0x8,%rsi
+    1217:	f6 46 04 05          	testb  $0x5,0x4(%rsi)
+    121b:	0f 84 fc 00 00 00    	je     131d <mcs_sys_read+0x14d>
+    1221:	4c 8b 4e 10          	mov    0x10(%rsi),%r9
+    1225:	4d 85 c9             	test   %r9,%r9
+    1228:	74 bd                	je     11e7 <mcs_sys_read+0x17>
+    122a:	48 8b 7e 18          	mov    0x18(%rsi),%rdi
+    122e:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+    1235:	48 85 ff             	test   %rdi,%rdi
+    1238:	0f 84 de 00 00 00    	je     131c <mcs_sys_read+0x14c>
+    123e:	48 c7 c0 eb ff ff ff 	mov    $0xffffffffffffffeb,%rax
+    1245:	41 83 79 0c 01       	cmpl   $0x1,0xc(%r9)
+    124a:	0f 84 cc 00 00 00    	je     131c <mcs_sys_read+0x14c>
+    1250:	4c 8b 46 08          	mov    0x8(%rsi),%r8
+    1254:	49 8b 41 30          	mov    0x30(%r9),%rax
+    1258:	4c 29 c0             	sub    %r8,%rax
+    125b:	0f 86 c4 00 00 00    	jbe    1325 <mcs_sys_read+0x155>
+    1261:	48 39 c1             	cmp    %rax,%rcx
+    1264:	48 0f 42 c1          	cmovb  %rcx,%rax
+    1268:	48 85 c0             	test   %rax,%rax
+    126b:	0f 84 a4 00 00 00    	je     1315 <mcs_sys_read+0x145>
+    1271:	55                   	push   %rbp
+    1272:	48 89 e5             	mov    %rsp,%rbp
+    1275:	53                   	push   %rbx
+    1276:	4d 03 41 38          	add    0x38(%r9),%r8
+    127a:	4a 8d 0c 07          	lea    (%rdi,%r8,1),%rcx
+    127e:	48 81 c1 08 12 00 00 	add    $0x1208,%rcx
+    1285:	48 83 f8 04          	cmp    $0x4,%rax
+    1289:	72 1a                	jb     12a5 <mcs_sys_read+0xd5>
+    128b:	49 89 d2             	mov    %rdx,%r10
+    128e:	4d 29 c2             	sub    %r8,%r10
+    1291:	49 29 fa             	sub    %rdi,%r10
+    1294:	49 81 c2 f8 ed ff ff 	add    $0xffffffffffffedf8,%r10
+    129b:	49 83 fa 20          	cmp    $0x20,%r10
+    129f:	0f 83 83 00 00 00    	jae    1328 <mcs_sys_read+0x158>
+    12a5:	45 31 c9             	xor    %r9d,%r9d
+    12a8:	49 89 c3             	mov    %rax,%r11
+    12ab:	4d 89 ca             	mov    %r9,%r10
+    12ae:	49 83 e3 03          	and    $0x3,%r11
+    12b2:	74 14                	je     12c8 <mcs_sys_read+0xf8>
+    12b4:	4d 89 ca             	mov    %r9,%r10
+    12b7:	42 0f b6 1c 11       	movzbl (%rcx,%r10,1),%ebx
+    12bc:	42 88 1c 12          	mov    %bl,(%rdx,%r10,1)
+    12c0:	49 ff c2             	inc    %r10
+    12c3:	49 ff cb             	dec    %r11
+    12c6:	75 ef                	jne    12b7 <mcs_sys_read+0xe7>
+    12c8:	49 29 c1             	sub    %rax,%r9
+    12cb:	49 83 f9 fc          	cmp    $0xfffffffffffffffc,%r9
+    12cf:	77 3e                	ja     130f <mcs_sys_read+0x13f>
+    12d1:	4a 8d 0c 07          	lea    (%rdi,%r8,1),%rcx
+    12d5:	48 81 c1 0b 12 00 00 	add    $0x120b,%rcx
+    12dc:	42 0f b6 7c 11 fd    	movzbl -0x3(%rcx,%r10,1),%edi
+    12e2:	42 88 3c 12          	mov    %dil,(%rdx,%r10,1)
+    12e6:	42 0f b6 7c 11 fe    	movzbl -0x2(%rcx,%r10,1),%edi
+    12ec:	42 88 7c 12 01       	mov    %dil,0x1(%rdx,%r10,1)
+    12f1:	42 0f b6 7c 11 ff    	movzbl -0x1(%rcx,%r10,1),%edi
+    12f7:	42 88 7c 12 02       	mov    %dil,0x2(%rdx,%r10,1)
+    12fc:	42 0f b6 3c 11       	movzbl (%rcx,%r10,1),%edi
+    1301:	42 88 7c 12 03       	mov    %dil,0x3(%rdx,%r10,1)
+    1306:	49 83 c2 04          	add    $0x4,%r10
+    130a:	4c 39 d0             	cmp    %r10,%rax
+    130d:	75 cd                	jne    12dc <mcs_sys_read+0x10c>
+    130f:	4c 8b 46 08          	mov    0x8(%rsi),%r8
+    1313:	5b                   	pop    %rbx
+    1314:	5d                   	pop    %rbp
+    1315:	49 01 c0             	add    %rax,%r8
+    1318:	4c 89 46 08          	mov    %r8,0x8(%rsi)
+    131c:	c3                   	ret
+    131d:	48 c7 c0 f3 ff ff ff 	mov    $0xfffffffffffffff3,%rax
+    1324:	c3                   	ret
+    1325:	31 c0                	xor    %eax,%eax
+    1327:	c3                   	ret
+    1328:	48 83 f8 20          	cmp    $0x20,%rax
+    132c:	73 05                	jae    1333 <mcs_sys_read+0x163>
+    132e:	45 31 c9             	xor    %r9d,%r9d
+    1331:	eb 41                	jmp    1374 <mcs_sys_read+0x1a4>
+    1333:	49 89 c1             	mov    %rax,%r9
+    1336:	49 83 e1 e0          	and    $0xffffffffffffffe0,%r9
+    133a:	4e 8d 14 07          	lea    (%rdi,%r8,1),%r10
+    133e:	49 81 c2 18 12 00 00 	add    $0x1218,%r10
+    1345:	45 31 db             	xor    %r11d,%r11d
+    1348:	43 0f 10 44 1a f0    	movups -0x10(%r10,%r11,1),%xmm0
+    134e:	43 0f 10 0c 1a       	movups (%r10,%r11,1),%xmm1
+    1353:	42 0f 11 04 1a       	movups %xmm0,(%rdx,%r11,1)
+    1358:	42 0f 11 4c 1a 10    	movups %xmm1,0x10(%rdx,%r11,1)
+    135e:	49 83 c3 20          	add    $0x20,%r11
+    1362:	4d 39 d9             	cmp    %r11,%r9
+    1365:	75 e1                	jne    1348 <mcs_sys_read+0x178>
+    1367:	4c 39 c8             	cmp    %r9,%rax
+    136a:	74 a3                	je     130f <mcs_sys_read+0x13f>
+    136c:	a8 1c                	test   $0x1c,%al
+    136e:	0f 84 34 ff ff ff    	je     12a8 <mcs_sys_read+0xd8>
+    1374:	4d 89 ca             	mov    %r9,%r10
+    1377:	49 89 c1             	mov    %rax,%r9
+    137a:	49 83 e1 fc          	and    $0xfffffffffffffffc,%r9
+    137e:	46 8b 1c 11          	mov    (%rcx,%r10,1),%r11d
+    1382:	46 89 1c 12          	mov    %r11d,(%rdx,%r10,1)
+    1386:	49 83 c2 04          	add    $0x4,%r10
+    138a:	4d 39 d1             	cmp    %r10,%r9
+    138d:	75 ef                	jne    137e <mcs_sys_read+0x1ae>
+    138f:	4c 39 c8             	cmp    %r9,%rax
+    1392:	0f 84 77 ff ff ff    	je     130f <mcs_sys_read+0x13f>
+    1398:	e9 0b ff ff ff       	jmp    12a8 <mcs_sys_read+0xd8>
+    139d:	0f 1f 00             	nopl   (%rax)
+
+00000000000013a0 <mcs_sys_write>:
+    13a0:	48 85 ff             	test   %rdi,%rdi
+    13a3:	74 12                	je     13b7 <mcs_sys_write+0x17>
+    13a5:	48 85 d2             	test   %rdx,%rdx
+    13a8:	0f 94 c0             	sete   %al
+    13ab:	48 85 c9             	test   %rcx,%rcx
+    13ae:	41 0f 95 c0          	setne  %r8b
+    13b2:	44 84 c0             	test   %r8b,%al
+    13b5:	74 08                	je     13bf <mcs_sys_write+0x1f>
+    13b7:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+    13be:	c3                   	ret
+    13bf:	48 c7 c0 f7 ff ff ff 	mov    $0xfffffffffffffff7,%rax
+    13c6:	83 fe 0f             	cmp    $0xf,%esi
+    13c9:	77 5b                	ja     1426 <mcs_sys_write+0x86>
+    13cb:	89 f6                	mov    %esi,%esi
+    13cd:	48 c1 e6 05          	shl    $0x5,%rsi
+    13d1:	83 7c 37 08 00       	cmpl   $0x0,0x8(%rdi,%rsi,1)
+    13d6:	74 4e                	je     1426 <mcs_sys_write+0x86>
+    13d8:	48 01 fe             	add    %rdi,%rsi
+    13db:	48 83 c6 08          	add    $0x8,%rsi
+    13df:	8b 7e 04             	mov    0x4(%rsi),%edi
+    13e2:	40 f6 c7 06          	test   $0x6,%dil
+    13e6:	74 37                	je     141f <mcs_sys_write+0x7f>
+    13e8:	4c 8b 56 10          	mov    0x10(%rsi),%r10
+    13ec:	4d 85 d2             	test   %r10,%r10
+    13ef:	74 c6                	je     13b7 <mcs_sys_write+0x17>
+    13f1:	4c 8b 4e 18          	mov    0x18(%rsi),%r9
+    13f5:	4d 85 c9             	test   %r9,%r9
+    13f8:	74 bd                	je     13b7 <mcs_sys_write+0x17>
+    13fa:	55                   	push   %rbp
+    13fb:	48 89 e5             	mov    %rsp,%rbp
+    13fe:	53                   	push   %rbx
+    13ff:	48 c7 c0 eb ff ff ff 	mov    $0xffffffffffffffeb,%rax
+    1406:	41 83 7a 0c 01       	cmpl   $0x1,0xc(%r10)
+    140b:	0f 84 ff 00 00 00    	je     1510 <mcs_sys_write+0x170>
+    1411:	f7 c7 00 04 00 00    	test   $0x400,%edi
+    1417:	75 0e                	jne    1427 <mcs_sys_write+0x87>
+    1419:	4c 8b 46 08          	mov    0x8(%rsi),%r8
+    141d:	eb 10                	jmp    142f <mcs_sys_write+0x8f>
+    141f:	48 c7 c0 f3 ff ff ff 	mov    $0xfffffffffffffff3,%rax
+    1426:	c3                   	ret
+    1427:	4d 8b 42 30          	mov    0x30(%r10),%r8
+    142b:	4c 89 46 08          	mov    %r8,0x8(%rsi)
+    142f:	49 8b 7a 40          	mov    0x40(%r10),%rdi
+    1433:	48 c7 c0 ea ff ff ff 	mov    $0xffffffffffffffea,%rax
+    143a:	4c 29 c7             	sub    %r8,%rdi
+    143d:	0f 82 cd 00 00 00    	jb     1510 <mcs_sys_write+0x170>
+    1443:	48 c7 c0 e4 ff ff ff 	mov    $0xffffffffffffffe4,%rax
+    144a:	48 39 f9             	cmp    %rdi,%rcx
+    144d:	48 0f 42 f9          	cmovb  %rcx,%rdi
+    1451:	0f 87 b9 00 00 00    	ja     1510 <mcs_sys_write+0x170>
+    1457:	48 85 ff             	test   %rdi,%rdi
+    145a:	0f 84 9c 00 00 00    	je     14fc <mcs_sys_write+0x15c>
+    1460:	4d 03 42 38          	add    0x38(%r10),%r8
+    1464:	4b 8d 04 01          	lea    (%r9,%r8,1),%rax
+    1468:	48 05 08 12 00 00    	add    $0x1208,%rax
+    146e:	48 83 ff 04          	cmp    $0x4,%rdi
+    1472:	72 18                	jb     148c <mcs_sys_write+0xec>
+    1474:	4b 8d 0c 08          	lea    (%r8,%r9,1),%rcx
+    1478:	48 29 d1             	sub    %rdx,%rcx
+    147b:	48 81 c1 08 12 00 00 	add    $0x1208,%rcx
+    1482:	48 83 f9 20          	cmp    $0x20,%rcx
+    1486:	0f 83 87 00 00 00    	jae    1513 <mcs_sys_write+0x173>
+    148c:	31 c9                	xor    %ecx,%ecx
+    148e:	49 89 fb             	mov    %rdi,%r11
+    1491:	49 89 ca             	mov    %rcx,%r10
+    1494:	49 83 e3 03          	and    $0x3,%r11
+    1498:	74 14                	je     14ae <mcs_sys_write+0x10e>
+    149a:	49 89 ca             	mov    %rcx,%r10
+    149d:	42 0f b6 1c 12       	movzbl (%rdx,%r10,1),%ebx
+    14a2:	42 88 1c 10          	mov    %bl,(%rax,%r10,1)
+    14a6:	49 ff c2             	inc    %r10
+    14a9:	49 ff cb             	dec    %r11
+    14ac:	75 ef                	jne    149d <mcs_sys_write+0xfd>
+    14ae:	48 29 f9             	sub    %rdi,%rcx
+    14b1:	48 83 f9 fc          	cmp    $0xfffffffffffffffc,%rcx
+    14b5:	77 3d                	ja     14f4 <mcs_sys_write+0x154>
+    14b7:	4b 8d 04 01          	lea    (%r9,%r8,1),%rax
+    14bb:	48 05 0b 12 00 00    	add    $0x120b,%rax
+    14c1:	42 0f b6 0c 12       	movzbl (%rdx,%r10,1),%ecx
+    14c6:	42 88 4c 10 fd       	mov    %cl,-0x3(%rax,%r10,1)
+    14cb:	42 0f b6 4c 12 01    	movzbl 0x1(%rdx,%r10,1),%ecx
+    14d1:	42 88 4c 10 fe       	mov    %cl,-0x2(%rax,%r10,1)
+    14d6:	42 0f b6 4c 12 02    	movzbl 0x2(%rdx,%r10,1),%ecx
+    14dc:	42 88 4c 10 ff       	mov    %cl,-0x1(%rax,%r10,1)
+    14e1:	42 0f b6 4c 12 03    	movzbl 0x3(%rdx,%r10,1),%ecx
+    14e7:	42 88 0c 10          	mov    %cl,(%rax,%r10,1)
+    14eb:	49 83 c2 04          	add    $0x4,%r10
+    14ef:	4c 39 d7             	cmp    %r10,%rdi
+    14f2:	75 cd                	jne    14c1 <mcs_sys_write+0x121>
+    14f4:	4c 8b 46 08          	mov    0x8(%rsi),%r8
+    14f8:	4c 8b 56 10          	mov    0x10(%rsi),%r10
+    14fc:	49 01 f8             	add    %rdi,%r8
+    14ff:	4c 89 46 08          	mov    %r8,0x8(%rsi)
+    1503:	4d 3b 42 30          	cmp    0x30(%r10),%r8
+    1507:	76 04                	jbe    150d <mcs_sys_write+0x16d>
+    1509:	4d 89 42 30          	mov    %r8,0x30(%r10)
+    150d:	48 89 f8             	mov    %rdi,%rax
+    1510:	5b                   	pop    %rbx
+    1511:	5d                   	pop    %rbp
+    1512:	c3                   	ret
+    1513:	48 83 ff 20          	cmp    $0x20,%rdi
+    1517:	73 04                	jae    151d <mcs_sys_write+0x17d>
+    1519:	31 c9                	xor    %ecx,%ecx
+    151b:	eb 43                	jmp    1560 <mcs_sys_write+0x1c0>
+    151d:	48 89 f9             	mov    %rdi,%rcx
+    1520:	48 83 e1 e0          	and    $0xffffffffffffffe0,%rcx
+    1524:	4f 8d 14 01          	lea    (%r9,%r8,1),%r10
+    1528:	49 81 c2 18 12 00 00 	add    $0x1218,%r10
+    152f:	45 31 db             	xor    %r11d,%r11d
+    1532:	42 0f 10 04 1a       	movups (%rdx,%r11,1),%xmm0
+    1537:	42 0f 10 4c 1a 10    	movups 0x10(%rdx,%r11,1),%xmm1
+    153d:	43 0f 11 44 1a f0    	movups %xmm0,-0x10(%r10,%r11,1)
+    1543:	43 0f 11 0c 1a       	movups %xmm1,(%r10,%r11,1)
+    1548:	49 83 c3 20          	add    $0x20,%r11
+    154c:	4c 39 d9             	cmp    %r11,%rcx
+    154f:	75 e1                	jne    1532 <mcs_sys_write+0x192>
+    1551:	48 39 cf             	cmp    %rcx,%rdi
+    1554:	74 9e                	je     14f4 <mcs_sys_write+0x154>
+    1556:	40 f6 c7 1c          	test   $0x1c,%dil
+    155a:	0f 84 2e ff ff ff    	je     148e <mcs_sys_write+0xee>
+    1560:	49 89 ca             	mov    %rcx,%r10
+    1563:	48 89 f9             	mov    %rdi,%rcx
+    1566:	48 83 e1 fc          	and    $0xfffffffffffffffc,%rcx
+    156a:	46 8b 1c 12          	mov    (%rdx,%r10,1),%r11d
+    156e:	46 89 1c 10          	mov    %r11d,(%rax,%r10,1)
+    1572:	49 83 c2 04          	add    $0x4,%r10
+    1576:	4c 39 d1             	cmp    %r10,%rcx
+    1579:	75 ef                	jne    156a <mcs_sys_write+0x1ca>
+    157b:	48 39 cf             	cmp    %rcx,%rdi
+    157e:	0f 84 70 ff ff ff    	je     14f4 <mcs_sys_write+0x154>
+    1584:	e9 05 ff ff ff       	jmp    148e <mcs_sys_write+0xee>
+    1589:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000001590 <mcs_sys_close>:
+    1590:	55                   	push   %rbp
+    1591:	48 89 e5             	mov    %rsp,%rbp
+    1594:	48 85 ff             	test   %rdi,%rdi
+    1597:	74 39                	je     15d2 <mcs_sys_close+0x42>
+    1599:	b8 f7 ff ff ff       	mov    $0xfffffff7,%eax
+    159e:	83 fe 0f             	cmp    $0xf,%esi
+    15a1:	77 2d                	ja     15d0 <mcs_sys_close+0x40>
+    15a3:	89 f1                	mov    %esi,%ecx
+    15a5:	48 c1 e1 05          	shl    $0x5,%rcx
+    15a9:	83 7c 0f 08 00       	cmpl   $0x0,0x8(%rdi,%rcx,1)
+    15ae:	74 20                	je     15d0 <mcs_sys_close+0x40>
+    15b0:	48 8d 04 0f          	lea    (%rdi,%rcx,1),%rax
+    15b4:	48 83 c0 08          	add    $0x8,%rax
+    15b8:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+    15bf:	0f 57 c0             	xorps  %xmm0,%xmm0
+    15c2:	0f 11 40 08          	movups %xmm0,0x8(%rax)
+    15c6:	48 c7 40 18 00 00 00 	movq   $0x0,0x18(%rax)
+    15cd:	00 
+    15ce:	31 c0                	xor    %eax,%eax
+    15d0:	5d                   	pop    %rbp
+    15d1:	c3                   	ret
+    15d2:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+    15d7:	5d                   	pop    %rbp
+    15d8:	c3                   	ret
+    15d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000015e0 <mcs_sys_lseek>:
+    15e0:	48 85 ff             	test   %rdi,%rdi
+    15e3:	74 4a                	je     162f <mcs_sys_lseek+0x4f>
+    15e5:	b8 f7 ff ff ff       	mov    $0xfffffff7,%eax
+    15ea:	83 fe 0f             	cmp    $0xf,%esi
+    15ed:	77 45                	ja     1634 <mcs_sys_lseek+0x54>
+    15ef:	89 f6                	mov    %esi,%esi
+    15f1:	48 c1 e6 05          	shl    $0x5,%rsi
+    15f5:	83 7c 37 08 00       	cmpl   $0x0,0x8(%rdi,%rsi,1)
+    15fa:	74 38                	je     1634 <mcs_sys_lseek+0x54>
+    15fc:	48 01 fe             	add    %rdi,%rsi
+    15ff:	48 83 c6 08          	add    $0x8,%rsi
+    1603:	48 8b 7e 10          	mov    0x10(%rsi),%rdi
+    1607:	b8 eb ff ff ff       	mov    $0xffffffeb,%eax
+    160c:	48 85 ff             	test   %rdi,%rdi
+    160f:	74 23                	je     1634 <mcs_sys_lseek+0x54>
+    1611:	55                   	push   %rbp
+    1612:	48 89 e5             	mov    %rsp,%rbp
+    1615:	83 7f 0c 01          	cmpl   $0x1,0xc(%rdi)
+    1619:	74 32                	je     164d <mcs_sys_lseek+0x6d>
+    161b:	85 c9                	test   %ecx,%ecx
+    161d:	74 1c                	je     163b <mcs_sys_lseek+0x5b>
+    161f:	83 f9 02             	cmp    $0x2,%ecx
+    1622:	74 11                	je     1635 <mcs_sys_lseek+0x55>
+    1624:	83 f9 01             	cmp    $0x1,%ecx
+    1627:	75 26                	jne    164f <mcs_sys_lseek+0x6f>
+    1629:	48 8b 4e 08          	mov    0x8(%rsi),%rcx
+    162d:	eb 0e                	jmp    163d <mcs_sys_lseek+0x5d>
+    162f:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+    1634:	c3                   	ret
+    1635:	48 8b 4f 30          	mov    0x30(%rdi),%rcx
+    1639:	eb 02                	jmp    163d <mcs_sys_lseek+0x5d>
+    163b:	89 c9                	mov    %ecx,%ecx
+    163d:	48 01 d1             	add    %rdx,%rcx
+    1640:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+    1645:	78 06                	js     164d <mcs_sys_lseek+0x6d>
+    1647:	48 89 4e 08          	mov    %rcx,0x8(%rsi)
+    164b:	89 c8                	mov    %ecx,%eax
+    164d:	5d                   	pop    %rbp
+    164e:	c3                   	ret
+    164f:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
+    1654:	5d                   	pop    %rbp
+    1655:	c3                   	ret
+    1656:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    165d:	00 00 00 
+
+0000000000001660 <mcs_vfs_set_active_ramfs_for_test>:
+    1660:	55                   	push   %rbp
+    1661:	48 89 e5             	mov    %rsp,%rbp
+    1664:	48 89 3d 00 00 00 00 	mov    %rdi,0x0(%rip)        # 166b <mcs_vfs_set_active_ramfs_for_test+0xb>
+			1667: R_X86_64_PC32	mcs_active_ramfs_for_test-0x4
+    166b:	5d                   	pop    %rbp
+    166c:	c3                   	ret

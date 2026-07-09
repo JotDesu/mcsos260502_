@@ -1,0 +1,49 @@
+CC ?= cc
+CLANG ?= clang
+OBJDUMP ?= objdump
+READELF ?= readelf
+NM ?= nm
+LD ?= ld
+SHA256SUM ?= sha256sum
+
+BUILD := build/m13
+INCLUDES := -Iinclude
+HOST_CFLAGS := -std=c17 -Wall -Wextra -Werror -O2 $(INCLUDES)
+FREESTANDING_CFLAGS := -target x86_64-elf -std=c17 -ffreestanding -fno-builtin -fno-stack-protector -fno-pic -mno-red-zone -Wall -Wextra -Werror -O2 $(INCLUDES)
+VFS_SRCS := kernel/vfs/ramfs.c kernel/vfs/fd.c kernel/vfs/sys_vfs.c
+
+.PHONY: m13-all m13-host-test m13-objects m13-audit clean
+
+m13-all: m13-host-test m13-objects m13-audit
+
+m13-host-test: $(BUILD)/m13_vfs_host_test
+	./$(BUILD)/m13_vfs_host_test | tee $(BUILD)/host-test.log
+
+$(BUILD)/m13_vfs_host_test: tests/m13_vfs_host_test.c $(VFS_SRCS) include/mcs_vfs.h
+	mkdir -p $(BUILD)
+	$(CC) $(HOST_CFLAGS) tests/m13_vfs_host_test.c $(VFS_SRCS) -o $@
+
+m13-objects: $(BUILD)/ramfs.o $(BUILD)/fd.o $(BUILD)/sys_vfs.o
+
+$(BUILD)/ramfs.o: kernel/vfs/ramfs.c include/mcs_vfs.h
+	mkdir -p $(BUILD)
+	$(CLANG) $(FREESTANDING_CFLAGS) -c $< -o $@
+
+$(BUILD)/fd.o: kernel/vfs/fd.c include/mcs_vfs.h
+	mkdir -p $(BUILD)
+	$(CLANG) $(FREESTANDING_CFLAGS) -c $< -o $@
+
+$(BUILD)/sys_vfs.o: kernel/vfs/sys_vfs.c include/mcs_vfs.h
+	mkdir -p $(BUILD)
+	$(CLANG) $(FREESTANDING_CFLAGS) -c $< -o $@
+
+m13-audit: m13-objects
+	$(LD) -r -m elf_x86_64 $(BUILD)/ramfs.o $(BUILD)/fd.o $(BUILD)/sys_vfs.o -o $(BUILD)/vfs.o
+	$(NM) -u $(BUILD)/vfs.o > $(BUILD)/nm-undefined.txt
+	$(READELF) -h $(BUILD)/vfs.o > $(BUILD)/readelf-vfs.txt
+	$(OBJDUMP) -dr $(BUILD)/vfs.o > $(BUILD)/objdump-vfs.txt
+	$(SHA256SUM) $(BUILD)/ramfs.o $(BUILD)/fd.o $(BUILD)/sys_vfs.o $(BUILD)/vfs.o $(BUILD)/m13_vfs_host_test > $(BUILD)/sha256sums.txt
+	test ! -s $(BUILD)/nm-undefined.txt
+
+clean:
+	rm -rf $(BUILD)
