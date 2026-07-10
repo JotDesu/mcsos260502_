@@ -202,3 +202,36 @@ $(BUILD_DIR)/test_syscall_host: kernel/syscall/syscall.c tests/test_syscall_host
 >mkdir -p $(BUILD_DIR)
 >$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
 >  kernel/syscall/syscall.c tests/test_syscall_host.c -o $(BUILD_DIR)/test_syscall_host
+
+.PHONY: check-m14
+
+check-m14: $(BUILD_DIR)/block.o $(BUILD_DIR)/ramblk.o $(BUILD_DIR)/bcache.o $(BUILD_DIR)/m14_block_layer.o $(BUILD_DIR)/test_m14_block_host
+>./$(BUILD_DIR)/test_m14_block_host | tee $(BUILD_DIR)/test_m14_block.log
+>grep -q 'M14 host tests PASS' $(BUILD_DIR)/test_m14_block.log
+>$(NM) -u $(BUILD_DIR)/m14_block_layer.o | tee $(BUILD_DIR)/m14_block_layer.undefined.txt
+>test ! -s $(BUILD_DIR)/m14_block_layer.undefined.txt
+>$(READELF) -h $(BUILD_DIR)/m14_block_layer.o > $(BUILD_DIR)/m14_block_layer.readelf.header.txt
+>grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' $(BUILD_DIR)/m14_block_layer.readelf.header.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/m14_block_layer.o > $(BUILD_DIR)/m14_block_layer.objdump.txt
+>sha256sum $(BUILD_DIR)/block.o $(BUILD_DIR)/ramblk.o $(BUILD_DIR)/bcache.o $(BUILD_DIR)/m14_block_layer.o $(BUILD_DIR)/test_m14_block_host > $(BUILD_DIR)/m14.sha256.txt
+>@echo "[PASS] M14 static check selesai"
+
+$(BUILD_DIR)/block.o: kernel/block/block.c include/mcsos/block.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/block/block.c -o $(BUILD_DIR)/block.o
+
+$(BUILD_DIR)/ramblk.o: kernel/block/ramblk.c include/mcsos/block.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/block/ramblk.c -o $(BUILD_DIR)/ramblk.o
+
+$(BUILD_DIR)/bcache.o: kernel/block/bcache.c include/mcsos/block.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c kernel/block/bcache.c -o $(BUILD_DIR)/bcache.o
+
+$(BUILD_DIR)/m14_block_layer.o: $(BUILD_DIR)/block.o $(BUILD_DIR)/ramblk.o $(BUILD_DIR)/bcache.o
+>$(LD) -r -o $(BUILD_DIR)/m14_block_layer.o $(BUILD_DIR)/block.o $(BUILD_DIR)/ramblk.o $(BUILD_DIR)/bcache.o
+
+$(BUILD_DIR)/test_m14_block_host: kernel/block/block.c kernel/block/ramblk.c kernel/block/bcache.c tests/host/test_m14_block.c include/mcsos/block.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
+>  kernel/block/block.c kernel/block/ramblk.c kernel/block/bcache.c tests/host/test_m14_block.c -o $(BUILD_DIR)/test_m14_block_host

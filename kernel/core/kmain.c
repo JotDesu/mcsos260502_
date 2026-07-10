@@ -16,6 +16,7 @@
 #include <mcsos/lib/string.h>
 #include "mcs_sync.h"
 #include "mcs_vfs.h"
+#include "mcsos/block.h"
 
 void m12_sync_selftest(void);
 
@@ -423,6 +424,67 @@ static void m13_vfs_selftest(void) {
     log_writeln("[MCSOS:M13] vfs/fd/ramfs self-test PASS");
 }
 
+
+/* ===== M14: block device layer + RAM block driver + buffer cache demo ===== */
+
+#define M14_RAMDISK_STORAGE_BYTES (512u * 64u)
+static unsigned char g_m14_ramdisk_storage[M14_RAMDISK_STORAGE_BYTES] __attribute__((aligned(4096)));
+static mcsos_blk_device_t g_m14_ramdisk_dev;
+static mcsos_ramblk_t g_m14_ramdisk;
+
+static void m14_block_demo_init(void) {
+    mcsos_blk_registry_reset();
+
+    mcsos_blk_status_t st = mcsos_ramblk_init(&g_m14_ramdisk_dev,
+                                              &g_m14_ramdisk,
+                                              "ram0",
+                                              g_m14_ramdisk_storage,
+                                              sizeof(g_m14_ramdisk_storage),
+                                              512u);
+    if (st != MCSOS_BLK_OK) {
+        KERNEL_PANIC("M14: mcsos_ramblk_init failed", (uint64_t)(int64_t)st);
+    }
+
+    st = mcsos_blk_register(&g_m14_ramdisk_dev);
+    if (st != MCSOS_BLK_OK) {
+        KERNEL_PANIC("M14: mcsos_blk_register failed", (uint64_t)(int64_t)st);
+    }
+
+    log_writeln("[MCSOS:M14] block layer initialized");
+    log_key_value_hex64("[MCSOS:M14] ram0 block_size", g_m14_ramdisk_dev.block_size);
+    log_key_value_hex64("[MCSOS:M14] ram0 block_count", g_m14_ramdisk_dev.block_count);
+
+    unsigned char pattern[512];
+    unsigned char readback[512];
+    for (unsigned i = 0; i < sizeof(pattern); i++) {
+        pattern[i] = (unsigned char)(i + 0x14u);
+    }
+    memset(readback, 0, sizeof(readback));
+
+    st = mcsos_blk_write(&g_m14_ramdisk_dev, 0u, 1u, pattern);
+    if (st != MCSOS_BLK_OK) {
+        KERNEL_PANIC("M14: demo blk_write failed", (uint64_t)(int64_t)st);
+    }
+    st = mcsos_blk_read(&g_m14_ramdisk_dev, 0u, 1u, readback);
+    if (st != MCSOS_BLK_OK) {
+        KERNEL_PANIC("M14: demo blk_read failed", (uint64_t)(int64_t)st);
+    }
+    {
+        int m14_mismatch = 0;
+        for (unsigned i = 0; i < sizeof(pattern); i++) {
+            if (pattern[i] != readback[i]) {
+                m14_mismatch = 1;
+                break;
+            }
+        }
+        if (m14_mismatch) {
+            KERNEL_PANIC("M14: demo read/write mismatch", 0);
+        }
+    }
+
+    log_writeln("[MCSOS:M14] ram0 read/write self-test PASS");
+}
+
 void kmain(void) {
     cpu_cli();
 
@@ -461,6 +523,7 @@ void kmain(void) {
     m11_elf_loader_bootstrap();
     m12_sync_selftest();
     m13_vfs_selftest();
+    m14_block_demo_init();
     m9_scheduler_bootstrap();
 
     for (;;) {
