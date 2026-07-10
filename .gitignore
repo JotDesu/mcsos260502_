@@ -22,3 +22,6 @@ __pycache__/
 *.tmp
 *.swp
 !evidence/**/*.log
+
+# M16 host test binary (build artifact, reproducible via make)
+tests/m16/m16_host_test

@@ -17,6 +17,7 @@
 #include "mcs_sync.h"
 #include "mcs_vfs.h"
 #include "mcsos/block.h"
+#include "../fs/mcsfs1j/m16_fs_selftest.h"
 
 void m12_sync_selftest(void);
 
@@ -524,6 +525,7 @@ void kmain(void) {
     m12_sync_selftest();
     m13_vfs_selftest();
     m14_block_demo_init();
+    m16_fs_selftest();
     m9_scheduler_bootstrap();
 
     for (;;) {
