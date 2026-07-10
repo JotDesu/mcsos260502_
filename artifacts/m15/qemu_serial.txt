@@ -1,0 +1,76 @@
+[2J[001;001H[=3h[2J[001;001H[2J[001;001H[8;042;160t[2J[001;001H[2J[001;001H[8;056;240t[2J[001;001HBdsDxe: loading Boot0002 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
+BdsDxe: starting Boot0002 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
+[001;001H[001;001H[001;001Hl[001;002Hi[001;003Hm[001;004Hi[001;005Hn[001;006He[001;007H:[001;008H [001;009HL[001;010Ho[001;011Ha[001;012Hd[001;013Hi[001;014Hn[001;015Hg[001;016H [001;017He[001;018Hx[001;019He[001;020Hc[001;021Hu[001;022Ht[001;023Ha[001;024Hb[001;025Hl[001;026He[001;027H [001;028H`[001;029Hb[001;030Ho[001;031Ho[001;032Ht[001;033H([001;034H)[001;035H:[001;036H/[001;037Hb[001;038Ho[001;039Ho[001;040Ht[001;041H/[001;042Hk[001;043He[001;044Hr[001;045Hn[001;046He[001;047Hl[001;048H.[001;049He[001;050Hl[001;051Hf[001;052H`[001;053H.[001;054H.[001;055H.[001;056H[001;001H[002;001HMCSOS 260502 M3 kernel entered
+[MCSOS:M5] boot: external interrupt bring-up start
+[MCSOS:M10] idt: vector 0x80 installed (DPL=3)
+[MCSOS:M5] idt: loaded
+[MCSOS:M5] pic: remapped
+[MCSOS:M5] pic: irq0 unmasked
+[MCSOS:M5] pit: configured 100Hz
+[MCSOS:M5] sti: interrupts enabled
+[MCSOS:M6] pmm initialized
+[MCSOS:M6] frames managed=0x0000000000008000
+[MCSOS:M6] frames free=0x0000000000007fff
+[MCSOS:M6] sample alloc/free OK
+[MCSOS:M7] VMM core initialized
+[MCSOS:M7] root_paddr=0x0000000000001000
+[MCSOS:M7] demo map vaddr=0x0000000000600000
+[MCSOS:M7] demo map paddr=0x0000000000002000
+[MCSOS:M7] demo map/query/unmap OK
+[MCSOS:M7] ready for QEMU smoke test
+[MCSOS:M8] kmem initialized
+[MCSOS:M8] heap total_bytes=0x0000000000010000
+[MCSOS:M8] heap free_bytes=0x000000000000ffd0
+[MCSOS:M8] heap largest_free=0x000000000000ffd0
+[MCSOS:M8] heap block_count=0x0000000000000001
+[MCSOS:M10] syscall init
+[MCSOS:M10] int 0x80 smoke test executed
+[MCSOS:M10] ping ret=0x000000002605020a
+[MCSOS:M10] int 0x80 smoke test PASS
+[MCSOS:M11] elf: ident ok
+[MCSOS:M11] elf phnum=0x0000000000000002
+[MCSOS:M11] segment vaddr=0x0000000000400000
+[MCSOS:M11] segment filesz=0x0000000000000010
+[MCSOS:M11] segment memsz=0x0000000000001000
+[MCSOS:M11] segment flags=0x0000000000000005
+[MCSOS:M11] segment vaddr=0x0000000000401000
+[MCSOS:M11] segment filesz=0x0000000000000008
+[MCSOS:M11] segment memsz=0x0000000000001000
+[MCSOS:M11] segment flags=0x0000000000000006
+[MCSOS:M11] elf plan entry=0x0000000000401000
+[MCSOS:M11] elf: plan ok
+[MCSOS:M11] user image plan ready
+[MCSOS:M12] sync selftest passed
+[MCSOS:M13] vfs/fd/ramfs self-test PASS
+[MCSOS:M14] block layer initialized
+[MCSOS:M14] ram0 block_size=0x0000000000000200
+[MCSOS:M14] ram0 block_count=0x0000000000000040
+[MCSOS:M14] ram0 read/write self-test PASS
+[MCSOS:M9] scheduler initialized
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:M9] thread A tick
+[MCSOS:M9] thread B tick
+[MCSOS:TIMER] ticks=0x0000000000000064
+[MCSOS:TIMER] ticks=0x00000000000000c8
+[MCSOS:TIMER] ticks=0x000000000000012c
+[MCSOS:TIMER] ticks=0x0000000000000190
+[MCSOS:TIMER] ticks=0x00000000000001f4
+[MCSOS:TIMER] ticks=0x0000000000000258
+[MCSOS:TIMER] ticks=0x00000000000002bc
+[MCSOS:TIMER] ticks=0x0000000000000320
+[MCSOS:TIMER] ticks=0x0000000000000384
+[MCSOS:TIMER] ticks=0x00000000000003e8
+[MCSOS:TIMER] ticks=0x000000000000044c
+[MCSOS:TIMER] ticks=0x00000000000004b0
+[MCSOS:TIMER] ticks=0x0000000000000514
+[MCSOS:TIMER] ticks=0x0000000000000578
+[MCSOS:TIMER] ticks=0x00000000000005dc
