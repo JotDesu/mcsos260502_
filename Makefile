@@ -235,3 +235,21 @@ $(BUILD_DIR)/test_m14_block_host: kernel/block/block.c kernel/block/ramblk.c ker
 >mkdir -p $(BUILD_DIR)
 >$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Iinclude \
 >  kernel/block/block.c kernel/block/ramblk.c kernel/block/bcache.c tests/host/test_m14_block.c -o $(BUILD_DIR)/test_m14_block_host
+.PHONY: check-m15
+check-m15: $(BUILD_DIR)/mcsfs1.o $(BUILD_DIR)/test_mcsfs1_host
+>./$(BUILD_DIR)/test_mcsfs1_host | tee $(BUILD_DIR)/test_m15_mcsfs1.log
+>grep -q 'M15 host test passed' $(BUILD_DIR)/test_m15_mcsfs1.log
+>$(NM) -u $(BUILD_DIR)/mcsfs1.o | tee $(BUILD_DIR)/mcsfs1.undefined.txt
+>test ! -s $(BUILD_DIR)/mcsfs1.undefined.txt
+>$(READELF) -h $(BUILD_DIR)/mcsfs1.o > $(BUILD_DIR)/mcsfs1.readelf.header.txt
+>grep -q 'Machine:[[:space:]]*Advanced Micro Devices X86-64' $(BUILD_DIR)/mcsfs1.readelf.header.txt
+>$(OBJDUMP) -dr $(BUILD_DIR)/mcsfs1.o > $(BUILD_DIR)/mcsfs1.objdump.txt
+>sha256sum $(BUILD_DIR)/mcsfs1.o $(BUILD_DIR)/test_mcsfs1_host > $(BUILD_DIR)/m15.sha256.txt
+>@echo "[PASS] M15 static check selesai"
+$(BUILD_DIR)/mcsfs1.o: fs/mcsfs1/mcsfs1.c fs/mcsfs1/mcsfs1.h
+>mkdir -p $(BUILD_DIR)
+>$(CC) $(CFLAGS) -c fs/mcsfs1/mcsfs1.c -o $(BUILD_DIR)/mcsfs1.o
+$(BUILD_DIR)/test_mcsfs1_host: tests/m15/test_mcsfs1.c fs/mcsfs1/mcsfs1.c fs/mcsfs1/mcsfs1.h
+>mkdir -p $(BUILD_DIR)
+>$(HOSTCC) -std=c17 -Wall -Wextra -Werror -Ifs/mcsfs1 \
+>  tests/m15/test_mcsfs1.c fs/mcsfs1/mcsfs1.c -o $(BUILD_DIR)/test_mcsfs1_host
